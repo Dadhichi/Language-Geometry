@@ -23,6 +23,7 @@ use plain names in any write-up.
   right singular vectors of final_norm ⊙ lm_head). Layout: `{pooling}_{split}_L{layer}.f16.npy`
   → [n_lang, n_sent, d]. Splits are appended incrementally to the same --tag.
 - `build_ted.py` — n-way parallel TED sentences → FLORES-style `tedfit`/`tedtest` splits (needs n_fit ≫ k).
+- `plot.py`     — depth curves + pivot heatmap from a results dir.
 - `fit.py`      — the analysis. `python fit.py --selftest` must pass (17 checks) after ANY edit to it.
 - `colab/run.ipynb` — clone/pull repo, install, extract, fit, push results.
 - `results/<model>_<pooling>/*.csv` — outputs (summary.csv is the headline table, one row per layer/k/split).
@@ -94,7 +95,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   tokens, "read access to public gated repos" ticked.
 - Storage (f16, mean+last, all layers, 12 langs): Qwen2.5-7B ~5 GB per FLORES split, Llama-3.1-8B ~6.5 GB;
   a 7000-sentence TED fit+test ~35 GB for Qwen. Check Drive quota before full runs.
-- Not yet written: plot.py (depth curves from summary.csv), W_U energy diagnostic in run_real (function
+- plot.py: `python plot.py results/<run>` -> depth_<split>.png (6 panels by layer, one line per k, dashed =
+  null) and pivots_<split>.png (excess over null_pivot when present). PNGs are gitignored.
+- Not yet written: W_U energy diagnostic in run_real (function
   `wu_energy` exists in an earlier draft; re-add), MLP rung only via --mlp.
 
 ## Next steps
@@ -110,3 +113,4 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
 - Read primary sources before calling anything open. A documented dead end is a valid outcome.
 - Keep `python fit.py --selftest` green. Add a synthetic scenario before adding a statistic.
 - Activations live on Drive, never in git. Only CSVs and code are committed.
+- Point fit.py --out at Drive (then copy into results/ to push): a reclaimed runtime loses /content.

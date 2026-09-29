@@ -79,7 +79,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   per-language bases whose signs/orientation are arbitrary, so they are meaningless there (they changed
   when the PCA solver changed). The shift rung needs k=full (TED) or a basis-free statistic.
   Full-d on GPU stores all L² maps (R and W) on device: ~15 GB at d=3584, L=12 → use an A100 for k=full.
-- extract.py, build_ted.py: syntax-checked only; never run against real models/data. Expect small fixes.
+- build_ted.py: OPUS TED2020 only (ted_multi URL dead + Moses-tokenized text); tested locally: 17,642 12-way
+  sentences after the 6-50 word filter -> tedfit 6000 / tedtest 1000.
+- extract.py: ran on Colab for Qwen2.5-7B FLORES dev+devtest (mean+last).
   extract.py loads Qwen2.5-7B on Colab but OOMs on a T4 (bf16 weights ~15.2 GB > 14.6 GiB): use L4/A100.
   Throughput: pooling happens inside the hooks, batches are budgeted by padded tokens (--batch_tokens,
   default 16k for a 24 GB L4) with OOM → split-batch fallback. vLLM-style engines don't help: no

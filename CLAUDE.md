@@ -69,8 +69,16 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   colab/run.ipynb clones that branch and pushes results/ back to it (pull --rebase first).
 - fit.py: selftest 15/15 on CPU (numpy path, ~3 min). run_real exercised on fake data in the extract.py
   layout (3 and 12 languages, per_lang k and full). Needs >= 3 languages (exits otherwise).
-  Torch/GPU path (`--device cuda`) untested; LA.to now accepts tensors (np.ascontiguousarray on a CUDA
-  tensor raised inside procrustes/polar).
+  Torch/GPU path (`--device cuda`) ran on Colab (smoke test). analyze() is batched on the backend
+  (pairs scored against all targets at once, triples batched over m, GPA batched SVD, spectral_frac on
+  device in float64); PCA is exact via the Gram matrix in float64 on the backend (was randomized SVD on
+  CPU, ~64% of runtime). Checked against the pre-batching version: every basis-invariant statistic
+  (procrustes/ridge/sync rho+P@1, c, pivots, cocycle, spectral, nulls) agrees to ~1e-7, numpy and torch.
+  Local CPU, FLORES-shaped L=12 d=3584 k=256 2 nulls: 256 s → 77 s (torch-cpu); selftest 3 min → 48 s.
+  CAVEAT: under --pca per_lang, rho_identity / rho_shift (and their P@1) compare languages in DIFFERENT
+  per-language bases whose signs/orientation are arbitrary, so they are meaningless there (they changed
+  when the PCA solver changed). The shift rung needs k=full (TED) or a basis-free statistic.
+  Full-d on GPU stores all L² maps (R and W) on device: ~15 GB at d=3584, L=12 → use an A100 for k=full.
 - extract.py, build_ted.py: syntax-checked only; never run against real models/data. Expect small fixes.
   extract.py loads Qwen2.5-7B on Colab but OOMs on a T4 (bf16 weights ~15.2 GB > 14.6 GiB): use L4/A100.
   Throughput: pooling happens inside the hooks, batches are budgeted by padded tokens (--batch_tokens,

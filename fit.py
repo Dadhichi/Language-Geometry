@@ -86,53 +86,58 @@ class LA:
     def matmul(self, A, B):
         return self.np(self.to(A) @ self.to(B)) if self.t else A @ B
 
-    def gpa(self, A_list, Q0, iters=30):
-        """min sum_i ||A_i Q_i - M||^2, Q_i in O(d).  Returns Q [L,d,d]."""
+    # batched helpers: the same expressions run on numpy arrays or torch tensors
+    def stack(self, xs):
+        return self.t.stack(xs) if self.t else np.stack(xs)
+
+    def tr(self, X):
+        """Swap the last two axes."""
+        return X.transpose(-1, -2) if self.t else np.swapaxes(X, -1, -2)
+
+    def p1(self, pred, tn):
+        """P@1 per batch entry: pred [B,m,d] (uncentred), tn [B,m,d] row-normalised targets -> [B]."""
+        pn = pred / ((pred ** 2).sum(-1) ** 0.5)[..., None].clip(1e-9)
+        best = (pn @ self.tr(tn)).argmax(-1)
         if self.t:
-            A = [self.to(a) for a in A_list]
-            Q = [self.to(q) for q in Q0]
-            for _ in range(iters):
-                M = sum(a @ q for a, q in zip(A, Q)) / len(A)
-                Q = []
-                for a in A:
-                    u, _, vh = self.t.linalg.svd(a.T @ M)
-                    Q.append(u @ vh)
-            return np.stack([self.np(q) for q in Q])
-        Q = [q.copy() for q in Q0]
+            return (best == self.t.arange(pred.shape[1], device=self.dev)).float().mean(-1)
+        return (best == np.arange(pred.shape[1])).mean(-1)
+
+    def gpa(self, A_list, Q0, iters=30):
+        """min sum_i ||A_i Q_i - M||^2, Q_i in O(d).  Returns Q [L,d,d] (numpy).  Batched SVD over languages."""
+        A, Q = self.to(np.stack(A_list)), self.to(np.stack(Q0))
+        At = self.tr(A)
+        svd = self.t.linalg.svd if self.t else np.linalg.svd
         for _ in range(iters):
-            M = np.mean([a @ q for a, q in zip(A_list, Q)], axis=0)
-            Q = [orthogonal_procrustes(a, M)[0] for a in A_list]
-        return np.stack(Q).astype(np.float32)
+            M = (A @ Q).mean(0)
+            u, _, vh = svd(At @ M)
+            Q = u @ vh
+        return self.np(Q).astype(np.float32)
 
 
 # ----------------------------------------------------------------------------- basics
 
-def rho(pred, target, mu_t):
-    return float(((pred - target) ** 2).sum() / ((target - mu_t) ** 2).sum())
-
-
-def p_at_1(pred, target):
-    a = pred / np.linalg.norm(pred, axis=1, keepdims=True).clip(1e-9)
-    b = target / np.linalg.norm(target, axis=1, keepdims=True).clip(1e-9)
-    return float((np.argmax(a @ b.T, axis=1) == np.arange(len(a))).mean())
-
-
-def pca_basis(X, k):
-    """X [N,d] -> mean g [d], basis P [d,k] (None when k is None)."""
+def pca_basis(X, k, la=None):
+    """X [N,d] -> mean g [d], basis P [d,k] (None when k is None).  Exact top-k principal directions from
+    the eigendecomposition of the smaller Gram matrix (N x N when N < d), in float64, on the backend."""
     g = X.mean(0)
     if k is None or k >= X.shape[1]:
         return g, None
-    Xc = X - g
-    if k < min(Xc.shape) // 3:
-        from sklearn.utils.extmath import randomized_svd
-        _, _, Vt = randomized_svd(Xc, n_components=k, n_iter=4, random_state=0)
+    t = la.t if la is not None else None
+    if t:
+        Xc, eigh = t.as_tensor(X - g, device=la.dev).double(), t.linalg.eigh
     else:
-        _, _, Vt = np.linalg.svd(Xc, full_matrices=False)
-        Vt = Vt[:k]
-    return g, np.ascontiguousarray(Vt.T.astype(np.float32))
+        Xc, eigh = (X - g).astype(np.float64), np.linalg.eigh
+    n, d = Xc.shape
+    if n < d:
+        w, U = eigh(Xc @ Xc.T)                                   # ascending
+        P = (Xc.T @ U[:, -k:]) / (w[-k:].clip(1e-30) ** 0.5)     # right singular vectors
+    else:
+        P = eigh(Xc.T @ Xc)[1][:, -k:]
+    P = la.np(P.flip(-1)) if t else P[:, ::-1]                   # descending variance
+    return g, np.ascontiguousarray(P.astype(np.float32))
 
 
-def make_projector(Xfit, k, mode):
+def make_projector(Xfit, k, mode, la=None):
     """Returns f(X [L,n,d]) -> [L,n,k].  mode 'shared': one basis for all languages (NOT consistency-
     preserving under per-language rotations); 'per_lang': each language's own top-k basis, which
     preserves consistency under the gauge model because a rotation of the cloud rotates its basis."""
@@ -140,9 +145,9 @@ def make_projector(Xfit, k, mode):
     if k is None:
         return lambda X: X, None
     if mode == "shared":
-        g, P = pca_basis(Xfit.reshape(-1, d), k)
+        g, P = pca_basis(Xfit.reshape(-1, d), k, la)
         return (lambda X: np.einsum("lnd,dk->lnk", X - g, P)), [P] * L
-    bases = [pca_basis(Xfit[i], k) for i in range(L)]
+    bases = [pca_basis(Xfit[i], k, la) for i in range(L)]
     return (lambda X: np.stack([(X[i] - bases[i][0]) @ bases[i][1] for i in range(L)])), [b[1] for b in bases]
 
 
@@ -179,15 +184,16 @@ def mlp_fit_predict(A, B, A_test, seed=0, hidden=None, epochs=300, device="cpu")
         return net(torch.tensor(A_test, device=device)).cpu().numpy()
 
 
-def spectral_frac(R, L, d):
-    """Top-d eigenvalue mass of the block matrix of pairwise rotations / (L d); 1 iff consistent."""
-    G = np.zeros((L * d, L * d))
-    for i in range(L):
-        G[i * d:(i + 1) * d, i * d:(i + 1) * d] = np.eye(d)
-        for j in range(L):
-            if i != j:
-                G[i * d:(i + 1) * d, j * d:(j + 1) * d] = R[(i, j)]
-    w = np.linalg.eigvalsh(0.5 * (G + G.T))
+def spectral_frac(Rb, L, d, la):
+    """Top-d eigenvalue mass of the block matrix of pairwise rotations / (L d); 1 iff consistent.
+    Rb[i] = stack_j R_ij with identity on the diagonal, so block (i, j) of G is R_ij.  float64."""
+    G = la.stack(Rb)                                   # [L, L, d, d] -> rows (i, a), cols (j, b)
+    if la.t:
+        G = G.permute(0, 2, 1, 3).reshape(L * d, L * d).double()
+        w = la.np(la.t.linalg.eigvalsh(0.5 * (G + G.T)))
+    else:
+        G = G.transpose(0, 2, 1, 3).reshape(L * d, L * d).astype(np.float64)
+        w = np.linalg.eigvalsh(0.5 * (G + G.T))
     return float(w[-d:].sum() / (L * d))
 
 
@@ -216,52 +222,67 @@ def analyze(Zfit, tests, k_label, la, langs=None, ntok_fit=None, do_mlp=False, s
     # ---- joint alignment (GPA), init at the English/first-language gauge
     Q0 = [np.eye(d, dtype=np.float32)] + [R[(0, j)].T for j in range(1, L)]   # R_0j = Q_0 Q_j^T with Q_0 = I
     Q = la.gpa([A[i] for i in range(L)], Q0)
-    cocycle = float(np.mean([np.trace(la.matmul(la.matmul(Q[i].T, R[(i, j)]), Q[j])) / d
-                             for i, j in itertools.permutations(range(L), 2)]))
-    spec = spectral_frac(R, L, d) if d <= 1024 else np.nan
 
+    # Everything below runs batched on the backend (GPU with --device cuda): Rb[i] = stack_j R_ij with
+    # identity on the (never scored) diagonal, so T_i @ Rb[i] maps language i to every target at once.
+    I = np.eye(d, dtype=np.float32)
+    Rb = [la.to(np.stack([R[(i, j)] if j != i else I for j in range(L)])) for i in range(L)]
+    Wb = [la.to(np.stack([W[(i, j)] if j != i else I for j in range(L)])) for i in range(L)]
+    Qb = la.to(Q)
+    QbT = la.tr(Qb)
+    off = [np.arange(L) != i for i in range(L)]
+    # tr(Q_i^T R_ij Q_j) = sum(Q_i * (R_ij Q_j))
+    cocycle = float(np.mean(np.concatenate([la.np((Qb[i][None] * (Rb[i] @ Qb)).sum((1, 2)))[off[i]]
+                                            for i in range(L)])) / d)
+    spec = spectral_frac(Rb, L, d, la) if d <= 1024 else np.nan
+
+    methods = ["identity", "shift", "procrustes", "ridge", "sync_gpa"] + (["mlp"] if do_mlp else [])
+    mu_b = la.to(mu)[:, None, :]
     pairs, trip, piv, fert, summ = [], [], [], [], []
-    per_sent = {}
-    res_var = []
     for split, (Ztest, ntok) in tests.items():
-        Tt = T[split]
-        for i, j in itertools.permutations(range(L), 2):
-            tgt = Ztest[j]
-            preds = {"identity": Ztest[i], "shift": Tt[i] + mu[j],
-                     "procrustes": la.matmul(Tt[i], R[(i, j)]) + mu[j],
-                     "ridge": la.matmul(Tt[i], W[(i, j)]) + mu[j],
-                     "sync_gpa": la.matmul(la.matmul(Tt[i], Q[i]), Q[j].T) + mu[j]}
+        # centred predictions C = pred - mu_j, so pred - tgt = C - T_j and rho = ||C - T_j||^2 / ||T_j||^2
+        Tt, Zt = la.to(T[split]), la.to(Ztest)
+        energy = (Tt ** 2).sum((1, 2))                                     # [L]
+        tn = Zt / ((Zt ** 2).sum(-1) ** 0.5)[..., None].clip(1e-9)          # row-normalised targets for P@1
+        D, Dr, res_proc = [], [], []
+        for i in range(L):
+            C = {"identity": Zt[i] - mu_b, "shift": Tt[i][None], "procrustes": Tt[i] @ Rb[i],
+                 "ridge": Tt[i] @ Wb[i], "sync_gpa": (Tt[i] @ Qb[i]) @ QbT}
             if do_mlp:
-                preds["mlp"] = mlp_fit_predict(A[i], A[j], Tt[i], seed=seed, device=mlp_device) + mu[j]
-            for name, pred in preds.items():
-                pairs.append(dict(split=split, src=langs[i], tgt=langs[j], method=name,
-                                  rho=rho(pred, tgt, mu[j]), p1=p_at_1(pred, tgt)))
-            pr = preds["procrustes"]
-            res_var.append(((pr - tgt) ** 2).mean())
-            per_sent[(split, i, j)] = ((pr - tgt) ** 2).sum(1) / ((tgt - mu[j]) ** 2).sum(1)
-            if ntok is not None:
-                r = per_sent[(split, i, j)]
-                fert.append(dict(split=split, src=langs[i], tgt=langs[j],
-                                 spearman_fert=spearmanr(r, np.abs(np.log(ntok[i] / ntok[j])))[0],
-                                 spearman_len=spearmanr(r, np.log(ntok[i] + ntok[j]))[0]))
-        # ---- composition + pivot in one pass: via_ijm = T_i R_ij R_jm
+                C["mlp"] = la.to(np.stack([mlp_fit_predict(A[i], A[j], T[split][i], seed=seed, device=mlp_device)
+                                           if j != i else T[split][i] for j in range(L)]))
+            rh = {k_: la.np(((c - Tt) ** 2).sum((1, 2)) / energy) for k_, c in C.items()}
+            p1 = {k_: la.np(la.p1(c + mu_b, tn)) for k_, c in C.items()}
+            D.append(C["procrustes"])
+            Dr.append(C["ridge"])
+            res_proc.append(((C["procrustes"] - Tt) ** 2).sum((1, 2)))
+            per_sent = la.np(((C["procrustes"] - Tt) ** 2).sum(-1) / (Tt ** 2).sum(-1))   # [L, m]
+            for j in np.flatnonzero(off[i]):
+                for name in methods:
+                    pairs.append(dict(split=split, src=langs[i], tgt=langs[j], method=name,
+                                      rho=float(rh[name][j]), p1=float(p1[name][j])))
+                if ntok is not None:
+                    r = per_sent[j]
+                    fert.append(dict(split=split, src=langs[i], tgt=langs[j],
+                                     spearman_fert=spearmanr(r, np.abs(np.log(ntok[i] / ntok[j])))[0],
+                                     spearman_len=spearmanr(r, np.log(ntok[i] + ntok[j]))[0]))
+        # ---- composition + pivot, batched over m: via_ijm = T_i R_ij R_jm, direct_im = T_i R_im = D[i][m]
         t0 = time.time()
+        c_p, c_r, dl = (np.zeros((L, L, L)) for _ in range(3))
         for i, j in itertools.permutations(range(L), 2):
-            Bij = la.to(la.matmul(Tt[i], R[(i, j)]))
-            Bij_r = la.to(la.matmul(Tt[i], W[(i, j)]))
-            Ti_energy = float((Tt[i] ** 2).sum())
+            via = D[i][j] @ Rb[j]                                          # [L(m), n, d]
+            via_r = Dr[i][j] @ Wb[j]
+            c_p[i, j] = la.np(((via - D[i]) ** 2).sum((1, 2)) / energy[i])
+            c_r[i, j] = la.np(((via_r - Dr[i]) ** 2).sum((1, 2)) / energy[i])
+            # rho(direct) - rho(via pivot j), both scored against T_m
+            dl[i, j] = la.np((res_proc[i] - ((via - Tt) ** 2).sum((1, 2))) / energy)
+        for i, j in itertools.permutations(range(L), 2):
             for m in range(L):
                 if m in (i, j):
                     continue
-                via = la.np(Bij @ la.to(R[(j, m)]))
-                via_r = la.np(Bij_r @ la.to(W[(j, m)]))
-                direct = la.matmul(Tt[i], R[(i, m)])
-                direct_r = la.matmul(Tt[i], W[(i, m)])
                 trip.append(dict(split=split, i=langs[i], j=langs[j], m=langs[m],
-                                 c_proc=float(((via - direct) ** 2).sum() / Ti_energy),
-                                 c_ridge=float(((via_r - direct_r) ** 2).sum() / Ti_energy)))
-                piv.append(dict(split=split, pivot=langs[j], src=langs[i], tgt=langs[m],
-                                delta=rho(direct + mu[m], Ztest[m], mu[m]) - rho(via + mu[m], Ztest[m], mu[m])))
+                                 c_proc=float(c_p[i, j, m]), c_ridge=float(c_r[i, j, m])))
+                piv.append(dict(split=split, pivot=langs[j], src=langs[i], tgt=langs[m], delta=float(dl[i, j, m])))
         if verbose:
             print(f"    triples ({split}) {time.time() - t0:.0f}s", flush=True)
 
@@ -328,15 +349,15 @@ def analyze(Zfit, tests, k_label, la, langs=None, ntok_fit=None, do_mlp=False, s
 
 # ----------------------------------------------------------------------------- projection + null
 
-def subspace_stability(Xfit, k, seed=0):
+def subspace_stability(Xfit, k, seed=0, la=None):
     """Per-language split-half agreement of the top-k subspace: mean cos^2 of principal angles (1 = stable)."""
     L, n, d = Xfit.shape
     rs = np.random.RandomState(seed)
     perm = rs.permutation(n)
     out = []
     for i in range(L):
-        _, Pa = pca_basis(Xfit[i][perm[: n // 2]], k)
-        _, Pb = pca_basis(Xfit[i][perm[n // 2:]], k)
+        _, Pa = pca_basis(Xfit[i][perm[: n // 2]], k, la)
+        _, Pb = pca_basis(Xfit[i][perm[n // 2:]], k, la)
         out.append(float(((Pa.T @ Pb) ** 2).sum() / k))
     return out
 
@@ -347,7 +368,7 @@ def analyze_with_null(Xfit, Xtests, k, mode, la, null_reps=0, **kw):
     permuted in-subspace residual + permuted out-of-subspace residual, lifted back to d dims, and pushed
     through the same projection and analysis.  So the null carries subspace-estimation noise too."""
     L, n, d = Xfit.shape
-    proj, bases = make_projector(Xfit, k, mode)
+    proj, bases = make_projector(Xfit, k, mode, la)
     Zf = proj(Xfit)
     tests = {s: (proj(X), nt) for s, (X, nt) in Xtests.items()}
     out = analyze(Zf, tests, "full" if k is None else k, la, **kw)
@@ -356,7 +377,7 @@ def analyze_with_null(Xfit, Xtests, k, mode, la, null_reps=0, **kw):
         out["energy"] = pd.DataFrame(dict(k=k, pca=mode, lang=kw.get("langs") or list(range(L)),
                                           captured=((Zf - Zf.mean(1, keepdims=True)) ** 2).sum((1, 2))
                                           / ((Xfit - Xfit.mean(1, keepdims=True)) ** 2).sum((1, 2)),
-                                          stability=subspace_stability(Xfit, k)))
+                                          stability=subspace_stability(Xfit, k, la=la)))
     rows = []
     for rep in range(null_reps):
         rsn = np.random.RandomState(1000 + rep)
@@ -378,7 +399,7 @@ def analyze_with_null(Xfit, Xtests, k, mode, la, null_reps=0, **kw):
                             for i in range(L)])
         Xt_null = {s: (np.stack([lift(mdl["hat_t"][s][i], mdl["E_t"][s][i], Xtests[s][0][i], i, mf[i],
                                       mdl["infl_t"]) for i in range(L)]), None) for s in Xtests}
-        proj_n, _ = make_projector(Xf_null, k, mode)
+        proj_n, _ = make_projector(Xf_null, k, mode, la)
         o = analyze(proj_n(Xf_null), {s: (proj_n(X), None) for s, (X, _) in Xt_null.items()},
                     "full" if k is None else k, la, seed=kw.get("seed", 0) + rep)
         for _, r in o["summary"].iterrows():

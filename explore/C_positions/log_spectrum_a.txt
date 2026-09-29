@@ -1,0 +1,16 @@
+L14 real       m=64: pooled_top8=0.587 pooled_top16=0.800 pooled_top32=0.989 signal_trace=1.485 pair_top8=0.981 sh_comm_sub=0.720
+L14 real       m=128: pooled_top8=0.429 pooled_top16=0.655 pooled_top32=0.894 signal_trace=4.098 pair_top8=0.973 sh_comm_sub=0.468
+L14 identity   m=64: pooled_top8=-2.634 pooled_top16=-3.842 pooled_top32=-4.567 signal_trace=-0.059 pair_top8=-10.879 sh_comm_sub=-0.107
+L14 identity   m=128: pooled_top8=-7.865 pooled_top16=-12.672 pooled_top32=-18.528 signal_trace=-0.069 pair_top8=-38.947 sh_comm_sub=0.105
+L14 abelian    m=64: pooled_top8=1.029 pooled_top16=1.088 pooled_top32=1.123 signal_trace=2.405 pair_top8=1.161 sh_comm_sub=0.000
+L14 abelian    m=128: pooled_top8=1.053 pooled_top16=1.271 pooled_top32=1.503 signal_trace=2.356 pair_top8=1.756 sh_comm_sub=0.037
+L14 nonabelian m=64: pooled_top8=0.379 pooled_top16=0.667 pooled_top32=1.038 signal_trace=2.519 pair_top8=0.762 sh_comm_sub=0.702
+L14 nonabelian m=128: pooled_top8=0.409 pooled_top16=0.726 pooled_top32=1.170 signal_trace=2.452 pair_top8=1.283 sh_comm_sub=0.471
+L2 real       m=64: pooled_top8=0.370 pooled_top16=0.627 pooled_top32=0.952 signal_trace=10.310 pair_top8=1.657 sh_comm_sub=0.550
+L2 real       m=128: pooled_top8=0.248 pooled_top16=0.450 pooled_top32=0.768 signal_trace=17.048 pair_top8=1.503 sh_comm_sub=0.372
+L2 identity   m=64: pooled_top8=-157.000 pooled_top16=-243.300 pooled_top32=-298.287 signal_trace=-0.009 pair_top8=-1212.983 sh_comm_sub=0.354
+L2 identity   m=128: pooled_top8=6.817 pooled_top16=12.024 pooled_top32=19.010 signal_trace=0.333 pair_top8=59.341 sh_comm_sub=-0.011
+L2 abelian    m=64: pooled_top8=1.000 pooled_top16=1.131 pooled_top32=1.226 signal_trace=10.011 pair_top8=1.848 sh_comm_sub=0.210
+L2 abelian    m=128: pooled_top8=0.952 pooled_top16=1.219 pooled_top32=1.562 signal_trace=8.552 pair_top8=2.794 sh_comm_sub=0.204
+L2 nonabelian m=64: pooled_top8=0.383 pooled_top16=0.682 pooled_top32=1.055 signal_trace=10.738 pair_top8=1.333 sh_comm_sub=0.772
+L2 nonabelian m=128: pooled_top8=0.423 pooled_top16=0.758 pooled_top32=1.241 signal_trace=8.962 pair_top8=2.352 sh_comm_sub=0.580

@@ -1,0 +1,432 @@
+{
+ "0": {
+  "eng_Latn": {
+   "slope_loge2_logntok": -0.8984682383409529,
+   "offset_norm_ratio_long_over_short": 0.9692675668309557,
+   "offset_cos_long_short": 0.9925026274531875,
+   "mean_ntok_short": 19.49397590361446,
+   "mean_ntok_long": 33.16032064128257
+  },
+  "deu_Latn": {
+   "slope_loge2_logntok": -0.8480214135635296,
+   "offset_norm_ratio_long_over_short": 0.9731363463078287,
+   "offset_cos_long_short": 0.9919445314100191,
+   "mean_ntok_short": 29.82730923694779,
+   "mean_ntok_long": 51.721442885771545
+  },
+  "fra_Latn": {
+   "slope_loge2_logntok": -0.852607243323615,
+   "offset_norm_ratio_long_over_short": 0.9820039930731155,
+   "offset_cos_long_short": 0.9942562953966954,
+   "mean_ntok_short": 30.343373493975903,
+   "mean_ntok_long": 51.587174348697395
+  },
+  "spa_Latn": {
+   "slope_loge2_logntok": -0.9198565068269221,
+   "offset_norm_ratio_long_over_short": 1.0018701176546125,
+   "offset_cos_long_short": 0.9955950468508283,
+   "mean_ntok_short": 29.704819277108435,
+   "mean_ntok_long": 50.49298597194389
+  },
+  "rus_Cyrl": {
+   "slope_loge2_logntok": -0.8498942612478324,
+   "offset_norm_ratio_long_over_short": 0.998284281641718,
+   "offset_cos_long_short": 0.9926736112857114,
+   "mean_ntok_short": 33.71887550200803,
+   "mean_ntok_long": 59.64128256513026
+  },
+  "hin_Deva": {
+   "slope_loge2_logntok": -0.7374297865916091,
+   "offset_norm_ratio_long_over_short": 1.010299405511788,
+   "offset_cos_long_short": 0.998866226461128,
+   "mean_ntok_short": 85.9718875502008,
+   "mean_ntok_long": 148.07014028056113
+  },
+  "arb_Arab": {
+   "slope_loge2_logntok": -0.7615895644904052,
+   "offset_norm_ratio_long_over_short": 1.0205231347915773,
+   "offset_cos_long_short": 0.9930666043841946,
+   "mean_ntok_short": 31.02409638554217,
+   "mean_ntok_long": 54.76753507014028
+  },
+  "zho_Hans": {
+   "slope_loge2_logntok": -0.8057950035144981,
+   "offset_norm_ratio_long_over_short": 0.876967700627397,
+   "offset_cos_long_short": 0.9692055749934809,
+   "mean_ntok_short": 18.136546184738958,
+   "mean_ntok_long": 35.813627254509015
+  },
+  "jpn_Jpan": {
+   "slope_loge2_logntok": -0.7370860050273492,
+   "offset_norm_ratio_long_over_short": 0.9735874955555452,
+   "offset_cos_long_short": 0.9828359832738146,
+   "mean_ntok_short": 26.566265060240966,
+   "mean_ntok_long": 47.480961923847694
+  },
+  "tur_Latn": {
+   "slope_loge2_logntok": -0.8392160640450314,
+   "offset_norm_ratio_long_over_short": 1.0042796448165758,
+   "offset_cos_long_short": 0.9944663671129443,
+   "mean_ntok_short": 31.17871485943775,
+   "mean_ntok_long": 53.64128256513026
+  },
+  "vie_Latn": {
+   "slope_loge2_logntok": -0.8228965018724571,
+   "offset_norm_ratio_long_over_short": 0.9715594845801321,
+   "offset_cos_long_short": 0.9948060663775378,
+   "mean_ntok_short": 27.66867469879518,
+   "mean_ntok_long": 47.43887775551102
+  },
+  "ind_Latn": {
+   "slope_loge2_logntok": -0.8608659278721306,
+   "offset_norm_ratio_long_over_short": 1.0129502232752177,
+   "offset_cos_long_short": 0.9937788080637645,
+   "mean_ntok_short": 30.004016064257026,
+   "mean_ntok_long": 51.14829659318637
+  }
+ },
+ "8": {
+  "eng_Latn": {
+   "slope_loge2_logntok": -0.7293706303457792,
+   "offset_norm_ratio_long_over_short": 0.9156301783568088,
+   "offset_cos_long_short": 0.9900247393887049,
+   "mean_ntok_short": 19.49397590361446,
+   "mean_ntok_long": 33.16032064128257
+  },
+  "deu_Latn": {
+   "slope_loge2_logntok": -0.7901046645303241,
+   "offset_norm_ratio_long_over_short": 0.9290237678502616,
+   "offset_cos_long_short": 0.990633530991984,
+   "mean_ntok_short": 29.82730923694779,
+   "mean_ntok_long": 51.721442885771545
+  },
+  "fra_Latn": {
+   "slope_loge2_logntok": -0.8136445100938936,
+   "offset_norm_ratio_long_over_short": 0.9259704693726407,
+   "offset_cos_long_short": 0.9910533712887531,
+   "mean_ntok_short": 30.343373493975903,
+   "mean_ntok_long": 51.587174348697395
+  },
+  "spa_Latn": {
+   "slope_loge2_logntok": -0.8854662768519305,
+   "offset_norm_ratio_long_over_short": 0.9331060293646438,
+   "offset_cos_long_short": 0.9910205920961107,
+   "mean_ntok_short": 29.704819277108435,
+   "mean_ntok_long": 50.49298597194389
+  },
+  "rus_Cyrl": {
+   "slope_loge2_logntok": -0.8015282381110347,
+   "offset_norm_ratio_long_over_short": 0.9217080979068646,
+   "offset_cos_long_short": 0.9880963870712803,
+   "mean_ntok_short": 33.71887550200803,
+   "mean_ntok_long": 59.64128256513026
+  },
+  "hin_Deva": {
+   "slope_loge2_logntok": -0.568416993830549,
+   "offset_norm_ratio_long_over_short": 0.9949135732561781,
+   "offset_cos_long_short": 0.9954963651876618,
+   "mean_ntok_short": 85.9718875502008,
+   "mean_ntok_long": 148.07014028056113
+  },
+  "arb_Arab": {
+   "slope_loge2_logntok": -0.7229122878032275,
+   "offset_norm_ratio_long_over_short": 0.9471444839634406,
+   "offset_cos_long_short": 0.9906578351558218,
+   "mean_ntok_short": 31.02409638554217,
+   "mean_ntok_long": 54.76753507014028
+  },
+  "zho_Hans": {
+   "slope_loge2_logntok": -0.6634027942941834,
+   "offset_norm_ratio_long_over_short": 0.8693863370169861,
+   "offset_cos_long_short": 0.973904383329277,
+   "mean_ntok_short": 18.136546184738958,
+   "mean_ntok_long": 35.813627254509015
+  },
+  "jpn_Jpan": {
+   "slope_loge2_logntok": -0.7460250094438908,
+   "offset_norm_ratio_long_over_short": 0.8976783373033267,
+   "offset_cos_long_short": 0.9842582944216687,
+   "mean_ntok_short": 26.566265060240966,
+   "mean_ntok_long": 47.480961923847694
+  },
+  "tur_Latn": {
+   "slope_loge2_logntok": -0.7167566553669643,
+   "offset_norm_ratio_long_over_short": 0.9888930112594797,
+   "offset_cos_long_short": 0.9932914712554787,
+   "mean_ntok_short": 31.17871485943775,
+   "mean_ntok_long": 53.64128256513026
+  },
+  "vie_Latn": {
+   "slope_loge2_logntok": -0.7776448376441449,
+   "offset_norm_ratio_long_over_short": 0.9342668739587008,
+   "offset_cos_long_short": 0.9928191510086879,
+   "mean_ntok_short": 27.66867469879518,
+   "mean_ntok_long": 47.43887775551102
+  },
+  "ind_Latn": {
+   "slope_loge2_logntok": -0.7805398500688913,
+   "offset_norm_ratio_long_over_short": 0.9451677296800949,
+   "offset_cos_long_short": 0.9903564850468072,
+   "mean_ntok_short": 30.004016064257026,
+   "mean_ntok_long": 51.14829659318637
+  }
+ },
+ "14": {
+  "eng_Latn": {
+   "slope_loge2_logntok": -0.6256096247560924,
+   "offset_norm_ratio_long_over_short": 0.9159418748187398,
+   "offset_cos_long_short": 0.9871945040466099,
+   "mean_ntok_short": 19.49397590361446,
+   "mean_ntok_long": 33.16032064128257
+  },
+  "deu_Latn": {
+   "slope_loge2_logntok": -0.7275502279703511,
+   "offset_norm_ratio_long_over_short": 0.91883766776335,
+   "offset_cos_long_short": 0.9893497038564392,
+   "mean_ntok_short": 29.82730923694779,
+   "mean_ntok_long": 51.721442885771545
+  },
+  "fra_Latn": {
+   "slope_loge2_logntok": -0.7445918211975564,
+   "offset_norm_ratio_long_over_short": 0.9114575288481971,
+   "offset_cos_long_short": 0.9900758770972234,
+   "mean_ntok_short": 30.343373493975903,
+   "mean_ntok_long": 51.587174348697395
+  },
+  "spa_Latn": {
+   "slope_loge2_logntok": -0.8156475666616664,
+   "offset_norm_ratio_long_over_short": 0.9333696406701479,
+   "offset_cos_long_short": 0.9905726569382715,
+   "mean_ntok_short": 29.704819277108435,
+   "mean_ntok_long": 50.49298597194389
+  },
+  "rus_Cyrl": {
+   "slope_loge2_logntok": -0.7492426692626192,
+   "offset_norm_ratio_long_over_short": 0.9095835945613273,
+   "offset_cos_long_short": 0.9878472562375998,
+   "mean_ntok_short": 33.71887550200803,
+   "mean_ntok_long": 59.64128256513026
+  },
+  "hin_Deva": {
+   "slope_loge2_logntok": -0.4147664091274557,
+   "offset_norm_ratio_long_over_short": 0.9923065407753171,
+   "offset_cos_long_short": 0.992820643460275,
+   "mean_ntok_short": 85.9718875502008,
+   "mean_ntok_long": 148.07014028056113
+  },
+  "arb_Arab": {
+   "slope_loge2_logntok": -0.6743319456896418,
+   "offset_norm_ratio_long_over_short": 0.9193239542053218,
+   "offset_cos_long_short": 0.987336795262993,
+   "mean_ntok_short": 31.02409638554217,
+   "mean_ntok_long": 54.76753507014028
+  },
+  "zho_Hans": {
+   "slope_loge2_logntok": -0.6335132781778643,
+   "offset_norm_ratio_long_over_short": 0.8755856776812599,
+   "offset_cos_long_short": 0.9709471338294342,
+   "mean_ntok_short": 18.136546184738958,
+   "mean_ntok_long": 35.813627254509015
+  },
+  "jpn_Jpan": {
+   "slope_loge2_logntok": -0.686194949645992,
+   "offset_norm_ratio_long_over_short": 0.8819991618420673,
+   "offset_cos_long_short": 0.984072601275471,
+   "mean_ntok_short": 26.566265060240966,
+   "mean_ntok_long": 47.480961923847694
+  },
+  "tur_Latn": {
+   "slope_loge2_logntok": -0.5921582653310479,
+   "offset_norm_ratio_long_over_short": 0.9690746599600579,
+   "offset_cos_long_short": 0.992161764075671,
+   "mean_ntok_short": 31.17871485943775,
+   "mean_ntok_long": 53.64128256513026
+  },
+  "vie_Latn": {
+   "slope_loge2_logntok": -0.7431379627783555,
+   "offset_norm_ratio_long_over_short": 0.9128317660806945,
+   "offset_cos_long_short": 0.9917919628422456,
+   "mean_ntok_short": 27.66867469879518,
+   "mean_ntok_long": 47.43887775551102
+  },
+  "ind_Latn": {
+   "slope_loge2_logntok": -0.7105485536148385,
+   "offset_norm_ratio_long_over_short": 0.9330890675321987,
+   "offset_cos_long_short": 0.9908522430931165,
+   "mean_ntok_short": 30.004016064257026,
+   "mean_ntok_long": 51.14829659318637
+  }
+ },
+ "20": {
+  "eng_Latn": {
+   "slope_loge2_logntok": -0.4738397236405361,
+   "offset_norm_ratio_long_over_short": 0.918537765488105,
+   "offset_cos_long_short": 0.9900001042122101,
+   "mean_ntok_short": 19.49397590361446,
+   "mean_ntok_long": 33.16032064128257
+  },
+  "deu_Latn": {
+   "slope_loge2_logntok": -0.6411448868642549,
+   "offset_norm_ratio_long_over_short": 0.9737772721981645,
+   "offset_cos_long_short": 0.9951248495734213,
+   "mean_ntok_short": 29.82730923694779,
+   "mean_ntok_long": 51.721442885771545
+  },
+  "fra_Latn": {
+   "slope_loge2_logntok": -0.6755959335167238,
+   "offset_norm_ratio_long_over_short": 0.9531534782689726,
+   "offset_cos_long_short": 0.9952888308361331,
+   "mean_ntok_short": 30.343373493975903,
+   "mean_ntok_long": 51.587174348697395
+  },
+  "spa_Latn": {
+   "slope_loge2_logntok": -0.7188763232374771,
+   "offset_norm_ratio_long_over_short": 0.9693043032626747,
+   "offset_cos_long_short": 0.9954779544531241,
+   "mean_ntok_short": 29.704819277108435,
+   "mean_ntok_long": 50.49298597194389
+  },
+  "rus_Cyrl": {
+   "slope_loge2_logntok": -0.6865736839510047,
+   "offset_norm_ratio_long_over_short": 0.9447559797939408,
+   "offset_cos_long_short": 0.9935375887896439,
+   "mean_ntok_short": 33.71887550200803,
+   "mean_ntok_long": 59.64128256513026
+  },
+  "hin_Deva": {
+   "slope_loge2_logntok": -0.33772416115124937,
+   "offset_norm_ratio_long_over_short": 0.986929603812856,
+   "offset_cos_long_short": 0.994900627204991,
+   "mean_ntok_short": 85.9718875502008,
+   "mean_ntok_long": 148.07014028056113
+  },
+  "arb_Arab": {
+   "slope_loge2_logntok": -0.5841731240709724,
+   "offset_norm_ratio_long_over_short": 0.9494740821408935,
+   "offset_cos_long_short": 0.9941075751097176,
+   "mean_ntok_short": 31.02409638554217,
+   "mean_ntok_long": 54.76753507014028
+  },
+  "zho_Hans": {
+   "slope_loge2_logntok": -0.5802092639680798,
+   "offset_norm_ratio_long_over_short": 0.8804846829858695,
+   "offset_cos_long_short": 0.9776889219953601,
+   "mean_ntok_short": 18.136546184738958,
+   "mean_ntok_long": 35.813627254509015
+  },
+  "jpn_Jpan": {
+   "slope_loge2_logntok": -0.6033540752261161,
+   "offset_norm_ratio_long_over_short": 0.9303373272355695,
+   "offset_cos_long_short": 0.9903991835623369,
+   "mean_ntok_short": 26.566265060240966,
+   "mean_ntok_long": 47.480961923847694
+  },
+  "tur_Latn": {
+   "slope_loge2_logntok": -0.5137701906953513,
+   "offset_norm_ratio_long_over_short": 0.9911397564343427,
+   "offset_cos_long_short": 0.9948244807576321,
+   "mean_ntok_short": 31.17871485943775,
+   "mean_ntok_long": 53.64128256513026
+  },
+  "vie_Latn": {
+   "slope_loge2_logntok": -0.6482241310098149,
+   "offset_norm_ratio_long_over_short": 0.9482884027359259,
+   "offset_cos_long_short": 0.996367802241162,
+   "mean_ntok_short": 27.66867469879518,
+   "mean_ntok_long": 47.43887775551102
+  },
+  "ind_Latn": {
+   "slope_loge2_logntok": -0.6030034915648392,
+   "offset_norm_ratio_long_over_short": 0.9604026523911956,
+   "offset_cos_long_short": 0.9959235922239043,
+   "mean_ntok_short": 30.004016064257026,
+   "mean_ntok_long": 51.14829659318637
+  }
+ },
+ "28": {
+  "eng_Latn": {
+   "slope_loge2_logntok": -0.2367226176031484,
+   "offset_norm_ratio_long_over_short": 0.9455873249988529,
+   "offset_cos_long_short": 0.9972320562218059,
+   "mean_ntok_short": 19.49397590361446,
+   "mean_ntok_long": 33.16032064128257
+  },
+  "deu_Latn": {
+   "slope_loge2_logntok": -0.4351628477614908,
+   "offset_norm_ratio_long_over_short": 0.9523372328598722,
+   "offset_cos_long_short": 0.9990481453336303,
+   "mean_ntok_short": 29.82730923694779,
+   "mean_ntok_long": 51.721442885771545
+  },
+  "fra_Latn": {
+   "slope_loge2_logntok": -0.5076088318465953,
+   "offset_norm_ratio_long_over_short": 0.9544701930231501,
+   "offset_cos_long_short": 0.9988463149921816,
+   "mean_ntok_short": 30.343373493975903,
+   "mean_ntok_long": 51.587174348697395
+  },
+  "spa_Latn": {
+   "slope_loge2_logntok": -0.5001351996370184,
+   "offset_norm_ratio_long_over_short": 0.9658966394078304,
+   "offset_cos_long_short": 0.9988921089624042,
+   "mean_ntok_short": 29.704819277108435,
+   "mean_ntok_long": 50.49298597194389
+  },
+  "rus_Cyrl": {
+   "slope_loge2_logntok": -0.5048823121067136,
+   "offset_norm_ratio_long_over_short": 0.9394354600431922,
+   "offset_cos_long_short": 0.9990024135405895,
+   "mean_ntok_short": 33.71887550200803,
+   "mean_ntok_long": 59.64128256513026
+  },
+  "hin_Deva": {
+   "slope_loge2_logntok": -0.36781915809825794,
+   "offset_norm_ratio_long_over_short": 0.9487231461872326,
+   "offset_cos_long_short": 0.9994147062674367,
+   "mean_ntok_short": 85.9718875502008,
+   "mean_ntok_long": 148.07014028056113
+  },
+  "arb_Arab": {
+   "slope_loge2_logntok": -0.366115766133435,
+   "offset_norm_ratio_long_over_short": 0.9576637452728778,
+   "offset_cos_long_short": 0.9995499186796001,
+   "mean_ntok_short": 31.02409638554217,
+   "mean_ntok_long": 54.76753507014028
+  },
+  "zho_Hans": {
+   "slope_loge2_logntok": -0.17805110348373157,
+   "offset_norm_ratio_long_over_short": 0.9381026811770043,
+   "offset_cos_long_short": 0.9957834791737941,
+   "mean_ntok_short": 18.136546184738958,
+   "mean_ntok_long": 35.813627254509015
+  },
+  "jpn_Jpan": {
+   "slope_loge2_logntok": -0.2883055546915221,
+   "offset_norm_ratio_long_over_short": 0.9662528776354262,
+   "offset_cos_long_short": 0.9977399196632671,
+   "mean_ntok_short": 26.566265060240966,
+   "mean_ntok_long": 47.480961923847694
+  },
+  "tur_Latn": {
+   "slope_loge2_logntok": -0.4159008485286092,
+   "offset_norm_ratio_long_over_short": 0.9811891580360659,
+   "offset_cos_long_short": 0.9987519288906025,
+   "mean_ntok_short": 31.17871485943775,
+   "mean_ntok_long": 53.64128256513026
+  },
+  "vie_Latn": {
+   "slope_loge2_logntok": -0.34738832784381307,
+   "offset_norm_ratio_long_over_short": 0.9705996292943104,
+   "offset_cos_long_short": 0.9993320651525617,
+   "mean_ntok_short": 27.66867469879518,
+   "mean_ntok_long": 47.43887775551102
+  },
+  "ind_Latn": {
+   "slope_loge2_logntok": -0.4037835039077951,
+   "offset_norm_ratio_long_over_short": 0.9778242239567114,
+   "offset_cos_long_short": 0.9990023403963104,
+   "mean_ntok_short": 30.004016064257026,
+   "mean_ntok_long": 51.14829659318637
+  }
+ }
+}

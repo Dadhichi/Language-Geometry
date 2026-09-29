@@ -1,0 +1,4 @@
+[dev L4] projected k=256 [7s]
+[dev L4] k=128 real c=0.5164 cR=0.0947 rho=1.160 GL128 c=0.4643 [76s]
+[dev L4] O128->k128 rep0: c=0.2809 cR=0.0861 rho=1.097 infl=1.080 [130s]
+[dev L4] O256->k128 rep0: c=0.4151 cR=0.0853 rho=1.103 infl=1.119 [215s]

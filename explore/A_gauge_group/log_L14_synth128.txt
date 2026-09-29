@@ -1,0 +1,11 @@
+   tune R2shuf level=0.4472 rho=0.2810 target=0.4580
+   tune R2shuf level=0.9457 rho=0.8730 target=0.4580
+   tune R2shuf level=0.6503 rho=0.5187 target=0.4580
+   tune R2shuf level=0.5393 rho=0.3853 target=0.4580
+   tune R2shuf level=0.5922 rho=0.4481 target=0.4580
+   tune R2shuf level=0.6206 rho=0.4825 target=0.4580
+== L14 R2shuf ready (73s)
+  [R2shuf k=128] rho_proc=0.4481 c_proc=0.0451 rho_sim=0.3961 rho_wproc_0.5=0.4419 c_wproc_0.5=0.0454 rho_wproc_0.5_s=0.3943 rho_wproc_1=0.4594 c_wproc_1=0.0585 rho_wproc_1_s=0.4046 rho_ridge=0.3920 c_ridge=0.0436 rho_sync_O=0.4481 rho_sync_W=0.4585 rho_hubO_wie=0.3901 rho_hubO=0.4012 rho_hubSim=0.4013 rho_hubGL=0.3893 c_proc_GLimplied=0.0086 rho_hubGL_p0=0.6823 rho_hubGL_p1=0.6624 rho_hubGL_p2=0.6416 rho_hubGL_p4=0.6024 rho_hubGL_p8=0.5296 rho_hubGL_p16=0.4620 rho_hubGL_p32=0.4192 c_proc_top=0.0084 c_proc_rest=0.0366 c_procGL_top=0.0011 c_procGL_rest=0.0076 c_ridge_top=0.0165 c_ridge_rest=0.0263 K_var_global=0.0001 K_var_aniso=0.0209 K_pr=13.8417 K_comm=0.1681 K_top_abs=0.3046 (140s)
+  [R2shuf NULL k=128] c_proc=0.0225 c_ridge=0.0470 rho_proc=0.4640 rho_ridge=0.4109 (284s)
+   tune R2iso level=1.3416 rho=0.3600 target=0.4580
+   tune R2iso level=2.8372 rho=1.1727 target=0.4580

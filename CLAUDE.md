@@ -54,6 +54,13 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
 6. Prepend the same sink token for every model (BOS if present, else newline) and always drop position 0:
    Qwen adds no BOS, and the position-0 residual has a massive norm mid-depth.
 7. Use hooks, not output_hidden_states (HF applies the final norm to the last entry). Never load in 8-bit.
+8. PER-LANGUAGE truncation also manufactures composition error, and fit.py's consistent null does not model it
+   (it assumes every language's top-k subspace holds the same content; real overlap ~0.64 at k=64). Exactly
+   consistent worlds (identity, orthogonal, flat O(2k)) run through the same pipeline reproduce the real
+   c = "1.5-4.5x null" (explore/FINDINGS.md). So c vs null_c from fit.py is NOT evidence against a single hub.
+   Use an ambient null (x = m + a_i + g_i b + permuted e_i, or flat O/GL(kb >> k)) or the aligned-slice test.
+9. Mean pooling dilutes content by ~ntok^-1/2: per-language scale s_i ~= -1/2 log ntok (corr -0.93..-0.96).
+   Normalise (sqrt(ntok) * mean) before reading any scale/GL effect as geometry.
 
 ## Outcome map (what each pattern means)
 - shift ≈ procrustes at mid-depth, c inside null, pivots symmetric → constant-shift model; content is at the ends.
@@ -66,6 +73,13 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   in the W_U subspace (energy.csv / wu diagnostic).
 
 ## Status
+- 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):
+  in ambient coordinates x_{i,s} ~= mu_i + e^{s_i} b_s + small rotation + noise. Translation removes 82-91% of
+  the removable residual (centroid subtraction alone: P@1 0.99 at L14); s_i is mean-pooling dilution
+  (~ -1/2 log ntok); rotations are small (2-4% mid-depth), non-commuting, but compose. The per-language-PCA
+  "maps do not compose" result is an artefact (design decision 8). RoPE-like relative-position rotations,
+  structured curvature, additive script/family attributes, and late rotation into W_U: refuted.
+  The summary.csv c/null, cocycle/null and pivot/null columns from runs so far are therefore not evidence.
 - Repo: github.com/Dadhichi/Language-Geometry, working branch `claude/compassionate-newton-vufc0c`.
   colab/run.ipynb clones that branch and pushes results/ back to it (pull --rebase first).
 - fit.py: selftest 17/17 on CPU (numpy path, ~1 min). summary.csv has null_pivot_<lang> (mean pivot delta under
@@ -79,8 +93,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   (procrustes/ridge/sync rho+P@1, c, pivots, cocycle, spectral, nulls) agrees to ~1e-7, numpy and torch.
   Local CPU, FLORES-shaped L=12 d=3584 k=256 2 nulls: 256 s → 77 s (torch-cpu); selftest 3 min → 48 s.
   CAVEAT: under --pca per_lang, rho_identity / rho_shift (and their P@1) compare languages in DIFFERENT
-  per-language bases whose signs/orientation are arbitrary, so they are meaningless there (they changed
-  when the PCA solver changed). The shift rung needs k=full (TED) or a basis-free statistic.
+  per-language bases whose signs/orientation are arbitrary, so they are meaningless AS COMPUTED (they changed
+  when the PCA solver changed). The correct per-language-PCA version maps through ambient space,
+  R = B_i^T B_j (explore/D_offsets); it beats fitted Procrustes at L2-L26.
   Full-d on GPU stores all L² maps (R and W) on device: ~15 GB at d=3584, L=12 → use an A100 for k=full.
 - build_ted.py: OPUS TED2020 only (ted_multi URL dead + Moses-tokenized text); tested locally: 17,642 12-way
   sentences after the 6-50 word filter -> tedfit 6000 / tedtest 1000.
@@ -101,13 +116,17 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   `wu_energy` exists in an earlier draft; re-add), MLP rung only via --mlp.
 
 ## Next steps
-1. Colab smoke test: `python extract.py --model Qwen/Qwen2.5-7B --tag smoke --out /content/scratch_out
-   --langs eng_Latn,deu_Latn --smoke 16`, then `fit.py --data ... --fit_split dev --test_splits devtest --k 16`.
-2. Full FLORES extraction for Qwen2.5-7B (ungated) and Llama-3.1-8B (request gate); mean + last pooling.
-3. `fit.py --k 64,128,256 --pca per_lang --device cuda --null_reps 2`; read summary.csv by layer.
-4. build_ted.py → tedfit/tedtest; rerun with --k 256,512,full --fit_split tedfit --test_splits devtest,tedtest.
-5. plot.py; write-up positioning: static-embedding literature showed pairwise alignments don't compose;
-   we ask whether they compose inside one model, at which depth, and whether English is the gauge.
+Done: smoke test; Qwen FLORES mean+last fit (results/qwen25_7b_{mean,last}); TED extraction (on Drive);
+structure hunt (explore/). In progress: TED mean fit k=256,512 (old null -> read maps/rho, not c/null).
+1. Fix the null (design decision 8): ambient identity+offset+gain null and/or flat O/GL(kb >> k) surrogate,
+   plus the aligned-slice statistic (explore/B_holonomy/aligned.py). Synthetic scenario first; selftest green.
+2. Length-normalised pooling (sqrt(ntok) * mean; exact from existing files) as a fit.py option.
+3. Ambient-coordinate analysis as the primary rung ladder: identity -> shift -> shift+gain -> +rotation -> GL,
+   on TED (n_fit=6000 > d), full d on an A100. Decisive question: is R_ij ~= I after shift + gain?
+4. Re-read literature on centroid subtraction / language-neutral axes (Libovicky et al. 2020; Chang et al.
+   2022) before claiming novelty; candidate contributions: decoder depth profile, pooling-dilution law,
+   truncation-manufactured non-composition.
+5. Llama-3.1-8B (gate) for the dominant-language question; pivots only after the null is fixed.
 
 ## Working rules
 - Read primary sources before calling anything open. A documented dead end is a valid outcome.

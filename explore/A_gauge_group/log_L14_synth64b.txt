@@ -1,0 +1,19 @@
+   tune R2shuf level=0.4472 rho=0.2706 target=0.3965
+   tune R2shuf level=0.9457 rho=0.8493 target=0.3965
+   tune R2shuf level=0.6503 rho=0.5028 target=0.3965
+   tune R2shuf level=0.5393 rho=0.3723 target=0.3965
+   tune R2shuf level=0.5922 rho=0.4338 target=0.3965
+   tune R2shuf level=0.5651 rho=0.4022 target=0.3965
+== L14 R2shuf ready (75s)
+  [R2shuf k=64] rho_proc=0.4022 c_proc=0.0277 rho_sim=0.3600 rho_wproc_0.5=0.3999 c_wproc_0.5=0.0281 rho_wproc_0.5_s=0.3594 rho_wproc_1=0.4087 c_wproc_1=0.0326 rho_wproc_1_s=0.3645 rho_ridge=0.3566 c_ridge=0.0354 rho_sync_O=0.4039 rho_sync_W=0.4102 rho_hubO_wie=0.3566 rho_hubO=0.3629 rho_hubSim=0.3629 rho_hubGL=0.3558 c_proc_GLimplied=0.0025 rho_hubGL_p0=0.4341 rho_hubGL_p1=0.4249 rho_hubGL_p2=0.4202 rho_hubGL_p4=0.4090 rho_hubGL_p8=0.3882 rho_hubGL_p16=0.3693 rho_hubGL_p32=0.3588 c_proc_top=0.0034 c_proc_rest=0.0245 c_procGL_top=0.0002 c_procGL_rest=0.0023 c_ridge_top=0.0148 c_ridge_rest=0.0202 K_var_global=0.0001 K_var_aniso=0.0086 K_pr=7.9016 K_comm=0.0459 K_top_abs=0.1675 (44s)
+  [R2shuf NULL k=64] c_proc=0.0105 c_ridge=0.0372 rho_proc=0.4118 rho_ridge=0.3677 (92s)
+   tune R2iso level=1.3416 rho=0.2134 target=0.3965
+   tune R2iso level=2.8372 rho=0.8652 target=0.3965
+   tune R2iso level=1.9510 rho=0.4412 target=0.3965
+   tune R2iso level=1.6179 rho=0.3066 target=0.3965
+   tune R2iso level=1.7767 rho=0.3681 target=0.3965
+   tune R2iso level=1.8618 rho=0.4032 target=0.3965
+== L14 R2iso ready (118s)
+  [R2iso k=64] rho_proc=0.4032 c_proc=0.1064 rho_sim=0.3699 rho_wproc_0.5=0.4031 c_wproc_0.5=0.1066 rho_wproc_0.5_s=0.3696 rho_wproc_1=0.4043 c_wproc_1=0.1075 rho_wproc_1_s=0.3702 rho_ridge=0.3100 c_ridge=0.0271 rho_sync_O=0.4024 rho_sync_W=0.4035 rho_hubO_wie=0.3090 rho_hubO=0.3092 rho_hubSim=0.3092 rho_hubGL=0.3076 c_proc_GLimplied=0.0180 rho_hubGL_p0=0.3415 rho_hubGL_p1=0.3402 rho_hubGL_p2=0.3393 rho_hubGL_p4=0.3383 rho_hubGL_p8=0.3370 rho_hubGL_p16=0.3340 rho_hubGL_p32=0.3239 c_proc_top=0.0038 c_proc_rest=0.1043 c_procGL_top=0.0004 c_procGL_rest=0.0180 c_ridge_top=0.0039 c_ridge_rest=0.0235 K_var_global=0.0000 K_var_aniso=0.0017 K_pr=7.6370 K_comm=0.0093 K_top_abs=0.0746 (36s)
+  [R2iso NULL k=64] c_proc=0.0610 c_ridge=0.0344 rho_proc=0.4171 rho_ridge=0.3279 (85s)
+done C:\Users\ASUS\AppData\Local\Temp\claude\c--Users-ASUS-OneDrive-Documents-Projects-Language-Structure-in-LLMs\fa049fb0-6ccd-47bf-be70-a43fa5fa9e65\scratchpad\explore\A_gauge_group\res_L14_R2shuf-R2iso_64.csv

@@ -1,0 +1,5 @@
+[dev L8] projected k=256 [8s]
+[dev L8] k=64 real c=0.2083 cR=0.0512 rho=0.668 GL64 c=0.1412 [42s]
+[dev L8] O64->k64 rep0: c=0.0510 cR=0.0446 rho=0.617 infl=1.062 [72s]
+[dev L8] O128->k64 rep0: c=0.2039 cR=0.0462 rho=0.641 infl=1.080 [126s]
+[dev L8] O256->k64 rep0: c=0.1541 cR=0.0440 rho=0.604 infl=1.119 [231s]

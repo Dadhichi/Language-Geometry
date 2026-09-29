@@ -1,0 +1,32 @@
+   stats part1 16s
+   prediction 69s
+   done 80s
+L14: 81s rss=nanMB  f_lang=0.213 f_sent=0.557 inv=0.481 rho_id=1.400 rho_shift=0.691 rho_shift_k64=0.309 rho_proc_k64=0.397 W_a=0.284 W_b=0.277
+   stats part1 17s
+   prediction 62s
+   done 73s
+L0: 74s rss=nanMB  f_lang=0.418 f_sent=0.115 inv=0.472 rho_id=4.275 rho_shift=1.980 rho_shift_k64=1.052 rho_proc_k64=1.482 W_a=0.141 W_b=0.148
+   stats part1 22s
+   prediction 76s
+   done 88s
+L2: 89s rss=nanMB  f_lang=0.497 f_sent=0.146 inv=0.582 rho_id=4.546 rho_shift=1.720 rho_shift_k64=0.932 rho_proc_k64=1.278 W_a=0.209 W_b=0.174
+   stats part1 21s
+   prediction 77s
+   done 91s
+L4: 91s rss=nanMB  f_lang=0.411 f_sent=0.219 inv=0.527 rho_id=3.337 rho_shift=1.486 rho_shift_k64=0.756 rho_proc_k64=1.091 W_a=0.230 W_b=0.187
+   stats part1 18s
+   prediction 76s
+   done 87s
+L6: 88s rss=nanMB  f_lang=0.385 f_sent=0.265 inv=0.523 rho_id=3.031 rho_shift=1.354 rho_shift_k64=0.640 rho_proc_k64=0.915 W_a=0.224 W_b=0.196
+   stats part1 16s
+   prediction 61s
+   done 72s
+L8: 73s rss=nanMB  f_lang=0.308 f_sent=0.387 inv=0.502 rho_id=2.258 rho_shift=1.056 rho_shift_k64=0.478 rho_proc_k64=0.668 W_a=0.231 W_b=0.215
+   stats part1 20s
+   prediction 68s
+   done 79s
+L10: 80s rss=nanMB  f_lang=0.246 f_sent=0.488 inv=0.480 rho_id=1.749 rho_shift=0.860 rho_shift_k64=0.383 rho_proc_k64=0.522 W_a=0.253 W_b=0.223
+   stats part1 19s
+   prediction 71s
+   done 82s
+L12: 83s rss=nanMB  f_lang=0.230 f_sent=0.526 inv=0.485 rho_id=1.567 rho_shift=0.762 rho_shift_k64=0.343 rho_proc_k64=0.452 W_a=0.275 W_b=0.264

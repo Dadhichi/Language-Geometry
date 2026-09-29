@@ -1,0 +1,35 @@
+   tune R2shuf level=0.4472 rho=0.2706 target=0.3965
+   tune R2shuf level=0.9457 rho=0.8493 target=0.3965
+   tune R2shuf level=0.6503 rho=0.5028 target=0.3965
+   tune R2shuf level=0.5393 rho=0.3723 target=0.3965
+   tune R2shuf level=0.5922 rho=0.4338 target=0.3965
+   tune R2shuf level=0.5651 rho=0.4022 target=0.3965
+== L14 R2shuf ready (53s)
+  [R2shuf k=64] rho_proc=0.4022 c_proc=0.0277 rho_sim=0.3600 rho_wproc_0.5=0.3999 c_wproc_0.5=0.0281 rho_wproc_0.5_s=0.3594 rho_wproc_1=0.4087 c_wproc_1=0.0326 rho_wproc_1_s=0.3645 rho_ridge=0.3566 c_ridge=0.0354 rho_sync_O=0.4039 rho_sync_W=0.4102 rho_hubO_wie=0.3566 rho_hubO=0.3629 rho_hubSim=0.3629 rho_hubGL=0.3558 c_proc_GLimplied=0.0025 K_var_global=0.0001 K_var_aniso=0.0086 K_pr=7.9016 K_comm=0.0459 K_top_abs=0.1675 (26s)
+  [R2shuf NULL k=64] c_proc=0.0105 c_ridge=0.0372 rho_proc=0.4118 rho_ridge=0.3677 (54s)
+   tune R2iso level=1.3416 rho=0.2134 target=0.3965
+   tune R2iso level=2.8372 rho=0.8652 target=0.3965
+   tune R2iso level=1.9510 rho=0.4412 target=0.3965
+   tune R2iso level=1.6179 rho=0.3066 target=0.3965
+   tune R2iso level=1.7767 rho=0.3681 target=0.3965
+   tune R2iso level=1.8618 rho=0.4032 target=0.3965
+== L14 R2iso ready (82s)
+  [R2iso k=64] rho_proc=0.4032 c_proc=0.1064 rho_sim=0.3699 rho_wproc_0.5=0.4031 c_wproc_0.5=0.1066 rho_wproc_0.5_s=0.3696 rho_wproc_1=0.4043 c_wproc_1=0.1075 rho_wproc_1_s=0.3702 rho_ridge=0.3100 c_ridge=0.0271 rho_sync_O=0.4024 rho_sync_W=0.4035 rho_hubO_wie=0.3090 rho_hubO=0.3092 rho_hubSim=0.3092 rho_hubGL=0.3076 c_proc_GLimplied=0.0180 K_var_global=0.0000 K_var_aniso=0.0017 K_pr=7.6370 K_comm=0.0093 K_top_abs=0.0746 (25s)
+  [R2iso NULL k=64] c_proc=0.0610 c_ridge=0.0344 rho_proc=0.4171 rho_ridge=0.3279 (59s)
+   tune R1 level=0.3162 rho=0.2615 target=0.3965
+   tune R1 level=0.7953 rho=0.6961 target=0.3965
+   tune R1 level=0.5015 rho=0.4057 target=0.3965
+   tune R1 level=0.3982 rho=0.3195 target=0.3965
+   tune R1 level=0.4469 rho=0.3585 target=0.3965
+   tune R1 level=0.4734 rho=0.3810 target=0.3965
+== L14 R1 ready (75s)
+  [R1 k=64] rho_proc=0.4057 c_proc=0.0591 rho_sim=0.3614 rho_wproc_0.5=0.3649 c_wproc_0.5=0.0594 rho_wproc_0.5_s=0.3349 rho_wproc_1=0.3679 c_wproc_1=0.0790 rho_wproc_1_s=0.3325 rho_ridge=0.3114 c_ridge=0.0446 rho_sync_O=0.4101 rho_sync_W=0.3724 rho_hubO_wie=0.3163 rho_hubO=0.3600 rho_hubSim=0.3588 rho_hubGL=0.3160 c_proc_GLimplied=0.0123 K_var_global=0.0073 K_var_aniso=0.1056 K_pr=4.9349 K_comm=0.4602 K_top_abs=0.7670 (30s)
+  [R1 NULL k=64] c_proc=0.0115 c_ridge=0.0366 rho_proc=0.4132 rho_ridge=0.3594 (68s)
+   tune Rd level=0.3162 rho=0.3334 target=0.3965
+   tune Rd level=0.7953 rho=0.7597 target=0.3965
+   tune Rd level=0.5015 rho=0.4773 target=0.3965
+   tune Rd level=0.3982 rho=0.3916 target=0.3965
+== L14 Rd ready (67s)
+  [Rd k=64] rho_proc=0.3916 c_proc=0.0249 rho_sim=0.3481 rho_wproc_0.5=0.3906 c_wproc_0.5=0.0253 rho_wproc_0.5_s=0.3481 rho_wproc_1=0.3995 c_wproc_1=0.0296 rho_wproc_1_s=0.3531 rho_ridge=0.3471 c_ridge=0.0402 rho_sync_O=0.3927 rho_sync_W=0.4003 rho_hubO_wie=0.3488 rho_hubO=0.3594 rho_hubSim=0.3560 rho_hubGL=0.3491 c_proc_GLimplied=0.0007 K_var_global=0.0097 K_var_aniso=0.0094 K_pr=8.0288 K_comm=0.0449 K_top_abs=0.1702 (38s)
+  [Rd NULL k=64] c_proc=0.0099 c_ridge=0.0367 rho_proc=0.4009 rho_ridge=0.3588 (84s)
+done C:\Users\ASUS\AppData\Local\Temp\claude\c--Users-ASUS-OneDrive-Documents-Projects-Language-Structure-in-LLMs\fa049fb0-6ccd-47bf-be70-a43fa5fa9e65\scratchpad\explore\A_gauge_group\res_L14_R2shuf-R2iso-R1-Rd_64.csv

@@ -1,0 +1,8 @@
+L8 real       m=64: pooled_top8=0.524 pooled_top16=0.747 pooled_top32=0.961 signal_trace=2.745 pair_top8=0.976 sh_comm_sub=0.617
+L8 real       m=128: pooled_top8=0.346 pooled_top16=0.561 pooled_top32=0.834 signal_trace=6.654 pair_top8=1.136 sh_comm_sub=0.329
+L8 identity   m=64: pooled_top8=-4.404 pooled_top16=-6.513 pooled_top32=-7.719 signal_trace=-0.063 pair_top8=-21.459 sh_comm_sub=-0.286
+L8 identity   m=128: pooled_top8=-15.562 pooled_top16=-25.574 pooled_top32=-37.780 signal_trace=-0.058 pair_top8=-98.998 sh_comm_sub=-0.304
+L8 abelian    m=64: pooled_top8=1.024 pooled_top16=1.109 pooled_top32=1.163 signal_trace=3.039 pair_top8=1.278 sh_comm_sub=-0.003
+L8 abelian    m=128: pooled_top8=1.046 pooled_top16=1.335 pooled_top32=1.662 signal_trace=2.935 pair_top8=2.418 sh_comm_sub=-0.082
+L8 nonabelian m=64: pooled_top8=0.392 pooled_top16=0.689 pooled_top32=1.058 signal_trace=2.897 pair_top8=0.907 sh_comm_sub=0.683
+L8 nonabelian m=128: pooled_top8=0.457 pooled_top16=0.811 pooled_top32=1.331 signal_trace=2.773 pair_top8=2.173 sh_comm_sub=0.179

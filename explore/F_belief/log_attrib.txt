@@ -1,0 +1,80 @@
+=== L0 real
+  B_pre          g_dev=[0.288] g_test=[0.328] rho=[0.0597] R2=0.0035
+  B_bag+B_pre    g_dev=[ 1.333 -0.127] g_test=[ 1.321 -0.142] rho=[0.396  0.0778] R2=0.1572
+  B_early+B_late+B_pre g_dev=[ 0.107  1.186 -0.043] g_test=[ 0.106  1.184 -0.068] rho=[0.1112 0.3804 0.0775] R2=0.1535
+  B_first+B_pre  g_dev=[0.012 0.23 ] g_test=[0.012 0.275] rho=[0.0411 0.0579] R2=0.0036
+=== L4 real
+  B_pre          g_dev=[0.234] g_test=[0.203] rho=[0.063] R2=0.0038
+  B_bag+B_pre    g_dev=[0.273 0.151] g_test=[0.285 0.105] rho=[0.1403 0.0667] R2=0.0207
+  B_early+B_late+B_pre g_dev=[0.048 0.224 0.103] g_test=[0.045 0.241 0.065] rho=[0.0875 0.1185 0.0656] R2=0.0210
+  B_first+B_pre  g_dev=[0.014 0.177] g_test=[0.014 0.148] rho=[0.059  0.0616] R2=0.0048
+--- L4 synth world B_early(1.0)
+  B_pre          g_dev=[2.589] g_test=[2.617] rho=[0.3899] R2=0.1520
+  B_bag+B_pre    g_dev=[0.681 2.38 ] g_test=[0.639 2.396] rho=[0.2487 0.3934] R2=0.1797
+  B_early+B_late+B_pre g_dev=[ 0.997 -0.01   0.016] g_test=[1.003 0.004 0.006] rho=[0.7203 0.0325 0.3645] R2=0.5188
+  B_first+B_pre  g_dev=[0.287 1.323] g_test=[0.286 1.404] rho=[0.4614 0.3737] R2=0.2436
+--- L4 synth world B_pre(1.0)
+  B_pre          g_dev=[1.004] g_test=[1.01] rho=[0.241] R2=0.0581
+  B_bag+B_pre    g_dev=[-0.012  1.008] g_test=[0.005 1.008] rho=[0.0594 0.2408] R2=0.0580
+  B_early+B_late+B_pre g_dev=[-0.003 -0.011  1.013] g_test=[0.003 0.004 1.001] rho=[0.1238 0.0214 0.2409] R2=0.0580
+  B_first+B_pre  g_dev=[-0.002  1.013] g_test=[0.003 0.997] rho=[0.1172 0.2411] R2=0.0581
+--- L4 synth world B_bag(1.0)
+  B_pre          g_dev=[0.31] g_test=[0.355] rho=[0.0784] R2=0.0061
+  B_bag+B_pre    g_dev=[0.987 0.01 ] g_test=[1.005 0.007] rho=[0.3578 0.0886] R2=0.1280
+  B_early+B_late+B_pre g_dev=[0.081 0.88  0.063] g_test=[0.085 0.899 0.053] rho=[0.1147 0.341  0.0882] R2=0.1263
+  B_first+B_pre  g_dev=[0.014 0.249] g_test=[0.018 0.282] rho=[0.0633 0.0773] R2=0.0068
+=== L8 real
+  B_pre          g_dev=[0.276] g_test=[0.233] rho=[0.0567] R2=0.0031
+  B_bag+B_pre    g_dev=[0.235 0.203] g_test=[0.245 0.147] rho=[0.0997 0.0593] R2=0.0112
+  B_early+B_late+B_pre g_dev=[0.042 0.193 0.159] g_test=[0.044 0.201 0.099] rho=[0.0691 0.0817 0.0584] R2=0.0113
+  B_first+B_pre  g_dev=[0.016 0.205] g_test=[0.017 0.158] rho=[0.054  0.0551] R2=0.0040
+=== L14 real
+  B_pre          g_dev=[0.249] g_test=[0.212] rho=[0.0392] R2=0.0015
+  B_bag+B_pre    g_dev=[0.226 0.177] g_test=[0.227 0.132] rho=[0.0738 0.0411] R2=0.0060
+  B_early+B_late+B_pre g_dev=[0.035 0.189 0.147] g_test=[0.034 0.193 0.104] rho=[0.0448 0.0633 0.0405] R2=0.0060
+  B_first+B_pre  g_dev=[0.017 0.173] g_test=[0.016 0.142] rho=[0.0371 0.0377] R2=0.0019
+--- L14 synth world B_early(1.0)
+  B_pre          g_dev=[2.59] g_test=[2.633] rho=[0.3072] R2=0.0943
+  B_bag+B_pre    g_dev=[0.682 2.376] g_test=[0.65  2.408] rho=[0.1935 0.3102] R2=0.1114
+  B_early+B_late+B_pre g_dev=[ 9.958e-01 -1.495e-02 -5.371e-04] g_test=[1.    0.002 0.012] rho=[0.5766 0.0236 0.288 ] R2=0.3325
+  B_first+B_pre  g_dev=[0.285 1.316] g_test=[0.286 1.401] rho=[0.365  0.2938] R2=0.1521
+--- L14 synth world B_pre(1.0)
+  B_pre          g_dev=[0.982] g_test=[1.007] rho=[0.1572] R2=0.0247
+  B_bag+B_pre    g_dev=[-0.017  0.987] g_test=[0.005 1.006] rho=[0.0338 0.157 ] R2=0.0247
+  B_early+B_late+B_pre g_dev=[-0.005 -0.01   0.996] g_test=[0.002 0.005 1.003] rho=[0.0779 0.0102 0.1572] R2=0.0247
+  B_first+B_pre  g_dev=[-0.002  0.992] g_test=[0.003 0.995] rho=[0.076  0.1573] R2=0.0247
+--- L14 synth world B_bag(1.0)
+  B_pre          g_dev=[0.3] g_test=[0.355] rho=[0.0496] R2=0.0025
+  B_bag+B_pre    g_dev=[ 0.982 -0.011] g_test=[1.004 0.006] rho=[0.2432 0.0566] R2=0.0591
+  B_early+B_late+B_pre g_dev=[0.079 0.879 0.048] g_test=[0.083 0.9   0.057] rho=[0.0756 0.2329 0.0566] R2=0.0585
+  B_first+B_pre  g_dev=[0.014 0.236] g_test=[0.018 0.278] rho=[0.041  0.0486] R2=0.0028
+=== L20 real
+  B_pre          g_dev=[0.137] g_test=[0.123] rho=[0.0313] R2=0.0009
+  B_bag+B_pre    g_dev=[0.147 0.092] g_test=[0.153 0.069] rho=[0.069  0.0333] R2=0.0050
+  B_early+B_late+B_pre g_dev=[0.019 0.126 0.084] g_test=[0.022 0.13  0.052] rho=[0.0389 0.0599 0.033 ] R2=0.0050
+  B_first+B_pre  g_dev=[0.009 0.101] g_test=[0.01 0.08] rho=[0.0325 0.0306] R2=0.0013
+=== L24 real
+  B_pre          g_dev=[0.104] g_test=[0.085] rho=[0.0259] R2=0.0006
+  B_bag+B_pre    g_dev=[0.101 0.074] g_test=[0.103 0.05 ] rho=[0.0567 0.0272] R2=0.0033
+  B_early+B_late+B_pre g_dev=[0.014 0.085 0.066] g_test=[0.018 0.085 0.032] rho=[0.0351 0.0478 0.027 ] R2=0.0033
+  B_first+B_pre  g_dev=[0.007 0.075] g_test=[0.01  0.046] rho=[0.0325 0.0252] R2=0.0011
+--- L24 synth world B_early(1.0)
+  B_pre          g_dev=[2.494] g_test=[2.531] rho=[0.3801] R2=0.1444
+  B_bag+B_pre    g_dev=[0.698 2.283] g_test=[0.649 2.31 ] rho=[0.2449 0.3833] R2=0.1714
+  B_early+B_late+B_pre g_dev=[ 1.001e+00 -7.252e-03  8.898e-04] g_test=[ 1.001e+00  2.297e-04 -1.186e-03] rho=[0.7134 0.0282 0.3593] R2=0.5089
+  B_first+B_pre  g_dev=[0.286 1.288] g_test=[0.279 1.391] rho=[0.4465 0.365 ] R2=0.2301
+--- L24 synth world B_pre(1.0)
+  B_pre          g_dev=[1.002] g_test=[1.002] rho=[0.241] R2=0.0581
+  B_bag+B_pre    g_dev=[-0.004  1.003] g_test=[0.006 1.   ] rho=[0.0608 0.241 ] R2=0.0581
+  B_early+B_late+B_pre g_dev=[ 2.280e-04 -3.866e-03  1.002e+00] g_test=[0.002 0.004 0.998] rho=[0.1257 0.0215 0.241 ] R2=0.0581
+  B_first+B_pre  g_dev=[-2.963e-05  1.002e+00] g_test=[1.486e-04 1.002e+00] rho=[0.1146 0.241 ] R2=0.0581
+--- L24 synth world B_bag(1.0)
+  B_pre          g_dev=[0.301] g_test=[0.34] rho=[0.077] R2=0.0059
+  B_bag+B_pre    g_dev=[0.995 0.005] g_test=[ 1.005e+00 -3.846e-05] rho=[0.3491 0.086 ] R2=0.1218
+  B_early+B_late+B_pre g_dev=[0.084 0.889 0.048] g_test=[0.084 0.9   0.046] rho=[0.1117 0.3318 0.0856] R2=0.1200
+  B_first+B_pre  g_dev=[0.016 0.237] g_test=[0.015 0.283] rho=[0.0596 0.0761] R2=0.0065
+=== L28 real
+  B_pre          g_dev=[0.149] g_test=[0.12] rho=[0.0344] R2=0.0011
+  B_bag+B_pre    g_dev=[0.107 0.116] g_test=[0.105 0.084] rho=[0.0544 0.0359] R2=0.0034
+  B_early+B_late+B_pre g_dev=[0.021 0.089 0.091] g_test=[0.021 0.086 0.059] rho=[0.0395 0.0452 0.0355] R2=0.0036
+  B_first+B_pre  g_dev=[0.01  0.105] g_test=[0.012 0.07 ] rho=[0.0385 0.0337] R2=0.0017

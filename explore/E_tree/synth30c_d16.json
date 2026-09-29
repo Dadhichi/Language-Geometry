@@ -1,0 +1,90 @@
+[
+ {
+  "n": "12",
+  "world": "glotto",
+  "c": 0.1,
+  "f_mean": 0.05511791166800673,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.18,
+  "power_full|scr": 0.2,
+  "power_cherry|scr": 0.12
+ },
+ {
+  "n": "12",
+  "world": "glotto",
+  "c": 0.2,
+  "f_mean": 0.10147404577959666,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.42,
+  "power_full|scr": 0.36,
+  "power_cherry|scr": 0.24
+ },
+ {
+  "n": "12",
+  "world": "script",
+  "c": 0.1,
+  "f_mean": 0.04014989332188381,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.06,
+  "power_full|scr": 0.04,
+  "power_cherry|scr": 0.06
+ },
+ {
+  "n": "12",
+  "world": "script",
+  "c": 0.2,
+  "f_mean": 0.07915338073381585,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.04,
+  "power_full|scr": 0.04,
+  "power_cherry|scr": 0.02
+ },
+ {
+  "n": "34",
+  "world": "glotto",
+  "c": 0.1,
+  "f_mean": 0.14080745857319893,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.86,
+  "power_full|scr": 0.8,
+  "power_cherry|scr": 0.38
+ },
+ {
+  "n": "34",
+  "world": "glotto",
+  "c": 0.2,
+  "f_mean": 0.24752755959524383,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 1.0,
+  "power_full|scr": 0.98,
+  "power_cherry|scr": 0.86
+ },
+ {
+  "n": "34",
+  "world": "script",
+  "c": 0.1,
+  "f_mean": 0.053518537110859576,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.12,
+  "power_full|scr": 0.06,
+  "power_cherry|scr": 0.1
+ },
+ {
+  "n": "34",
+  "world": "script",
+  "c": 0.2,
+  "f_mean": 0.1008241336381246,
+  "dim": 16,
+  "reps": 50,
+  "power_full|star": 0.22,
+  "power_full|scr": 0.06,
+  "power_cherry|scr": 0.04
+ }
+]

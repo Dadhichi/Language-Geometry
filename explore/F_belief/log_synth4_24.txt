@@ -1,0 +1,290 @@
+=== L4: rms edge length 9.441, rms in-span displacement 0.895
+-- world null  (rms planted 0.0000 vs noise 0.895)
+  e_tokc         g_dev=[0.] g_test=[0.001] rho=[0.002] R2=0.0000 z_shuf=1.0 z_jperm=0.8
+  e_char         g_dev=[-0.001] g_test=[0.001] rho=[0.0022] R2=-0.0000 z_shuf=1.4 z_jperm=1.1
+  B_bag          g_dev=[-0.01] g_test=[0.007] rho=[0.002] R2=-0.0000 z_shuf=0.9 z_jperm=0.8
+  B_pre          g_dev=[0.003] g_test=[0.009] rho=[0.0027] R2=0.0000 z_shuf=1.6 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.005] g_test=[0.002] rho=[0.001] R2=-0.0000 z_shuf=0.9 z_jperm=0.7
+  B_bag_LL       g_dev=[-0.008] g_test=[-0.003] rho=[-0.001] R2=0.0000 z_shuf=-0.3 z_jperm=-0.4
+  B_bag+B_pre    g_dev=[-0.011  0.006] g_test=[0.006 0.007] rho=[0.002  0.0026] R2=-0.0000
+  e_tokc+B_pre   g_dev=[0.    0.003] g_test=[0.001 0.009] rho=[0.0021 0.0028] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.002 -0.007  0.008] g_test=[ 0.005  0.005 -0.003] rho=[0.0052 0.002  0.0027] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.002  0.009] g_test=[ 0.003 -0.005] rho=[0.0062 0.0029] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[ 0.004 -0.009] g_test=[8.764e-05 1.927e-03] rho=[0.0044 0.001 ] R2=0.0000
+-- world S_e(0.25)  (rms planted 1.0833 vs noise 0.895)
+  e_tokc         g_dev=[0.25] g_test=[0.251] rho=[0.2714] R2=0.0736 z_shuf=71.7 z_jperm=59.6
+  e_char         g_dev=[0.044] g_test=[0.048] rho=[0.0845] R2=0.0071 z_shuf=34.4 z_jperm=38.1
+  B_bag          g_dev=[0.123] g_test=[0.136] rho=[0.0522] R2=0.0027 z_shuf=20.5 z_jperm=22.0
+  B_pre          g_dev=[0.033] g_test=[0.035] rho=[0.0122] R2=0.0001 z_shuf=5.2 z_jperm=3.6
+  e_tokc_LL      g_dev=[0.247] g_test=[0.253] rho=[0.1029] R2=0.0106 z_shuf=50.9 z_jperm=49.2
+  B_bag_LL       g_dev=[0.098] g_test=[0.1] rho=[0.0264] R2=0.0007 z_shuf=11.9 z_jperm=12.0
+  B_bag+B_pre    g_dev=[ 0.123 -0.004] g_test=[ 0.139 -0.013] rho=[0.0522 0.0137] R2=0.0027
+  e_tokc+B_pre   g_dev=[0.25  0.004] g_test=[0.251 0.009] rho=[0.2714 0.0368] R2=0.0737
+  B_early+B_late+B_pre g_dev=[0.008 0.112 0.007] g_test=[ 0.014  0.123 -0.013] rho=[0.0193 0.0494 0.0137] R2=0.0027
+  B_first+B_pre  g_dev=[0.001 0.031] g_test=[0.004 0.016] rho=[0.0117 0.0121] R2=0.0001
+  e_tokc+e_tokc_LL g_dev=[ 0.254 -0.009] g_test=[0.25  0.002] rho=[0.2735 0.0997] R2=0.0748
+-- world G_e(0.25)  (rms planted 1.0769 vs noise 0.895)
+  e_tokc         g_dev=[0.] g_test=[0.001] rho=[0.002] R2=0.0000 z_shuf=1.0 z_jperm=0.8
+  e_char         g_dev=[-0.001] g_test=[0.001] rho=[0.0022] R2=-0.0000 z_shuf=1.4 z_jperm=1.1
+  B_bag          g_dev=[-0.01] g_test=[0.007] rho=[0.002] R2=-0.0000 z_shuf=0.9 z_jperm=0.8
+  B_pre          g_dev=[0.003] g_test=[0.009] rho=[0.0027] R2=0.0000 z_shuf=1.6 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.005] g_test=[0.002] rho=[0.001] R2=-0.0000 z_shuf=0.9 z_jperm=0.7
+  B_bag_LL       g_dev=[-0.008] g_test=[-0.003] rho=[-0.001] R2=0.0000 z_shuf=-0.3 z_jperm=-0.4
+  B_bag+B_pre    g_dev=[-0.011  0.006] g_test=[0.006 0.007] rho=[0.002  0.0026] R2=-0.0000
+  e_tokc+B_pre   g_dev=[0.    0.003] g_test=[0.001 0.009] rho=[0.0021 0.0028] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.002 -0.007  0.008] g_test=[ 0.005  0.005 -0.003] rho=[0.0052 0.002  0.0027] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.002  0.009] g_test=[ 0.003 -0.005] rho=[0.0062 0.0029] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[ 0.004 -0.009] g_test=[8.764e-05 1.927e-03] rho=[0.0044 0.001 ] R2=0.0000
+-- world S_e(1.0)  (rms planted 4.3333 vs noise 0.895)
+  e_tokc         g_dev=[1.] g_test=[1.001] rho=[0.6881] R2=0.4734 z_shuf=103.0 z_jperm=105.1
+  e_char         g_dev=[0.17] g_test=[0.179] rho=[0.2423] R2=0.0586 z_shuf=74.7 z_jperm=71.4
+  B_bag          g_dev=[0.48] g_test=[0.477] rho=[0.1456] R2=0.0212 z_shuf=48.7 z_jperm=47.4
+  B_pre          g_dev=[0.125] g_test=[0.1] rho=[0.028] R2=0.0008 z_shuf=7.6 z_jperm=5.9
+  e_tokc_LL      g_dev=[0.997] g_test=[1.003] rho=[0.3481] R2=0.1212 z_shuf=106.3 z_jperm=92.3
+  B_bag_LL       g_dev=[0.415] g_test=[0.405] rho=[0.0921] R2=0.0085 z_shuf=38.1 z_jperm=29.7
+  B_bag+B_pre    g_dev=[ 0.483 -0.02 ] g_test=[ 0.488 -0.065] rho=[0.1457 0.032 ] R2=0.0212
+  e_tokc+B_pre   g_dev=[1.    0.008] g_test=[1.001 0.008] rho=[0.6881 0.0749] R2=0.4735
+  B_early+B_late+B_pre g_dev=[0.036 0.432 0.014] g_test=[ 0.039  0.434 -0.036] rho=[0.0432 0.1385 0.0318] R2=0.0206
+  B_first+B_pre  g_dev=[0.006 0.101] g_test=[0.007 0.071] rho=[0.0205 0.0277] R2=0.0008
+  e_tokc+e_tokc_LL g_dev=[ 1.004 -0.01 ] g_test=[1.001 0.001] rho=[0.6889 0.295 ] R2=0.4746
+-- world G_e(1.0)  (rms planted 4.3075 vs noise 0.895)
+  e_tokc         g_dev=[0.] g_test=[0.001] rho=[0.002] R2=0.0000 z_shuf=1.0 z_jperm=0.8
+  e_char         g_dev=[-0.001] g_test=[0.001] rho=[0.0022] R2=-0.0000 z_shuf=1.4 z_jperm=1.1
+  B_bag          g_dev=[-0.01] g_test=[0.007] rho=[0.002] R2=-0.0000 z_shuf=0.9 z_jperm=0.8
+  B_pre          g_dev=[0.003] g_test=[0.009] rho=[0.0027] R2=0.0000 z_shuf=1.6 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.005] g_test=[0.002] rho=[0.001] R2=-0.0000 z_shuf=0.9 z_jperm=0.7
+  B_bag_LL       g_dev=[-0.008] g_test=[-0.003] rho=[-0.001] R2=0.0000 z_shuf=-0.3 z_jperm=-0.4
+  B_bag+B_pre    g_dev=[-0.011  0.006] g_test=[0.006 0.007] rho=[0.002  0.0026] R2=-0.0000
+  e_tokc+B_pre   g_dev=[0.    0.003] g_test=[0.001 0.009] rho=[0.0021 0.0028] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.002 -0.007  0.008] g_test=[ 0.005  0.005 -0.003] rho=[0.0052 0.002  0.0027] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.002  0.009] g_test=[ 0.003 -0.005] rho=[0.0062 0.0029] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[ 0.004 -0.009] g_test=[8.764e-05 1.927e-03] rho=[0.0044 0.001 ] R2=0.0000
+-- world G_nl  (rms planted 0.2063 vs noise 0.895)
+  e_tokc         g_dev=[0.002] g_test=[0.003] rho=[0.0035] R2=0.0000 z_shuf=1.7 z_jperm=1.5
+  e_char         g_dev=[-0.001] g_test=[0.001] rho=[0.0025] R2=-0.0000 z_shuf=1.5 z_jperm=1.2
+  B_bag          g_dev=[-0.011] g_test=[0.007] rho=[0.0014] R2=-0.0000 z_shuf=0.7 z_jperm=0.6
+  B_pre          g_dev=[0.003] g_test=[0.009] rho=[0.003] R2=0.0000 z_shuf=1.7 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.004] g_test=[0.003] rho=[0.0012] R2=-0.0000 z_shuf=1.0 z_jperm=0.8
+  B_bag_LL       g_dev=[-0.007] g_test=[-0.003] rho=[-0.001] R2=0.0000 z_shuf=-0.3 z_jperm=-0.4
+  B_bag+B_pre    g_dev=[-0.012  0.007] g_test=[0.005 0.007] rho=[0.0014 0.0028] R2=-0.0000
+  e_tokc+B_pre   g_dev=[0.002 0.003] g_test=[0.003 0.009] rho=[0.0036 0.0032] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.002 -0.007  0.008] g_test=[ 0.005  0.005 -0.004] rho=[0.0054 0.0014 0.0029] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.001  0.01 ] g_test=[ 0.003 -0.005] rho=[0.0063 0.0031] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[ 0.006 -0.01 ] g_test=[ 0.003 -0.001] rho=[0.0063 0.0012] R2=0.0000
+-- world S_bag(0.25)  (rms planted 0.1529 vs noise 0.895)
+  e_tokc         g_dev=[0.026] g_test=[0.026] rho=[0.0309] R2=0.0010 z_shuf=13.6 z_jperm=11.1
+  e_char         g_dev=[0.003] g_test=[0.006] rho=[0.0115] R2=0.0001 z_shuf=5.9 z_jperm=5.2
+  B_bag          g_dev=[0.239] g_test=[0.257] rho=[0.0987] R2=0.0097 z_shuf=39.6 z_jperm=41.5
+  B_pre          g_dev=[0.079] g_test=[0.094] rho=[0.0229] R2=0.0005 z_shuf=12.7 z_jperm=8.1
+  e_tokc_LL      g_dev=[0.036] g_test=[0.042] rho=[0.0177] R2=0.0003 z_shuf=9.4 z_jperm=10.0
+  B_bag_LL       g_dev=[0.243] g_test=[0.247] rho=[0.0644] R2=0.0042 z_shuf=28.2 z_jperm=32.5
+  B_bag+B_pre    g_dev=[0.239 0.006] g_test=[0.256 0.007] rho=[0.0987 0.0261] R2=0.0097
+  e_tokc+B_pre   g_dev=[0.026 0.076] g_test=[0.026 0.092] rho=[0.0325 0.0257] R2=0.0015
+  B_early+B_late+B_pre g_dev=[0.02  0.21  0.019] g_test=[0.026 0.226 0.009] rho=[0.0356 0.0925 0.0259] R2=0.0095
+  B_first+B_pre  g_dev=[0.002 0.072] g_test=[0.006 0.069] rho=[0.0202 0.0228] R2=0.0006
+  e_tokc+e_tokc_LL g_dev=[0.021 0.015] g_test=[0.018 0.025] rho=[0.0268 0.0176] R2=0.0008
+-- world S_pre(0.25)  (rms planted 0.0770 vs noise 0.895)
+  e_tokc         g_dev=[0.003] g_test=[0.003] rho=[0.0047] R2=0.0000 z_shuf=2.3 z_jperm=1.8
+  e_char         g_dev=[-0.001] g_test=[0.001] rho=[0.0031] R2=-0.0000 z_shuf=1.9 z_jperm=1.5
+  B_bag          g_dev=[0.027] g_test=[0.049] rho=[0.0177] R2=0.0003 z_shuf=7.1 z_jperm=7.7
+  B_pre          g_dev=[0.253] g_test=[0.259] rho=[0.065] R2=0.0042 z_shuf=35.7 z_jperm=25.8
+  e_tokc_LL      g_dev=[0.001] g_test=[0.006] rho=[0.0027] R2=0.0000 z_shuf=1.7 z_jperm=1.6
+  B_bag_LL       g_dev=[0.036] g_test=[0.046] rho=[0.0119] R2=0.0001 z_shuf=5.0 z_jperm=5.5
+  B_bag+B_pre    g_dev=[-0.011  0.256] g_test=[0.006 0.257] rho=[0.0171 0.0648] R2=0.0042
+  e_tokc+B_pre   g_dev=[0.    0.253] g_test=[0.001 0.259] rho=[0.0102 0.065 ] R2=0.0042
+  B_early+B_late+B_pre g_dev=[-0.002 -0.007  0.258] g_test=[0.005 0.005 0.247] rho=[0.0365 0.0073 0.0649] R2=0.0042
+  B_first+B_pre  g_dev=[-0.002  0.259] g_test=[0.003 0.245] rho=[0.0354 0.0651] R2=0.0042
+  e_tokc+e_tokc_LL g_dev=[ 0.005 -0.004] g_test=[0.002 0.004] rho=[0.0059 0.0027] R2=0.0000
+-- world S_bag(1.0)  (rms planted 0.6115 vs noise 0.895)
+  e_tokc         g_dev=[0.102] g_test=[0.1] rho=[0.1085] R2=0.0118 z_shuf=37.5 z_jperm=29.4
+  e_char         g_dev=[0.015] g_test=[0.02] rho=[0.0364] R2=0.0012 z_shuf=16.0 z_jperm=13.5
+  B_bag          g_dev=[0.989] g_test=[1.007] rho=[0.359] R2=0.1288 z_shuf=116.3 z_jperm=132.1
+  B_pre          g_dev=[0.307] g_test=[0.352] rho=[0.079] R2=0.0062 z_shuf=46.0 z_jperm=24.9
+  e_tokc_LL      g_dev=[0.156] g_test=[0.162] rho=[0.0632] R2=0.0040 z_shuf=24.0 z_jperm=37.2
+  B_bag_LL       g_dev=[0.994] g_test=[0.998] rho=[0.2445] R2=0.0598 z_shuf=103.9 z_jperm=129.1
+  B_bag+B_pre    g_dev=[0.988 0.007] g_test=[1.006 0.006] rho=[0.359  0.0893] R2=0.1288
+  e_tokc+B_pre   g_dev=[0.098 0.295] g_test=[0.097 0.342] rho=[0.1145 0.0889] R2=0.0186
+  B_early+B_late+B_pre g_dev=[0.084 0.86  0.054] g_test=[0.089 0.891 0.046] rho=[0.1173 0.3367 0.0886] R2=0.1239
+  B_first+B_pre  g_dev=[0.011 0.26 ] g_test=[0.015 0.29 ] rho=[0.0587 0.078 ] R2=0.0066
+  e_tokc+e_tokc_LL g_dev=[0.07  0.085] g_test=[0.067 0.095] rho=[0.0868 0.0629] R2=0.0087
+-- world S_pre(1.0)  (rms planted 0.3082 vs noise 0.895)
+  e_tokc         g_dev=[0.012] g_test=[0.011] rho=[0.0123] R2=0.0002 z_shuf=5.8 z_jperm=3.7
+  e_char         g_dev=[0.] g_test=[0.003] rho=[0.0058] R2=0.0000 z_shuf=3.1 z_jperm=2.5
+  B_bag          g_dev=[0.139] g_test=[0.174] rho=[0.0625] R2=0.0038 z_shuf=23.4 z_jperm=26.2
+  B_pre          g_dev=[1.002] g_test=[1.009] rho=[0.242] R2=0.0586 z_shuf=125.8 z_jperm=44.2
+  e_tokc_LL      g_dev=[0.017] g_test=[0.017] rho=[0.0075] R2=0.0001 z_shuf=3.2 z_jperm=3.9
+  B_bag_LL       g_dev=[0.167] g_test=[0.193] rho=[0.0487] R2=0.0023 z_shuf=16.8 z_jperm=19.3
+  B_bag+B_pre    g_dev=[-0.011  1.006] g_test=[0.006 1.007] rho=[0.0603 0.2419] R2=0.0585
+  e_tokc+B_pre   g_dev=[5.000e-04 1.002e+00] g_test=[6.120e-04 1.009e+00] rho=[0.0337 0.2421] R2=0.0586
+  B_early+B_late+B_pre g_dev=[-0.002 -0.006  1.007] g_test=[0.005 0.005 0.997] rho=[0.1255 0.0226 0.2419] R2=0.0585
+  B_first+B_pre  g_dev=[-0.002  1.009] g_test=[0.003 0.995] rho=[0.1185 0.2421] R2=0.0586
+  e_tokc+e_tokc_LL g_dev=[0.009 0.008] g_test=[0.007 0.01 ] rho=[0.0101 0.0074] R2=0.0001
+-- world S_early(1.0)  (rms planted 1.6504 vs noise 0.895)
+  e_tokc         g_dev=[0.067] g_test=[0.052] rho=[0.0369] R2=0.0013 z_shuf=15.1 z_jperm=13.1
+  e_char         g_dev=[0.015] g_test=[0.011] rho=[0.0117] R2=0.0001 z_shuf=4.9 z_jperm=4.2
+  B_bag          g_dev=[0.983] g_test=[0.997] rho=[0.1966] R2=0.0387 z_shuf=56.5 z_jperm=98.6
+  B_pre          g_dev=[2.613] g_test=[2.668] rho=[0.3093] R2=0.0956 z_shuf=120.9 z_jperm=51.5
+  e_tokc_LL      g_dev=[0.15] g_test=[0.114] rho=[0.0221] R2=0.0005 z_shuf=12.4 z_jperm=13.0
+  B_bag_LL       g_dev=[1.166] g_test=[1.162] rho=[0.1359] R2=0.0185 z_shuf=45.1 z_jperm=75.6
+  B_bag+B_pre    g_dev=[0.654 2.411] g_test=[0.627 2.45 ] rho=[0.1953 0.3134] R2=0.1133
+  e_tokc+B_pre   g_dev=[0.043 2.608] g_test=[0.03  2.664] rho=[0.0712 0.3121] R2=0.0980
+  B_early+B_late+B_pre g_dev=[0.798 0.112 0.579] g_test=[0.801 0.094 0.553] rho=[0.5058 0.0518 0.3057] R2=0.2594
+  B_first+B_pre  g_dev=[0.231 1.567] g_test=[0.233 1.623] rho=[0.3225 0.2975] R2=0.1304
+  e_tokc+e_tokc_LL g_dev=[0.037 0.113] g_test=[0.031 0.083] rho=[0.0238 0.022 ] R2=0.0008
+-- world S_LL(1.0)  (rms planted 0.3299 vs noise 0.895)
+  e_tokc         g_dev=[0.316] g_test=[0.302] rho=[0.3345] R2=0.1119 z_shuf=80.5 z_jperm=62.0
+  e_char         g_dev=[0.007] g_test=[0.011] rho=[0.0193] R2=0.0003 z_shuf=9.2 z_jperm=8.0
+  B_bag          g_dev=[0.277] g_test=[0.28] rho=[0.1068] R2=0.0114 z_shuf=35.1 z_jperm=41.6
+  B_pre          g_dev=[0.087] g_test=[0.065] rho=[0.0185] R2=0.0003 z_shuf=6.3 z_jperm=4.6
+  e_tokc_LL      g_dev=[0.994] g_test=[1.002] rho=[0.3538] R2=0.1252 z_shuf=108.5 z_jperm=137.9
+  B_bag_LL       g_dev=[0.416] g_test=[0.404] rho=[0.0936] R2=0.0088 z_shuf=36.9 z_jperm=55.2
+  B_bag+B_pre    g_dev=[0.276 0.002] g_test=[ 0.285 -0.034] rho=[0.1068 0.0225] R2=0.0114
+  e_tokc+B_pre   g_dev=[0.316 0.046] g_test=[0.302 0.03 ] rho=[0.3354 0.0534] R2=0.1125
+  B_early+B_late+B_pre g_dev=[0.023 0.243 0.019] g_test=[ 0.024  0.254 -0.02 ] rho=[0.0316 0.1019 0.0223] R2=0.0110
+  B_first+B_pre  g_dev=[-0.     0.088] g_test=[0.005 0.045] rho=[0.0144 0.0185] R2=0.0003
+  e_tokc+e_tokc_LL g_dev=[0.003 0.991] g_test=[1.912e-04 1.002e+00] rho=[0.1163 0.3538] R2=0.1252
+=== L24: rms edge length 101.685, rms in-span displacement 10.876
+-- world null  (rms planted 0.0000 vs noise 10.876)
+  e_tokc         g_dev=[-0.003] g_test=[-0.001] rho=[-0.0019] R2=0.0000 z_shuf=-1.7 z_jperm=-0.7
+  e_char         g_dev=[-0.002] g_test=[-0.] rho=[0.0007] R2=-0.0000 z_shuf=0.6 z_jperm=0.4
+  B_bag          g_dev=[-0.003] g_test=[0.007] rho=[0.0024] R2=-0.0000 z_shuf=1.1 z_jperm=1.6
+  B_pre          g_dev=[0.005] g_test=[0.002] rho=[0.001] R2=0.0000 z_shuf=0.9 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.002] g_test=[-0.001] rho=[-0.0005] R2=0.0000 z_shuf=0.0 z_jperm=-0.2
+  B_bag_LL       g_dev=[0.002] g_test=[0.005] rho=[0.0013] R2=0.0000 z_shuf=1.1 z_jperm=0.8
+  B_bag+B_pre    g_dev=[-0.004  0.006] g_test=[0.006 0.   ] rho=[0.0024 0.001 ] R2=-0.0000
+  e_tokc+B_pre   g_dev=[-0.003  0.005] g_test=[-0.001  0.003] rho=[-0.0018  0.0007] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.001 -0.002  0.007] g_test=[ 0.003  0.005 -0.005] rho=[0.0032 0.0017 0.001 ] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.001  0.008] g_test=[ 0.001 -0.001] rho=[0.0015 0.0011] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[-0.004  0.002] g_test=[-0.001  0.   ] rho=[-0.0027 -0.0005] R2=0.0000
+-- world S_e(0.25)  (rms planted 12.1687 vs noise 10.876)
+  e_tokc         g_dev=[0.246] g_test=[0.249] rho=[0.2588] R2=0.0670 z_shuf=86.0 z_jperm=64.9
+  e_char         g_dev=[0.041] g_test=[0.045] rho=[0.0704] R2=0.0049 z_shuf=37.8 z_jperm=36.4
+  B_bag          g_dev=[0.123] g_test=[0.131] rho=[0.0502] R2=0.0025 z_shuf=22.9 z_jperm=31.7
+  B_pre          g_dev=[0.034] g_test=[0.025] rho=[0.01] R2=0.0001 z_shuf=5.2 z_jperm=5.0
+  e_tokc_LL      g_dev=[0.247] g_test=[0.248] rho=[0.1082] R2=0.0117 z_shuf=59.4 z_jperm=52.1
+  B_bag_LL       g_dev=[0.11] g_test=[0.112] rho=[0.0316] R2=0.0010 z_shuf=20.5 z_jperm=19.1
+  B_bag+B_pre    g_dev=[ 0.123 -0.002] g_test=[ 0.135 -0.02 ] rho=[0.0502 0.0113] R2=0.0025
+  e_tokc+B_pre   g_dev=[0.246 0.005] g_test=[0.249 0.003] rho=[0.2589 0.0324] R2=0.0670
+  B_early+B_late+B_pre g_dev=[0.009 0.11  0.007] g_test=[ 0.011  0.12  -0.014] rho=[0.0155 0.0474 0.0113] R2=0.0024
+  B_first+B_pre  g_dev=[0.001 0.032] g_test=[0.002 0.018] rho=[0.0064 0.0099] R2=0.0001
+  e_tokc+e_tokc_LL g_dev=[0.245 0.002] g_test=[2.489e-01 7.888e-05] rho=[0.2581 0.1051] R2=0.0666
+-- world G_e(0.25)  (rms planted 12.0603 vs noise 10.876)
+  e_tokc         g_dev=[-0.003] g_test=[-0.001] rho=[-0.0019] R2=0.0000 z_shuf=-1.7 z_jperm=-0.7
+  e_char         g_dev=[-0.002] g_test=[-0.] rho=[0.0007] R2=-0.0000 z_shuf=0.6 z_jperm=0.4
+  B_bag          g_dev=[-0.003] g_test=[0.007] rho=[0.0024] R2=-0.0000 z_shuf=1.1 z_jperm=1.6
+  B_pre          g_dev=[0.005] g_test=[0.002] rho=[0.001] R2=0.0000 z_shuf=0.9 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.002] g_test=[-0.001] rho=[-0.0005] R2=0.0000 z_shuf=0.0 z_jperm=-0.2
+  B_bag_LL       g_dev=[0.002] g_test=[0.005] rho=[0.0013] R2=0.0000 z_shuf=1.1 z_jperm=0.8
+  B_bag+B_pre    g_dev=[-0.004  0.006] g_test=[0.006 0.   ] rho=[0.0024 0.001 ] R2=-0.0000
+  e_tokc+B_pre   g_dev=[-0.003  0.005] g_test=[-0.001  0.003] rho=[-0.0018  0.0007] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.001 -0.002  0.007] g_test=[ 0.003  0.005 -0.005] rho=[0.0032 0.0017 0.001 ] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.001  0.008] g_test=[ 0.001 -0.001] rho=[0.0015 0.0011] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[-0.004  0.002] g_test=[-0.001  0.   ] rho=[-0.0027 -0.0005] R2=0.0000
+-- world S_e(1.0)  (rms planted 48.6747 vs noise 10.876)
+  e_tokc         g_dev=[0.996] g_test=[0.999] rho=[0.6816] R2=0.4646 z_shuf=101.1 z_jperm=104.2
+  e_char         g_dev=[0.163] g_test=[0.173] rho=[0.2148] R2=0.0460 z_shuf=84.6 z_jperm=60.8
+  B_bag          g_dev=[0.473] g_test=[0.473] rho=[0.1451] R2=0.0210 z_shuf=55.7 z_jperm=48.5
+  B_pre          g_dev=[0.117] g_test=[0.088] rho=[0.0261] R2=0.0007 z_shuf=7.6 z_jperm=7.0
+  e_tokc_LL      g_dev=[0.995] g_test=[0.995] rho=[0.364] R2=0.1325 z_shuf=106.3 z_jperm=88.5
+  B_bag_LL       g_dev=[0.427] g_test=[0.42] rho=[0.1008] R2=0.0102 z_shuf=46.6 z_jperm=39.3
+  B_bag+B_pre    g_dev=[ 0.477 -0.024] g_test=[ 0.485 -0.075] rho=[0.1452 0.0296] R2=0.0211
+  e_tokc+B_pre   g_dev=[0.996 0.006] g_test=[0.999 0.002] rho=[0.6816 0.0719] R2=0.4646
+  B_early+B_late+B_pre g_dev=[0.036 0.425 0.008] g_test=[ 0.035  0.435 -0.038] rho=[0.0389 0.1388 0.0294] R2=0.0204
+  B_first+B_pre  g_dev=[0.005 0.099] g_test=[0.004 0.071] rho=[0.0159 0.0259] R2=0.0007
+  e_tokc+e_tokc_LL g_dev=[0.994 0.003] g_test=[ 0.999 -0.002] rho=[0.6813 0.3089] R2=0.4641
+-- world G_e(1.0)  (rms planted 48.2410 vs noise 10.876)
+  e_tokc         g_dev=[-0.003] g_test=[-0.001] rho=[-0.0019] R2=0.0000 z_shuf=-1.7 z_jperm=-0.7
+  e_char         g_dev=[-0.002] g_test=[-0.] rho=[0.0007] R2=-0.0000 z_shuf=0.6 z_jperm=0.4
+  B_bag          g_dev=[-0.003] g_test=[0.007] rho=[0.0024] R2=-0.0000 z_shuf=1.1 z_jperm=1.6
+  B_pre          g_dev=[0.005] g_test=[0.002] rho=[0.001] R2=0.0000 z_shuf=0.9 z_jperm=0.9
+  e_tokc_LL      g_dev=[-0.002] g_test=[-0.001] rho=[-0.0005] R2=0.0000 z_shuf=0.0 z_jperm=-0.2
+  B_bag_LL       g_dev=[0.002] g_test=[0.005] rho=[0.0013] R2=0.0000 z_shuf=1.1 z_jperm=0.8
+  B_bag+B_pre    g_dev=[-0.004  0.006] g_test=[0.006 0.   ] rho=[0.0024 0.001 ] R2=-0.0000
+  e_tokc+B_pre   g_dev=[-0.003  0.005] g_test=[-0.001  0.003] rho=[-0.0018  0.0007] R2=0.0000
+  B_early+B_late+B_pre g_dev=[-0.001 -0.002  0.007] g_test=[ 0.003  0.005 -0.005] rho=[0.0032 0.0017 0.001 ] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.001  0.008] g_test=[ 0.001 -0.001] rho=[0.0015 0.0011] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[-0.004  0.002] g_test=[-0.001  0.   ] rho=[-0.0027 -0.0005] R2=0.0000
+-- world G_nl  (rms planted 2.3244 vs noise 10.876)
+  e_tokc         g_dev=[-0.003] g_test=[0.] rho=[-0.0012] R2=-0.0000 z_shuf=-1.2 z_jperm=-0.4
+  e_char         g_dev=[-0.001] g_test=[0.] rho=[0.001] R2=-0.0000 z_shuf=0.8 z_jperm=0.6
+  B_bag          g_dev=[-0.003] g_test=[0.007] rho=[0.0022] R2=-0.0000 z_shuf=1.0 z_jperm=1.4
+  B_pre          g_dev=[0.005] g_test=[0.003] rho=[0.0012] R2=0.0000 z_shuf=1.0 z_jperm=1.0
+  e_tokc_LL      g_dev=[-0.002] g_test=[-0.001] rho=[-0.0003] R2=-0.0000 z_shuf=0.1 z_jperm=-0.1
+  B_bag_LL       g_dev=[0.003] g_test=[0.005] rho=[0.0013] R2=0.0000 z_shuf=1.2 z_jperm=0.8
+  B_bag+B_pre    g_dev=[-0.004  0.006] g_test=[0.007 0.   ] rho=[0.0022 0.0012] R2=-0.0000
+  e_tokc+B_pre   g_dev=[-0.003  0.006] g_test=[0.    0.002] rho=[-0.0011  0.001 ] R2=-0.0000
+  B_early+B_late+B_pre g_dev=[-0.001 -0.002  0.007] g_test=[ 0.003  0.005 -0.005] rho=[0.0035 0.0015 0.0012] R2=-0.0000
+  B_first+B_pre  g_dev=[-0.001  0.008] g_test=[ 0.001 -0.001] rho=[0.0016 0.0013] R2=-0.0000
+  e_tokc+e_tokc_LL g_dev=[-0.003  0.002] g_test=[ 0.001 -0.001] rho=[-0.0018 -0.0003] R2=0.0000
+-- world S_bag(0.25)  (rms planted 1.7262 vs noise 10.876)
+  e_tokc         g_dev=[0.025] g_test=[0.027] rho=[0.0285] R2=0.0008 z_shuf=17.9 z_jperm=12.8
+  e_char         g_dev=[0.002] g_test=[0.005] rho=[0.0085] R2=0.0000 z_shuf=5.3 z_jperm=5.0
+  B_bag          g_dev=[0.247] g_test=[0.256] rho=[0.0965] R2=0.0093 z_shuf=40.0 z_jperm=63.4
+  B_pre          g_dev=[0.079] g_test=[0.087] rho=[0.0214] R2=0.0005 z_shuf=14.5 z_jperm=13.5
+  e_tokc_LL      g_dev=[0.039] g_test=[0.04] rho=[0.0177] R2=0.0003 z_shuf=11.5 z_jperm=10.7
+  B_bag_LL       g_dev=[0.253] g_test=[0.255] rho=[0.0716] R2=0.0051 z_shuf=44.2 z_jperm=40.6
+  B_bag+B_pre    g_dev=[0.246 0.006] g_test=[2.564e-01 2.175e-04] rho=[0.0965 0.0242] R2=0.0093
+  e_tokc+B_pre   g_dev=[0.024 0.076] g_test=[0.026 0.084] rho=[0.03   0.0237] R2=0.0013
+  B_early+B_late+B_pre g_dev=[0.021 0.217 0.018] g_test=[0.024 0.227 0.007] rho=[0.0326 0.0903 0.0239] R2=0.0090
+  B_first+B_pre  g_dev=[0.002 0.069] g_test=[0.004 0.072] rho=[0.0155 0.0212] R2=0.0005
+  e_tokc+e_tokc_LL g_dev=[0.012 0.026] g_test=[0.016 0.024] rho=[0.0196 0.0177] R2=0.0005
+-- world S_pre(0.25)  (rms planted 0.8375 vs noise 10.876)
+  e_tokc         g_dev=[0.] g_test=[0.001] rho=[0.0011] R2=0.0000 z_shuf=0.3 z_jperm=0.8
+  e_char         g_dev=[-0.001] g_test=[0.] rho=[0.0013] R2=-0.0000 z_shuf=0.9 z_jperm=0.8
+  B_bag          g_dev=[0.036] g_test=[0.05] rho=[0.0182] R2=0.0003 z_shuf=8.4 z_jperm=12.5
+  B_pre          g_dev=[0.254] g_test=[0.252] rho=[0.0639] R2=0.0041 z_shuf=39.7 z_jperm=36.9
+  e_tokc_LL      g_dev=[0.004] g_test=[0.003] rho=[0.0013] R2=0.0000 z_shuf=1.1 z_jperm=0.9
+  B_bag_LL       g_dev=[0.046] g_test=[0.054] rho=[0.0151] R2=0.0002 z_shuf=8.9 z_jperm=8.1
+  B_bag+B_pre    g_dev=[-0.004  0.256] g_test=[0.006 0.25 ] rho=[0.0179 0.0638] R2=0.0041
+  e_tokc+B_pre   g_dev=[-0.003  0.255] g_test=[-0.001  0.253] rho=[0.0059 0.0635] R2=0.0040
+  B_early+B_late+B_pre g_dev=[-0.001 -0.002  0.257] g_test=[0.003 0.004 0.245] rho=[0.035  0.0072 0.0638] R2=0.0041
+  B_first+B_pre  g_dev=[-0.001  0.258] g_test=[0.001 0.249] rho=[0.0307 0.0639] R2=0.0041
+  e_tokc+e_tokc_LL g_dev=[-0.003  0.007] g_test=[0.    0.002] rho=[-0.0011  0.0013] R2=0.0000
+-- world S_bag(1.0)  (rms planted 6.9048 vs noise 10.876)
+  e_tokc         g_dev=[0.107] g_test=[0.107] rho=[0.1104] R2=0.0122 z_shuf=47.5 z_jperm=34.8
+  e_char         g_dev=[0.014] g_test=[0.018] rho=[0.0301] R2=0.0008 z_shuf=15.5 z_jperm=14.2
+  B_bag          g_dev=[0.996] g_test=[1.006] rho=[0.3501] R2=0.1226 z_shuf=105.9 z_jperm=154.6
+  B_pre          g_dev=[0.301] g_test=[0.339] rho=[0.0772] R2=0.0059 z_shuf=52.8 z_jperm=30.0
+  e_tokc_LL      g_dev=[0.16] g_test=[0.161] rho=[0.0667] R2=0.0044 z_shuf=28.6 z_jperm=35.1
+  B_bag_LL       g_dev=[1.003] g_test=[1.004] rho=[0.2621] R2=0.0687 z_shuf=123.2 z_jperm=122.3
+  B_bag+B_pre    g_dev=[0.996 0.006] g_test=[ 1.006e+00 -3.887e-04] rho=[0.3501 0.0864] R2=0.1226
+  e_tokc+B_pre   g_dev=[0.103 0.289] g_test=[0.104 0.329] rho=[0.1156 0.0868] R2=0.0186
+  B_early+B_late+B_pre g_dev=[0.085 0.872 0.05 ] g_test=[0.086 0.892 0.041] rho=[0.1117 0.3291 0.0856] R2=0.1182
+  B_first+B_pre  g_dev=[0.012 0.254] g_test=[0.013 0.288] rho=[0.054  0.0764] R2=0.0062
+  e_tokc+e_tokc_LL g_dev=[0.062 0.099] g_test=[0.064 0.097] rho=[0.0798 0.0664] R2=0.0079
+-- world S_pre(1.0)  (rms planted 3.3501 vs noise 10.876)
+  e_tokc         g_dev=[0.01] g_test=[0.009] rho=[0.0096] R2=0.0001 z_shuf=5.3 z_jperm=3.3
+  e_char         g_dev=[-0.] g_test=[0.001] rho=[0.0031] R2=-0.0000 z_shuf=1.9 z_jperm=1.8
+  B_bag          g_dev=[0.151] g_test=[0.177] rho=[0.0627] R2=0.0039 z_shuf=27.8 z_jperm=31.5
+  B_pre          g_dev=[1.003] g_test=[1.002] rho=[0.2415] R2=0.0583 z_shuf=116.9 z_jperm=44.5
+  e_tokc_LL      g_dev=[0.02] g_test=[0.013] rho=[0.0064] R2=0.0000 z_shuf=3.2 z_jperm=3.1
+  B_bag_LL       g_dev=[0.176] g_test=[0.198] rho=[0.0536] R2=0.0028 z_shuf=21.7 z_jperm=22.9
+  B_bag+B_pre    g_dev=[-0.004  1.004] g_test=[0.006 1.   ] rho=[0.0614 0.2415] R2=0.0583
+  e_tokc+B_pre   g_dev=[-0.003  1.004] g_test=[-0.001  1.002] rho=[0.0285 0.2412] R2=0.0582
+  B_early+B_late+B_pre g_dev=[-8.882e-04 -2.739e-03  1.005e+00] g_test=[0.003 0.004 0.995] rho=[0.1249 0.0223 0.2415] R2=0.0583
+  B_first+B_pre  g_dev=[-9.359e-04  1.007e+00] g_test=[8.253e-04 9.986e-01] rho=[0.1135 0.2416] R2=0.0584
+  e_tokc+e_tokc_LL g_dev=[0.001 0.019] g_test=[0.005 0.008] rho=[0.0034 0.0064] R2=0.0000
+-- world S_early(1.0)  (rms planted 18.0049 vs noise 10.876)
+  e_tokc         g_dev=[0.065] g_test=[0.055] rho=[0.0348] R2=0.0012 z_shuf=16.6 z_jperm=13.4
+  e_char         g_dev=[0.014] g_test=[0.009] rho=[0.0093] R2=0.0001 z_shuf=5.5 z_jperm=4.0
+  B_bag          g_dev=[0.998] g_test=[1.006] rho=[0.1938] R2=0.0376 z_shuf=61.5 z_jperm=101.8
+  B_pre          g_dev=[2.524] g_test=[2.583] rho=[0.2999] R2=0.0900 z_shuf=115.8 z_jperm=51.3
+  e_tokc_LL      g_dev=[0.156] g_test=[0.113] rho=[0.0223] R2=0.0004 z_shuf=13.8 z_jperm=14.6
+  B_bag_LL       g_dev=[1.173] g_test=[1.167] rho=[0.1405] R2=0.0197 z_shuf=51.5 z_jperm=78.3
+  B_bag+B_pre    g_dev=[0.673 2.319] g_test=[0.641 2.364] rho=[0.1924 0.3038] R2=0.1073
+  e_tokc+B_pre   g_dev=[0.041 2.519] g_test=[0.033 2.579] rho=[0.067  0.3025] R2=0.0920
+  B_early+B_late+B_pre g_dev=[0.825 0.096 0.475] g_test=[0.827 0.082 0.453] rho=[0.5065 0.0459 0.297 ] R2=0.2590
+  B_first+B_pre  g_dev=[0.235 1.503] g_test=[0.233 1.577] rho=[0.314 0.289] R2=0.1237
+  e_tokc+e_tokc_LL g_dev=[0.026 0.13 ] g_test=[0.033 0.08 ] rho=[0.0179 0.0223] R2=0.0006
+-- world S_LL(1.0)  (rms planted 3.6324 vs noise 10.876)
+  e_tokc         g_dev=[0.404] g_test=[0.386] rho=[0.3942] R2=0.1554 z_shuf=93.9 z_jperm=68.3
+  e_char         g_dev=[0.008] g_test=[0.012] rho=[0.0186] R2=0.0003 z_shuf=10.7 z_jperm=9.0
+  B_bag          g_dev=[0.321] g_test=[0.32] rho=[0.1155] R2=0.0133 z_shuf=41.0 z_jperm=53.1
+  B_pre          g_dev=[0.094] g_test=[0.059] rho=[0.0171] R2=0.0003 z_shuf=6.5 z_jperm=6.0
+  e_tokc_LL      g_dev=[0.997] g_test=[0.998] rho=[0.3726] R2=0.1388 z_shuf=105.8 z_jperm=128.4
+  B_bag_LL       g_dev=[0.426] g_test=[0.417] rho=[0.1027] R2=0.0105 z_shuf=45.0 z_jperm=65.2
+  B_bag+B_pre    g_dev=[ 0.322 -0.001] g_test=[ 0.329 -0.052] rho=[0.1155 0.0211] R2=0.0133
+  e_tokc+B_pre   g_dev=[0.403 0.045] g_test=[0.386 0.021] rho=[0.395  0.0569] R2=0.1559
+  B_early+B_late+B_pre g_dev=[0.028 0.282 0.013] g_test=[ 0.025  0.293 -0.031] rho=[0.0303 0.1105 0.0208] R2=0.0128
+  B_first+B_pre  g_dev=[0.001 0.091] g_test=[0.003 0.048] rho=[0.0105 0.0171] R2=0.0003
+  e_tokc+e_tokc_LL g_dev=[-0.004  1.001] g_test=[-0.002  1.   ] rho=[0.1277 0.3726] R2=0.1389

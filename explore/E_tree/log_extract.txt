@@ -1,0 +1,14 @@
+L0 done 17s
+L2 done 17s
+L4 done 18s
+L6 done 17s
+L8 done 17s
+L10 done 17s
+L12 done 18s
+L16 done 18s
+L18 done 18s
+L20 done 18s
+L22 done 17s
+L24 done 17s
+L26 done 17s
+L28 done 18s

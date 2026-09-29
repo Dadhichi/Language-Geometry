@@ -69,3 +69,38 @@ methodological result that per-language PCA truncation manufactures non-composit
 3. Move the primary analysis to shared ambient coordinates: shift, then scalar gain, then (regularised) rotation.
 4. Decisive: TED n_fit=6000 > d, full-d ambient maps (A100): is R_ij ~= I after shift + gain? Does the small
    non-commuting rotation and the Hindi/Turkish anisotropy survive length-normalised pooling?
+
+# Pilots of IDEAS.md candidates 1-2 on the same 12-language data (2026-09-29; E_tree/, F_belief/)
+
+## E: tree symmetry / Haar (candidate 1) -- inconclusive, leaning unsupported
+Four metrics (Euclidean, LDA shrink .1/.5, Park causal IP from the real lm_head: diag(g) Cov(gamma) diag(g);
+unembedding + covariance saved in C:\Users\ASUS\Documents\lang-geom\). Unbiased dev x devtest Grams; NNLS tree fits
+on D^2; exact clade enumeration + 2000 relabellings; synthetic Brownian-on-tree validation (false positives 2-4%).
+- Power at 12 languages is low: 18-42% for a realistic internal-branch share; Park orthogonality 4-9%.
+- Mid-depth geometry is a STAR (per-language own-branch, set by fertility; Hindi far) explaining 51-83% of D^2;
+  Glottolog splits add 0.02-0.11 (p .07-.29); genealogy's unique share <= 0.015 at L4-22.
+- What survives token/script controls: {hin, jpn, tur} (head-final) is the best 3-set of 220 (p = 1/220) at L4-20
+  in all four metrics, 26-49% of the remaining misfit; runners-up add deu (OV). Replicates D post hoc (same data).
+- Decisive spec: 34 FLORES languages (nested IE incl. hin/urd/mar/pes; Semitic, Turkic, Finnic, Sinitic x2 scripts,
+  Austronesian, Austroasiatic, Dravidian; OV spread across families; same-language two-script pairs), analysis fixed
+  in advance (L8-20 averaged Gram, causal + LDA05, 1e4 relabellings, script clades as nuisance): power 80-86% at
+  c = 0.1. See E_tree/ report numbers in the session log.
+
+## F: belief simplex at sentence level (candidate 2) -- weak form supported, strong form inconclusive
+Offsets o_{i,s} = x_{i,s} - mean_i' x_{i',s} in the 11-d centroid span; instruments from text (shared-token /
+shared-char fractions; unigram naive-Bayes observer: bag vs cumulative-prefix posteriors); gain g fitted on dev with
+target-demeaning (removes generic shrinkage exactly) + controls, scored on devtest; synthetic worlds recover
+planted gains 0.25/1.00 and attribute bag vs prefix correctly.
+- Evidence-specific pull toward the right vertices at every layer (z = 10-120), gain 0.1-0.3 (not 1), largest L0-14.
+- L0 pull is pure bag (as predicted without context); from L4 a cumulative-prefix term (0.10-0.16 at L8-14) appears
+  beyond early-token position (Bayesian-like), but a context-free bag term (0.2-0.3) persists (non-Bayesian, or a
+  local-span language variable).
+- zho-jpn edge is the most belief-like: prefix pull 0.6-0.8 at L4-12 while the bag pull vanishes mid-depth.
+- Packing (vertex geometry ~ textual confusability) holds beyond script L0-24 (p <= .03); exception: eng-zho is the
+  closest pair at L4-26 despite no shared evidence -> a dominant-language axis (cf. Qwen's en+zh pretraining).
+- Sentence averaging hides the simplex interior (span holds 2-6% of sentence-specific offset energy mid-depth).
+- Decisive spec (A100, < 1 GPU-hour, ~10 GB): token-level FLORES devtest x 12 langs at 15 layers (128-d projection),
+  the model's own P(language | prefix) via 12 language-tag prompts, code-switch continua (8 pairs x 200 sentences x
+  11 switch points), word-swap mixtures p = 0..1, ambiguity probes. Tests: posterior-affine map beats one-hot and
+  token-identity baselines at ambiguous positions; post-switch paths stay on the A-B edge and follow the logistic of
+  the cumulative log-likelihood ratio under the natural-text map without refitting.

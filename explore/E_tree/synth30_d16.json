@@ -1,0 +1,122 @@
+[
+ {
+  "n": "12",
+  "world": "glotto",
+  "f": 0.05,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.22,
+  "power_script": 0.22,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "12",
+  "world": "glotto",
+  "f": 0.1,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.48,
+  "power_script": 0.48,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "12",
+  "world": "glotto",
+  "f": 0.2,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.9,
+  "power_script": 0.84,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "12",
+  "world": "script",
+  "f": 0.05,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.04,
+  "power_script": 0.04,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "12",
+  "world": "script",
+  "f": 0.1,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.04,
+  "power_script": 0.04,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "12",
+  "world": "script",
+  "f": 0.2,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.02,
+  "power_script": 0.04,
+  "hinurd_rank_p_median": null
+ },
+ {
+  "n": "34",
+  "world": "glotto",
+  "f": 0.05,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.1,
+  "power_script": 0.08,
+  "hinurd_rank_p_median": 0.17112299465240643
+ },
+ {
+  "n": "34",
+  "world": "glotto",
+  "f": 0.1,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.5,
+  "power_script": 0.5,
+  "hinurd_rank_p_median": 0.33333333333333337
+ },
+ {
+  "n": "34",
+  "world": "glotto",
+  "f": 0.2,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.98,
+  "power_script": 0.96,
+  "hinurd_rank_p_median": 0.1925133689839572
+ },
+ {
+  "n": "34",
+  "world": "script",
+  "f": 0.05,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.2,
+  "power_script": 0.12,
+  "hinurd_rank_p_median": 0.17379679144385027
+ },
+ {
+  "n": "34",
+  "world": "script",
+  "f": 0.1,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.16,
+  "power_script": 0.08,
+  "hinurd_rank_p_median": 0.16131907308377896
+ },
+ {
+  "n": "34",
+  "world": "script",
+  "f": 0.2,
+  "dim": 16,
+  "reps": 50,
+  "power_star": 0.38,
+  "power_script": 0.18,
+  "hinurd_rank_p_median": 1.0
+ }
+]

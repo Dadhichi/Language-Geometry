@@ -1,0 +1,2882 @@
+[
+ {
+  "star": 0.8768030484163303,
+  "star+fert": 0.8957294649674143,
+  "star+tok": 0.9168610525670963,
+  "star+glotto": 0.889790125429984,
+  "star+tok+fert": 0.9263928538304586,
+  "star+fert+glotto": 0.9086212845954758,
+  "all": 0.9328076717392253,
+  "uniq_tok": 0.024186387143749544,
+  "uniq_glotto": 0.006414817908766746,
+  "top_splits": [
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.629
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.542
+   ],
+   [
+    "{deu,fra,spa,tur,ind}",
+    0.433
+   ],
+   [
+    "{eng,rus,hin,arb,zho,jpn}",
+    0.329
+   ]
+  ],
+  "rank_IE": 387,
+  "gain_IE": 0.0025937130510905737,
+  "rank_Germ": 328,
+  "gain_Germ": 0.004913898872333067,
+  "rank_Rom": 61,
+  "gain_Rom": 0.08203677159613032,
+  "rank_SOV": 343,
+  "gain_SOV": 0.004276076101497384,
+  "rank_Latin": 2,
+  "gain_Latin": 0.5420041410730344,
+  "rank_Han": 305,
+  "gain_Han": 0.006570711566312171,
+  "rank_hin-tur": 1995,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.006642998273947467,
+  "park_eq_null": 0.035090658692305036,
+  "park_eq_p": 0.07796101949025487,
+  "layer": 0,
+  "metric": "euc"
+ },
+ {
+  "star": 0.9782172883109558,
+  "star+fert": 0.978266811196918,
+  "star+tok": 0.9854631784494575,
+  "star+glotto": 0.9791726803451699,
+  "star+tok+fert": 0.9854631784494575,
+  "star+fert+glotto": 0.9792309166661652,
+  "all": 0.9855663263465575,
+  "uniq_tok": 0.006335409680392257,
+  "uniq_glotto": 0.00010314789709997552,
+  "top_splits": [
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.714
+   ],
+   [
+    "{hin,arb,zho,jpn}",
+    0.464
+   ],
+   [
+    "{rus,hin,zho,jpn}",
+    0.44
+   ],
+   [
+    "{hin,zho,jpn}",
+    0.439
+   ]
+  ],
+  "rank_IE": 521,
+  "gain_IE": 0.0,
+  "rank_Germ": 520,
+  "gain_Germ": 0.0,
+  "rank_Rom": 254,
+  "gain_Rom": 0.007095629312179885,
+  "rank_SOV": 1983,
+  "gain_SOV": 0.0,
+  "rank_Latin": 1,
+  "gain_Latin": 0.7139689860145624,
+  "rank_Han": 12,
+  "gain_Han": 0.2577292923917417,
+  "rank_hin-tur": 1988,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.004042765480308312,
+  "park_eq_null": 0.03996336890349822,
+  "park_eq_p": 0.059470264867566215,
+  "layer": 0,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.9660021507182044,
+  "star+fert": 0.9662522710400788,
+  "star+tok": 0.9774729174993182,
+  "star+glotto": 0.967787100410251,
+  "star+tok+fert": 0.9774729174993182,
+  "star+fert+glotto": 0.9680569783430237,
+  "all": 0.9777459140842932,
+  "uniq_tok": 0.0096889357412695,
+  "uniq_glotto": 0.0002729965849750382,
+  "top_splits": [
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.754
+   ],
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.445
+   ],
+   [
+    "{hin,arb,zho,jpn}",
+    0.438
+   ],
+   [
+    "{rus,hin,zho,jpn}",
+    0.425
+   ]
+  ],
+  "rank_IE": 506,
+  "gain_IE": 0.0,
+  "rank_Germ": 505,
+  "gain_Germ": 0.0,
+  "rank_Rom": 222,
+  "gain_Rom": 0.01211859480546551,
+  "rank_SOV": 1980,
+  "gain_SOV": 0.0,
+  "rank_Latin": 1,
+  "gain_Latin": 0.7536700759858832,
+  "rank_Han": 40,
+  "gain_Han": 0.11274796465450376,
+  "rank_hin-tur": 1985,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.0021900303986225464,
+  "park_eq_null": 0.036738674938267095,
+  "park_eq_p": 0.02798600699650175,
+  "layer": 0,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.8791223606599738,
+  "star+fert": 0.8951818217778565,
+  "star+tok": 0.9161576250327679,
+  "star+glotto": 0.8903107489166651,
+  "star+tok+fert": 0.9222880078011834,
+  "star+fert+glotto": 0.9062140818946138,
+  "all": 0.9281246405558231,
+  "uniq_tok": 0.02191055866120928,
+  "uniq_glotto": 0.005836632754639748,
+  "top_splits": [
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.546
+   ],
+   [
+    "{deu,fra,spa,tur,ind}",
+    0.523
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.492
+   ],
+   [
+    "{eng,rus,hin,arb,zho,jpn}",
+    0.434
+   ]
+  ],
+  "rank_IE": 422,
+  "gain_IE": 0.001166406790310659,
+  "rank_Germ": 365,
+  "gain_Germ": 0.0027537225824306732,
+  "rank_Rom": 76,
+  "gain_Rom": 0.07242010327167736,
+  "rank_SOV": 484,
+  "gain_SOV": 0.00034988468845276177,
+  "rank_Latin": 3,
+  "gain_Latin": 0.4922674337132825,
+  "rank_Han": 519,
+  "gain_Han": 7.664234737447817e-05,
+  "rank_hin-tur": 1996,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.002759380166078677,
+  "park_eq_null": 0.036469302993139024,
+  "park_eq_p": 0.01649175412293853,
+  "layer": 0,
+  "metric": "causal"
+ },
+ {
+  "star": 0.8553841815050508,
+  "star+fert": 0.895236696660086,
+  "star+tok": 0.8887100565906632,
+  "star+glotto": 0.8627114953639672,
+  "star+tok+fert": 0.9153776788356092,
+  "star+fert+glotto": 0.9035957191609091,
+  "all": 0.9190441666424194,
+  "uniq_tok": 0.015448447481510308,
+  "uniq_glotto": 0.003666487806810226,
+  "top_splits": [
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.456
+   ],
+   [
+    "{rus,hin,arb,jpn,vie}",
+    0.363
+   ],
+   [
+    "{eng,deu,fra,spa,ind}",
+    0.291
+   ],
+   [
+    "{eng,deu,spa,tur,ind}",
+    0.257
+   ]
+  ],
+  "rank_IE": 690,
+  "gain_IE": 1.7388838603471513e-06,
+  "rank_Germ": 231,
+  "gain_Germ": 0.017652483149608655,
+  "rank_Rom": 199,
+  "gain_Rom": 0.0236957268071063,
+  "rank_SOV": 48,
+  "gain_SOV": 0.09926990318208795,
+  "rank_Latin": 10,
+  "gain_Latin": 0.2079000669012313,
+  "rank_Han": 2016,
+  "gain_Han": 0.0,
+  "rank_hin-tur": 114,
+  "gain_hin-tur": 0.047509836525821414,
+  "park_eq_meancos2": 0.00789292685710998,
+  "park_eq_null": 0.02799060847625817,
+  "park_eq_p": 0.11344327836081959,
+  "layer": 2,
+  "metric": "euc"
+ },
+ {
+  "star": 0.9433768645752336,
+  "star+fert": 0.9444964958371557,
+  "star+tok": 0.9624786477691363,
+  "star+glotto": 0.9458699503245827,
+  "star+tok+fert": 0.9628240182918749,
+  "star+fert+glotto": 0.9471536030096885,
+  "all": 0.9629586668893814,
+  "uniq_tok": 0.015805063879692827,
+  "uniq_glotto": 0.0001346485975064482,
+  "top_splits": [
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.619
+   ],
+   [
+    "{hin,arb,zho,jpn}",
+    0.541
+   ],
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.466
+   ],
+   [
+    "{hin,zho,jpn}",
+    0.373
+   ]
+  ],
+  "rank_IE": 518,
+  "gain_IE": 0.0,
+  "rank_Germ": 349,
+  "gain_Germ": 0.001852389494819362,
+  "rank_Rom": 386,
+  "gain_Rom": 0.000912322026901391,
+  "rank_SOV": 1983,
+  "gain_SOV": 0.0,
+  "rank_Latin": 1,
+  "gain_Latin": 0.6185417610009843,
+  "rank_Han": 5,
+  "gain_Han": 0.35499355301565094,
+  "rank_hin-tur": 1989,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.0005862035922444248,
+  "park_eq_null": 0.032353769322426625,
+  "park_eq_p": 0.0024987506246876563,
+  "layer": 2,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.9456739362713361,
+  "star+fert": 0.9484597961644824,
+  "star+tok": 0.9689739746361063,
+  "star+glotto": 0.9486072826379288,
+  "star+tok+fert": 0.9691140926249353,
+  "star+fert+glotto": 0.9515690407555734,
+  "all": 0.969134523344377,
+  "uniq_tok": 0.017565482588803638,
+  "uniq_glotto": 2.0430719441688616e-05,
+  "top_splits": [
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.631
+   ],
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.468
+   ],
+   [
+    "{hin,arb,zho,jpn}",
+    0.455
+   ],
+   [
+    "{rus,hin,arb,jpn}",
+    0.342
+   ]
+  ],
+  "rank_IE": 555,
+  "gain_IE": 0.0,
+  "rank_Germ": 554,
+  "gain_Germ": 0.0,
+  "rank_Rom": 434,
+  "gain_Rom": 0.0006614900185227812,
+  "rank_SOV": 331,
+  "gain_SOV": 0.0036805693005748097,
+  "rank_Latin": 1,
+  "gain_Latin": 0.6307232482305059,
+  "rank_Han": 19,
+  "gain_Han": 0.18551260076927834,
+  "rank_hin-tur": 1993,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.0009749642329981376,
+  "park_eq_null": 0.02544782342897793,
+  "park_eq_p": 0.005497251374312844,
+  "layer": 2,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.872437094685961,
+  "star+fert": 0.9086316879464027,
+  "star+tok": 0.899298197081041,
+  "star+glotto": 0.8799448754205825,
+  "star+tok+fert": 0.9249273371826062,
+  "star+fert+glotto": 0.91651293340062,
+  "all": 0.9281699449331534,
+  "uniq_tok": 0.011657011532533401,
+  "uniq_glotto": 0.0032426077505471884,
+  "top_splits": [
+   [
+    "{deu,hin,tur,ind}",
+    0.328
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.247
+   ],
+   [
+    "{hin,tur,ind}",
+    0.226
+   ],
+   [
+    "{deu,hin,tur}",
+    0.207
+   ]
+  ],
+  "rank_IE": 453,
+  "gain_IE": 0.00418065755066388,
+  "rank_Germ": 599,
+  "gain_Germ": 0.0007321616442820256,
+  "rank_Rom": 140,
+  "gain_Rom": 0.039715597273338954,
+  "rank_SOV": 10,
+  "gain_SOV": 0.16730286358140944,
+  "rank_Latin": 22,
+  "gain_Latin": 0.12292402450669582,
+  "rank_Han": 548,
+  "gain_Han": 0.0013888911735695508,
+  "rank_hin-tur": 15,
+  "gain_hin-tur": 0.15000468001545264,
+  "park_eq_meancos2": 0.010218300853608956,
+  "park_eq_null": 0.027856328986726988,
+  "park_eq_p": 0.175912043978011,
+  "layer": 2,
+  "metric": "causal"
+ },
+ {
+  "star": 0.8307820038468684,
+  "star+fert": 0.8933459627691278,
+  "star+tok": 0.8485771358224576,
+  "star+glotto": 0.8380828212207526,
+  "star+tok+fert": 0.9021168207614269,
+  "star+fert+glotto": 0.9012913089697648,
+  "all": 0.9063903644605695,
+  "uniq_tok": 0.005099055490804694,
+  "uniq_glotto": 0.004273543699142679,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.288
+   ],
+   [
+    "{hin,arb,jpn,tur,ind}",
+    0.287
+   ],
+   [
+    "{eng,deu,fra,spa,rus,zho}",
+    0.283
+   ],
+   [
+    "{hin,arb,tur,ind}",
+    0.277
+   ]
+  ],
+  "rank_IE": 383,
+  "gain_IE": 0.009293194985579123,
+  "rank_Germ": 475,
+  "gain_Germ": 0.004996181312991621,
+  "rank_Rom": 175,
+  "gain_Rom": 0.03364318134298783,
+  "rank_SOV": 1,
+  "gain_SOV": 0.2882913676569736,
+  "rank_Latin": 445,
+  "gain_Latin": 0.006173318361327396,
+  "rank_Han": 605,
+  "gain_Han": 0.0018350660076785763,
+  "rank_hin-tur": 12,
+  "gain_hin-tur": 0.20245410024604882,
+  "park_eq_meancos2": 0.008942179104976477,
+  "park_eq_null": 0.024478106088828434,
+  "park_eq_p": 0.18990504747626186,
+  "layer": 4,
+  "metric": "euc"
+ },
+ {
+  "star": 0.905315442032603,
+  "star+fert": 0.9131600639463063,
+  "star+tok": 0.9479612165619362,
+  "star+glotto": 0.9127311456945888,
+  "star+tok+fert": 0.9487809610982023,
+  "star+fert+glotto": 0.9209546193754358,
+  "all": 0.9495516171098675,
+  "uniq_tok": 0.028596997734431695,
+  "uniq_glotto": 0.0007706560116651495,
+  "top_splits": [
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.351
+   ],
+   [
+    "{hin,arb,zho,jpn}",
+    0.338
+   ],
+   [
+    "{hin,zho,jpn}",
+    0.291
+   ],
+   [
+    "{eng,deu,fra,spa,tur,ind}",
+    0.277
+   ]
+  ],
+  "rank_IE": 496,
+  "gain_IE": 0.0015007244291361799,
+  "rank_Germ": 689,
+  "gain_Germ": 0.0,
+  "rank_Rom": 228,
+  "gain_Rom": 0.01402687895529875,
+  "rank_SOV": 40,
+  "gain_SOV": 0.0820407225372749,
+  "rank_Latin": 1,
+  "gain_Latin": 0.35124539289191936,
+  "rank_Han": 5,
+  "gain_Han": 0.25936915459107324,
+  "rank_hin-tur": 149,
+  "gain_hin-tur": 0.024832501276543906,
+  "park_eq_meancos2": 0.001870417239322802,
+  "park_eq_null": 0.01735887809644211,
+  "park_eq_p": 0.01649175412293853,
+  "layer": 4,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.8999815147710026,
+  "star+fert": 0.9136923469281445,
+  "star+tok": 0.9392530298565125,
+  "star+glotto": 0.9092367615996708,
+  "star+tok+fert": 0.9426441944863928,
+  "star+fert+glotto": 0.923438863456812,
+  "all": 0.9455883635297053,
+  "uniq_tok": 0.02214950007289329,
+  "uniq_glotto": 0.0029441690433125167,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.229
+   ],
+   [
+    "{hin,arb,zho,jpn,tur}",
+    0.209
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.204
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.201
+   ]
+  ],
+  "rank_IE": 425,
+  "gain_IE": 0.004759925380684926,
+  "rank_Germ": 775,
+  "gain_Germ": 0.0,
+  "rank_Rom": 85,
+  "gain_Rom": 0.049439045192632536,
+  "rank_SOV": 3,
+  "gain_SOV": 0.20406407520034708,
+  "rank_Latin": 4,
+  "gain_Latin": 0.20076184813436293,
+  "rank_Han": 28,
+  "gain_Han": 0.10204808585320124,
+  "rank_hin-tur": 54,
+  "gain_hin-tur": 0.06931552632692672,
+  "park_eq_meancos2": 0.002375534023193321,
+  "park_eq_null": 0.013935205997159573,
+  "park_eq_p": 0.03698150924537731,
+  "layer": 4,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.8822869913415236,
+  "star+fert": 0.9086481310937468,
+  "star+tok": 0.8989774951693938,
+  "star+glotto": 0.892771990463489,
+  "star+tok+fert": 0.9170301228031719,
+  "star+fert+glotto": 0.9196535426181504,
+  "all": 0.9237228031609144,
+  "uniq_tok": 0.004069260542764019,
+  "uniq_glotto": 0.006692680357742509,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.366
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.355
+   ],
+   [
+    "{hin,tur}",
+    0.273
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.26
+   ]
+  ],
+  "rank_IE": 272,
+  "gain_IE": 0.018379087231450875,
+  "rank_Germ": 789,
+  "gain_Germ": 0.0,
+  "rank_Rom": 75,
+  "gain_Rom": 0.06944571726541726,
+  "rank_SOV": 1,
+  "gain_SOV": 0.36587804633419585,
+  "rank_Latin": 344,
+  "gain_Latin": 0.012355208632791714,
+  "rank_Han": 282,
+  "gain_Han": 0.016833250117103016,
+  "rank_hin-tur": 3,
+  "gain_hin-tur": 0.2731015456962299,
+  "park_eq_meancos2": 0.008983896251315805,
+  "park_eq_null": 0.025411425802780333,
+  "park_eq_p": 0.19390304847576212,
+  "layer": 4,
+  "metric": "causal"
+ },
+ {
+  "star": 0.7687468554832841,
+  "star+fert": 0.8398702003523965,
+  "star+tok": 0.7807916073677212,
+  "star+glotto": 0.7750392583751347,
+  "star+tok+fert": 0.84574032488058,
+  "star+fert+glotto": 0.8461497287062085,
+  "all": 0.8495473506976574,
+  "uniq_tok": 0.0033976219914488848,
+  "uniq_glotto": 0.0038070258170773696,
+  "top_splits": [
+   [
+    "{hin,arb,tur,ind}",
+    0.344
+   ],
+   [
+    "{hin,tur}",
+    0.341
+   ],
+   [
+    "{hin,tur,ind}",
+    0.314
+   ],
+   [
+    "{deu,hin,arb,tur,ind}",
+    0.3
+   ]
+  ],
+  "rank_IE": 584,
+  "gain_IE": 0.001813600231723722,
+  "rank_Germ": 497,
+  "gain_Germ": 0.004205406852049731,
+  "rank_Rom": 266,
+  "gain_Rom": 0.019748990357114526,
+  "rank_SOV": 12,
+  "gain_SOV": 0.254017554373161,
+  "rank_Latin": 759,
+  "gain_Latin": 2.5089440218062364e-05,
+  "rank_Han": 472,
+  "gain_Han": 0.005039991605403138,
+  "rank_hin-tur": 2,
+  "gain_hin-tur": 0.34105377436128015,
+  "park_eq_meancos2": 0.015066428077012636,
+  "park_eq_null": 0.04364459135656514,
+  "park_eq_p": 0.1904047976011994,
+  "layer": 6,
+  "metric": "euc"
+ },
+ {
+  "star": 0.8376984434931946,
+  "star+fert": 0.8543976058059759,
+  "star+tok": 0.9001202006494455,
+  "star+glotto": 0.8490777876079587,
+  "star+tok+fert": 0.9093538855837482,
+  "star+fert+glotto": 0.8663618126671118,
+  "all": 0.9097353222663598,
+  "uniq_tok": 0.04337350959924802,
+  "uniq_glotto": 0.00038143668261159114,
+  "top_splits": [
+   [
+    "{zho,jpn}",
+    0.382
+   ],
+   [
+    "{hin,zho,jpn}",
+    0.364
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.352
+   ],
+   [
+    "{hin,arb,zho,jpn,tur}",
+    0.235
+   ]
+  ],
+  "rank_IE": 418,
+  "gain_IE": 0.003321310180858572,
+  "rank_Germ": 716,
+  "gain_Germ": 0.0,
+  "rank_Rom": 532,
+  "gain_Rom": 0.001087819728983086,
+  "rank_SOV": 14,
+  "gain_SOV": 0.14713457534167051,
+  "rank_Latin": 7,
+  "gain_Latin": 0.17365528002897124,
+  "rank_Han": 1,
+  "gain_Han": 0.38186462383449615,
+  "rank_hin-tur": 77,
+  "gain_hin-tur": 0.0542178960015951,
+  "park_eq_meancos2": 0.0031100388994465063,
+  "park_eq_null": 0.01918704579305434,
+  "park_eq_p": 0.034482758620689655,
+  "layer": 6,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.8268035866719583,
+  "star+fert": 0.8563585059641289,
+  "star+tok": 0.8855417741079572,
+  "star+glotto": 0.8422351621666064,
+  "star+tok+fert": 0.9019718837589895,
+  "star+fert+glotto": 0.872449544336652,
+  "all": 0.9059861056145863,
+  "uniq_tok": 0.03353656127793425,
+  "uniq_glotto": 0.004014221855596745,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.321
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.288
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.264
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.249
+   ]
+  ],
+  "rank_IE": 344,
+  "gain_IE": 0.00866601866875627,
+  "rank_Germ": 770,
+  "gain_Germ": 0.0,
+  "rank_Rom": 147,
+  "gain_Rom": 0.03428927434560047,
+  "rank_SOV": 2,
+  "gain_SOV": 0.2882245205926772,
+  "rank_Latin": 41,
+  "gain_Latin": 0.08783385637061825,
+  "rank_Han": 20,
+  "gain_Han": 0.13257617570460378,
+  "rank_hin-tur": 19,
+  "gain_hin-tur": 0.1357326590175464,
+  "park_eq_meancos2": 0.003738470203053463,
+  "park_eq_null": 0.016730177352959272,
+  "park_eq_p": 0.05547226386806597,
+  "layer": 6,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.8221633918919218,
+  "star+fert": 0.8704034915760759,
+  "star+tok": 0.8409225213305137,
+  "star+glotto": 0.8348589973341005,
+  "star+tok+fert": 0.8818932236652549,
+  "star+fert+glotto": 0.8828359476936599,
+  "all": 0.8890946119492968,
+  "uniq_tok": 0.006258664255636925,
+  "uniq_glotto": 0.007201388284041932,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.374
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.354
+   ],
+   [
+    "{hin,tur}",
+    0.315
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.26
+   ]
+  ],
+  "rank_IE": 443,
+  "gain_IE": 0.006535048831301182,
+  "rank_Germ": 750,
+  "gain_Germ": 2.1862923611504215e-06,
+  "rank_Rom": 104,
+  "gain_Rom": 0.057488880483446136,
+  "rank_SOV": 2,
+  "gain_SOV": 0.35430706124220757,
+  "rank_Latin": 294,
+  "gain_Latin": 0.015091850109937965,
+  "rank_Han": 337,
+  "gain_Han": 0.011975760072518105,
+  "rank_hin-tur": 3,
+  "gain_hin-tur": 0.31464496622260785,
+  "park_eq_meancos2": 0.016388961551943197,
+  "park_eq_null": 0.03675966348417149,
+  "park_eq_p": 0.2613693153423288,
+  "layer": 6,
+  "metric": "causal"
+ },
+ {
+  "star": 0.7730100439972529,
+  "star+fert": 0.833925999783666,
+  "star+tok": 0.7805487511976212,
+  "star+glotto": 0.7781510876905164,
+  "star+tok+fert": 0.8374501245862246,
+  "star+fert+glotto": 0.8392824831657595,
+  "all": 0.840790470171555,
+  "uniq_tok": 0.0015079870057954636,
+  "uniq_glotto": 0.003340345585330362,
+  "top_splits": [
+   [
+    "{hin,tur}",
+    0.375
+   ],
+   [
+    "{deu,hin,tur}",
+    0.317
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.313
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.28
+   ]
+  ],
+  "rank_IE": 525,
+  "gain_IE": 0.004205234044790007,
+  "rank_Germ": 592,
+  "gain_Germ": 0.0023053458905203383,
+  "rank_Rom": 334,
+  "gain_Rom": 0.015819724021428505,
+  "rank_SOV": 4,
+  "gain_SOV": 0.27971638713472535,
+  "rank_Latin": 1946,
+  "gain_Latin": 0.0,
+  "rank_Han": 491,
+  "gain_Han": 0.005441958277114578,
+  "rank_hin-tur": 1,
+  "gain_hin-tur": 0.37462876881909324,
+  "park_eq_meancos2": 0.015078827319659788,
+  "park_eq_null": 0.04407552052948425,
+  "park_eq_p": 0.19990004997501248,
+  "layer": 8,
+  "metric": "euc"
+ },
+ {
+  "star": 0.8219399253655358,
+  "star+fert": 0.8461599374578042,
+  "star+tok": 0.8802043609413343,
+  "star+glotto": 0.8385046929961117,
+  "star+tok+fert": 0.8977527766165874,
+  "star+fert+glotto": 0.8638969767010998,
+  "all": 0.9009666266112901,
+  "uniq_tok": 0.03706964991019035,
+  "uniq_glotto": 0.0032138499947027555,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.389
+   ],
+   [
+    "{zho,jpn}",
+    0.298
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.262
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.255
+   ]
+  ],
+  "rank_IE": 172,
+  "gain_IE": 0.02253777698267745,
+  "rank_Germ": 625,
+  "gain_Germ": 0.0003442722594996228,
+  "rank_Rom": 283,
+  "gain_Rom": 0.01072104136299179,
+  "rank_SOV": 3,
+  "gain_SOV": 0.2622717896453076,
+  "rank_Latin": 40,
+  "gain_Latin": 0.08478118906620957,
+  "rank_Han": 2,
+  "gain_Han": 0.2978008435162529,
+  "rank_hin-tur": 26,
+  "gain_hin-tur": 0.11612344740672553,
+  "park_eq_meancos2": 0.004516728977728764,
+  "park_eq_null": 0.02012107078109721,
+  "park_eq_p": 0.0704647676161919,
+  "layer": 8,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.7899359463262591,
+  "star+fert": 0.8234937562558776,
+  "star+tok": 0.8465356743997134,
+  "star+glotto": 0.8108756525999311,
+  "star+tok+fert": 0.8689449026884273,
+  "star+fert+glotto": 0.8455581838050745,
+  "all": 0.8757909320525642,
+  "uniq_tok": 0.03023274824748967,
+  "uniq_glotto": 0.0068460293641369185,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.415
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.322
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.307
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.251
+   ]
+  ],
+  "rank_IE": 229,
+  "gain_IE": 0.020777830758620164,
+  "rank_Germ": 795,
+  "gain_Germ": 0.0,
+  "rank_Rom": 164,
+  "gain_Rom": 0.03434174397654588,
+  "rank_SOV": 1,
+  "gain_SOV": 0.4147762368018513,
+  "rank_Latin": 176,
+  "gain_Latin": 0.030340388299743615,
+  "rank_Han": 72,
+  "gain_Han": 0.069490207968252,
+  "rank_hin-tur": 5,
+  "gain_hin-tur": 0.2209349687961648,
+  "park_eq_meancos2": 0.00498922692727205,
+  "park_eq_null": 0.017865659958590952,
+  "park_eq_p": 0.1024487756121939,
+  "layer": 8,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.8341810015409115,
+  "star+fert": 0.861966188884814,
+  "star+tok": 0.8453985688247654,
+  "star+glotto": 0.8471127333291668,
+  "star+tok+fert": 0.8693295230378766,
+  "star+fert+glotto": 0.8749500656183291,
+  "all": 0.8781754518392054,
+  "uniq_tok": 0.003225386220876314,
+  "uniq_glotto": 0.00884592880132884,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.443
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.403
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.33
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.311
+   ]
+  ],
+  "rank_IE": 315,
+  "gain_IE": 0.013906548892425707,
+  "rank_Germ": 704,
+  "gain_Germ": 0.0003100355624083839,
+  "rank_Rom": 117,
+  "gain_Rom": 0.05871825444433598,
+  "rank_SOV": 2,
+  "gain_SOV": 0.403047523116449,
+  "rank_Latin": 639,
+  "gain_Latin": 0.0011441422411099245,
+  "rank_Han": 513,
+  "gain_Han": 0.003873544595565659,
+  "rank_hin-tur": 6,
+  "gain_hin-tur": 0.27885958314226866,
+  "park_eq_meancos2": 0.013150420540546864,
+  "park_eq_null": 0.03854870459858788,
+  "park_eq_p": 0.1809095452273863,
+  "layer": 8,
+  "metric": "causal"
+ },
+ {
+  "star": 0.738315983361955,
+  "star+fert": 0.8000278871023235,
+  "star+tok": 0.7471220020795453,
+  "star+glotto": 0.7464924633606103,
+  "star+tok+fert": 0.8038502796645814,
+  "star+fert+glotto": 0.8078667336530231,
+  "all": 0.8092287787022552,
+  "uniq_tok": 0.0013620450492320968,
+  "uniq_glotto": 0.005378499037673734,
+  "top_splits": [
+   [
+    "{hin,tur}",
+    0.398
+   ],
+   [
+    "{deu,hin,tur}",
+    0.363
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.353
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.299
+   ]
+  ],
+  "rank_IE": 541,
+  "gain_IE": 0.003526329404279105,
+  "rank_Germ": 703,
+  "gain_Germ": 0.000612840739362297,
+  "rank_Rom": 250,
+  "gain_Rom": 0.024758680523287557,
+  "rank_SOV": 4,
+  "gain_SOV": 0.2988146535321107,
+  "rank_Latin": 1952,
+  "gain_Latin": 0.0,
+  "rank_Han": 480,
+  "gain_Han": 0.006685880413996426,
+  "rank_hin-tur": 1,
+  "gain_hin-tur": 0.3978430801505748,
+  "park_eq_meancos2": 0.015572242568969588,
+  "park_eq_null": 0.044635441491879646,
+  "park_eq_p": 0.17791104447776113,
+  "layer": 10,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7806278317594484,
+  "star+fert": 0.8198531540989982,
+  "star+tok": 0.8353053651067456,
+  "star+glotto": 0.8050340940028311,
+  "star+tok+fert": 0.8668148500669021,
+  "star+fert+glotto": 0.8454541168470525,
+  "all": 0.8766122064674444,
+  "uniq_tok": 0.031158089620391904,
+  "uniq_glotto": 0.009797356400542356,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.433
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.344
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.3
+   ],
+   [
+    "{eng,deu,fra,spa,rus}",
+    0.253
+   ]
+  ],
+  "rank_IE": 169,
+  "gain_IE": 0.028721440644117524,
+  "rank_Germ": 321,
+  "gain_Germ": 0.010030279874169379,
+  "rank_Rom": 117,
+  "gain_Rom": 0.04230826805325172,
+  "rank_SOV": 2,
+  "gain_SOV": 0.3438456936819255,
+  "rank_Latin": 74,
+  "gain_Latin": 0.06911587645749706,
+  "rank_Han": 22,
+  "gain_Han": 0.15447680346723403,
+  "rank_hin-tur": 14,
+  "gain_hin-tur": 0.19210885237280773,
+  "park_eq_meancos2": 0.008415066784799143,
+  "park_eq_null": 0.02310802187579986,
+  "park_eq_p": 0.1344327836081959,
+  "layer": 10,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.7296222673159828,
+  "star+fert": 0.7729106295291821,
+  "star+tok": 0.7851881572331205,
+  "star+glotto": 0.7588955409096527,
+  "star+tok+fert": 0.8178194297735617,
+  "star+fert+glotto": 0.8030627648213503,
+  "all": 0.8286132088482816,
+  "uniq_tok": 0.025550444026931296,
+  "uniq_glotto": 0.0107937790747199,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.471
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.375
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.341
+   ],
+   [
+    "{hin,tur}",
+    0.304
+   ]
+  ],
+  "rank_IE": 258,
+  "gain_IE": 0.019061723335943692,
+  "rank_Germ": 797,
+  "gain_Germ": 0.0,
+  "rank_Rom": 147,
+  "gain_Rom": 0.04110472224121209,
+  "rank_SOV": 1,
+  "gain_SOV": 0.4711698409501456,
+  "rank_Latin": 237,
+  "gain_Latin": 0.02091703391435784,
+  "rank_Han": 196,
+  "gain_Han": 0.026669917178364755,
+  "rank_hin-tur": 4,
+  "gain_hin-tur": 0.30393379069214455,
+  "park_eq_meancos2": 0.0080510661304695,
+  "park_eq_null": 0.02174543645794374,
+  "park_eq_p": 0.15542228885557222,
+  "layer": 10,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.7893951516629633,
+  "star+fert": 0.8194392771844319,
+  "star+tok": 0.8002804175001587,
+  "star+glotto": 0.8036940852325248,
+  "star+tok+fert": 0.8256330256907565,
+  "star+fert+glotto": 0.833302612685474,
+  "all": 0.8356183928748686,
+  "uniq_tok": 0.0023157801893946006,
+  "uniq_glotto": 0.009985367184112137,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.445
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.443
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.333
+   ],
+   [
+    "{hin,tur}",
+    0.331
+   ]
+  ],
+  "rank_IE": 478,
+  "gain_IE": 0.004845773974921697,
+  "rank_Germ": 803,
+  "gain_Germ": 0.0,
+  "rank_Rom": 122,
+  "gain_Rom": 0.054547729992784455,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4428256031259127,
+  "rank_Latin": 570,
+  "gain_Latin": 0.0021614387531858625,
+  "rank_Han": 631,
+  "gain_Han": 0.0010930837948240901,
+  "rank_hin-tur": 4,
+  "gain_hin-tur": 0.3311792002976919,
+  "park_eq_meancos2": 0.01980195332245805,
+  "park_eq_null": 0.047666859420845864,
+  "park_eq_p": 0.22588705647176413,
+  "layer": 10,
+  "metric": "causal"
+ },
+ {
+  "star": 0.7420743870767703,
+  "star+fert": 0.8047164346774069,
+  "star+tok": 0.7495563970519956,
+  "star+glotto": 0.7498175977904644,
+  "star+tok+fert": 0.8079170715285517,
+  "star+fert+glotto": 0.8122257370023018,
+  "all": 0.8131459858504131,
+  "uniq_tok": 0.0009202488481112603,
+  "uniq_glotto": 0.005228914321861344,
+  "top_splits": [
+   [
+    "{hin,tur}",
+    0.41
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.402
+   ],
+   [
+    "{deu,hin,tur}",
+    0.382
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.333
+   ]
+  ],
+  "rank_IE": 579,
+  "gain_IE": 0.0028077640657229175,
+  "rank_Germ": 685,
+  "gain_Germ": 0.0009545809101308977,
+  "rank_Rom": 261,
+  "gain_Rom": 0.023848139087312314,
+  "rank_SOV": 4,
+  "gain_SOV": 0.3329295594316617,
+  "rank_Latin": 1946,
+  "gain_Latin": 0.0,
+  "rank_Han": 358,
+  "gain_Han": 0.013809741509946405,
+  "rank_hin-tur": 1,
+  "gain_hin-tur": 0.4101234361971251,
+  "park_eq_meancos2": 0.01706454213025187,
+  "park_eq_null": 0.0491434406838842,
+  "park_eq_p": 0.17891054472763618,
+  "layer": 12,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7630205061094641,
+  "star+fert": 0.8094902806123309,
+  "star+tok": 0.8123182766540602,
+  "star+glotto": 0.7855750891466913,
+  "star+tok+fert": 0.8510471372658878,
+  "star+fert+glotto": 0.8334414119682171,
+  "all": 0.8611183382625631,
+  "uniq_tok": 0.027676926294346038,
+  "uniq_glotto": 0.010071200996675356,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.435
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.338
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.323
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.252
+   ]
+  ],
+  "rank_IE": 178,
+  "gain_IE": 0.028558531585917257,
+  "rank_Germ": 312,
+  "gain_Germ": 0.010285459338386316,
+  "rank_Rom": 128,
+  "gain_Rom": 0.037288703392013955,
+  "rank_SOV": 2,
+  "gain_SOV": 0.3375393554656494,
+  "rank_Latin": 96,
+  "gain_Latin": 0.05294258379967598,
+  "rank_Han": 14,
+  "gain_Han": 0.18182447332992036,
+  "rank_hin-tur": 16,
+  "gain_hin-tur": 0.1788157645225098,
+  "park_eq_meancos2": 0.009401722165994799,
+  "park_eq_null": 0.026339699651493596,
+  "park_eq_p": 0.1359320339830085,
+  "layer": 12,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.6961795781013038,
+  "star+fert": 0.7571003545669918,
+  "star+tok": 0.7492555216132262,
+  "star+glotto": 0.7233010803690274,
+  "star+tok+fert": 0.7999732430058024,
+  "star+fert+glotto": 0.7850123746789528,
+  "all": 0.8092774114524731,
+  "uniq_tok": 0.02426503677352032,
+  "uniq_glotto": 0.009304168446670702,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.443
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.394
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.359
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.331
+   ]
+  ],
+  "rank_IE": 251,
+  "gain_IE": 0.01791310410996594,
+  "rank_Germ": 786,
+  "gain_Germ": 8.737519145984862e-06,
+  "rank_Rom": 182,
+  "gain_Rom": 0.02854336198255636,
+  "rank_SOV": 1,
+  "gain_SOV": 0.44296313544220145,
+  "rank_Latin": 309,
+  "gain_Latin": 0.012711010059954675,
+  "rank_Han": 125,
+  "gain_Han": 0.04798201634521837,
+  "rank_hin-tur": 7,
+  "gain_hin-tur": 0.24715846560759425,
+  "park_eq_meancos2": 0.009124242268312583,
+  "park_eq_null": 0.025555465108921444,
+  "park_eq_p": 0.13493253373313344,
+  "layer": 12,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.7590027253322464,
+  "star+fert": 0.8067578575834203,
+  "star+tok": 0.7661189674942487,
+  "star+glotto": 0.769419671341889,
+  "star+tok+fert": 0.8098466492587737,
+  "star+fert+glotto": 0.8163401074164175,
+  "all": 0.8172311696081926,
+  "uniq_tok": 0.0008910621917751493,
+  "uniq_glotto": 0.007384520349418944,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.466
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.422
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.393
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.326
+   ]
+  ],
+  "rank_IE": 569,
+  "gain_IE": 0.0023535730525738874,
+  "rank_Germ": 793,
+  "gain_Germ": 2.3324310930439296e-06,
+  "rank_Rom": 177,
+  "gain_Rom": 0.03749664942090014,
+  "rank_SOV": 2,
+  "gain_SOV": 0.42155474712883634,
+  "rank_Latin": 668,
+  "gain_Latin": 0.0006761696432466824,
+  "rank_Han": 564,
+  "gain_Han": 0.0025663544971673558,
+  "rank_hin-tur": 5,
+  "gain_hin-tur": 0.3108322089193195,
+  "park_eq_meancos2": 0.027729528319765488,
+  "park_eq_null": 0.06247722036388643,
+  "park_eq_p": 0.2538730634682659,
+  "layer": 12,
+  "metric": "causal"
+ },
+ {
+  "star": 0.7329358570788946,
+  "star+fert": 0.7944025560502666,
+  "star+tok": 0.7419743427980208,
+  "star+glotto": 0.7411063905608728,
+  "star+tok+fert": 0.7987200848545133,
+  "star+fert+glotto": 0.8022490130218501,
+  "all": 0.8038405318223809,
+  "uniq_tok": 0.0015915188005307668,
+  "uniq_glotto": 0.00512044696786762,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.432
+   ],
+   [
+    "{hin,tur}",
+    0.412
+   ],
+   [
+    "{deu,hin,tur}",
+    0.377
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.371
+   ]
+  ],
+  "rank_IE": 590,
+  "gain_IE": 0.002571965931839726,
+  "rank_Germ": 744,
+  "gain_Germ": 0.0003402333831236115,
+  "rank_Rom": 267,
+  "gain_Rom": 0.022364564986035784,
+  "rank_SOV": 4,
+  "gain_SOV": 0.37123024459303,
+  "rank_Latin": 1947,
+  "gain_Latin": 0.0,
+  "rank_Han": 249,
+  "gain_Han": 0.026358790674413157,
+  "rank_hin-tur": 2,
+  "gain_hin-tur": 0.4123742790757666,
+  "park_eq_meancos2": 0.017626315062240435,
+  "park_eq_null": 0.05001277498495715,
+  "park_eq_p": 0.16591704147926037,
+  "layer": 14,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7664391990557265,
+  "star+fert": 0.799214133009634,
+  "star+tok": 0.813537879516021,
+  "star+glotto": 0.7871425007754328,
+  "star+tok+fert": 0.8398476500100598,
+  "star+fert+glotto": 0.8215712889609271,
+  "all": 0.8495439900571029,
+  "uniq_tok": 0.02797270109617578,
+  "uniq_glotto": 0.009696340047043117,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.486
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.349
+   ],
+   [
+    "{zho,jpn}",
+    0.322
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.272
+   ]
+  ],
+  "rank_IE": 148,
+  "gain_IE": 0.033959352859548875,
+  "rank_Germ": 320,
+  "gain_Germ": 0.00919643617856336,
+  "rank_Rom": 172,
+  "gain_Rom": 0.02557191212734855,
+  "rank_SOV": 4,
+  "gain_SOV": 0.272175784555749,
+  "rank_Latin": 92,
+  "gain_Latin": 0.05187075075293612,
+  "rank_Han": 3,
+  "gain_Han": 0.3217257340323908,
+  "rank_hin-tur": 23,
+  "gain_hin-tur": 0.14810391072954243,
+  "park_eq_meancos2": 0.00968430488228573,
+  "park_eq_null": 0.029219200300583257,
+  "park_eq_p": 0.12193903048475763,
+  "layer": 14,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.6871737837037183,
+  "star+fert": 0.7436819792716112,
+  "star+tok": 0.7425847563731593,
+  "star+glotto": 0.7135738770696007,
+  "star+tok+fert": 0.7889524903853073,
+  "star+fert+glotto": 0.7713144321946337,
+  "all": 0.7976170712381333,
+  "uniq_tok": 0.02630263904349961,
+  "uniq_glotto": 0.008664580852825954,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.428
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.392
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.37
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.336
+   ]
+  ],
+  "rank_IE": 209,
+  "gain_IE": 0.02295892429191282,
+  "rank_Germ": 463,
+  "gain_Germ": 0.004105996052164551,
+  "rank_Rom": 236,
+  "gain_Rom": 0.018678095071249068,
+  "rank_SOV": 2,
+  "gain_SOV": 0.3922889460318081,
+  "rank_Latin": 298,
+  "gain_Latin": 0.011829040181336126,
+  "rank_Han": 30,
+  "gain_Han": 0.12975919330290842,
+  "rank_hin-tur": 11,
+  "gain_hin-tur": 0.21152241615164458,
+  "park_eq_meancos2": 0.00999680787125418,
+  "park_eq_null": 0.02788516981124631,
+  "park_eq_p": 0.1344327836081959,
+  "layer": 14,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.722322235818448,
+  "star+fert": 0.7746031285750223,
+  "star+tok": 0.7316222138711637,
+  "star+glotto": 0.7352987994112063,
+  "star+tok+fert": 0.7790810376052073,
+  "star+fert+glotto": 0.7865279840637358,
+  "all": 0.7880587442203754,
+  "uniq_tok": 0.0015307601566395546,
+  "uniq_glotto": 0.008977706615168057,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.48
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.447
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.395
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.325
+   ]
+  ],
+  "rank_IE": 559,
+  "gain_IE": 0.002621579184104661,
+  "rank_Germ": 790,
+  "gain_Germ": 0.0,
+  "rank_Rom": 166,
+  "gain_Rom": 0.03934346454619142,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4467214551481439,
+  "rank_Latin": 661,
+  "gain_Latin": 0.0005921006423019737,
+  "rank_Han": 390,
+  "gain_Han": 0.00863628323855814,
+  "rank_hin-tur": 5,
+  "gain_hin-tur": 0.3009864752606912,
+  "park_eq_meancos2": 0.026681436723325867,
+  "park_eq_null": 0.06281673762483855,
+  "park_eq_p": 0.22588705647176413,
+  "layer": 14,
+  "metric": "causal"
+ },
+ {
+  "star": 0.702358479666817,
+  "star+fert": 0.764724769343429,
+  "star+tok": 0.7117091778293059,
+  "star+glotto": 0.7123850726632137,
+  "star+tok+fert": 0.7692250785463534,
+  "star+fert+glotto": 0.7744833261243206,
+  "all": 0.7759778430696758,
+  "uniq_tok": 0.0014945169453551843,
+  "uniq_glotto": 0.006752764523322408,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.462
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.432
+   ],
+   [
+    "{hin,tur}",
+    0.392
+   ],
+   [
+    "{deu,hin,tur}",
+    0.356
+   ]
+  ],
+  "rank_IE": 514,
+  "gain_IE": 0.00460344606743357,
+  "rank_Germ": 744,
+  "gain_Germ": 0.00033530967239625564,
+  "rank_Rom": 246,
+  "gain_Rom": 0.025306191122271837,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4315360508211108,
+  "rank_Latin": 1946,
+  "gain_Latin": 0.0,
+  "rank_Han": 342,
+  "gain_Han": 0.015244425605239753,
+  "rank_hin-tur": 3,
+  "gain_hin-tur": 0.39158441773970076,
+  "park_eq_meancos2": 0.017458820023148938,
+  "park_eq_null": 0.04955733590362219,
+  "park_eq_p": 0.14992503748125938,
+  "layer": 16,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7545151125305893,
+  "star+fert": 0.7785623959248106,
+  "star+tok": 0.7965434652022602,
+  "star+glotto": 0.7733421947078898,
+  "star+tok+fert": 0.8151899743815946,
+  "star+fert+glotto": 0.7990352362247216,
+  "all": 0.8247369134827528,
+  "uniq_tok": 0.025701677258031186,
+  "uniq_glotto": 0.009546939101158225,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.646
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.401
+   ],
+   [
+    "{hin,zho,jpn,tur,vie}",
+    0.35
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.336
+   ]
+  ],
+  "rank_IE": 172,
+  "gain_IE": 0.028334391359920996,
+  "rank_Germ": 308,
+  "gain_Germ": 0.009383567632799461,
+  "rank_Rom": 198,
+  "gain_Rom": 0.02128650291976375,
+  "rank_SOV": 4,
+  "gain_SOV": 0.33585574605571467,
+  "rank_Latin": 123,
+  "gain_Latin": 0.04331303614095661,
+  "rank_Han": 9,
+  "gain_Han": 0.29964207609687377,
+  "rank_hin-tur": 30,
+  "gain_hin-tur": 0.1335795768465995,
+  "park_eq_meancos2": 0.01057880180623976,
+  "park_eq_null": 0.0330265094888228,
+  "park_eq_p": 0.12443778110944528,
+  "layer": 16,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.6680032568755647,
+  "star+fert": 0.716261674232533,
+  "star+tok": 0.7214940029568252,
+  "star+glotto": 0.6943254456561094,
+  "star+tok+fert": 0.7613241765396472,
+  "star+fert+glotto": 0.7437919217822684,
+  "all": 0.7709713515794907,
+  "uniq_tok": 0.02717942979722232,
+  "uniq_glotto": 0.00964717503984347,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.546
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.477
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.409
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.34
+   ]
+  ],
+  "rank_IE": 220,
+  "gain_IE": 0.021120357549734292,
+  "rank_Germ": 453,
+  "gain_Germ": 0.003478086041130868,
+  "rank_Rom": 232,
+  "gain_Rom": 0.019896529692683185,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4765036689386719,
+  "rank_Latin": 339,
+  "gain_Latin": 0.009295007710299896,
+  "rank_Han": 45,
+  "gain_Han": 0.11398291132312788,
+  "rank_hin-tur": 14,
+  "gain_hin-tur": 0.20078187607654285,
+  "park_eq_meancos2": 0.010241933668269787,
+  "park_eq_null": 0.029020174428466272,
+  "park_eq_p": 0.13543228385807096,
+  "layer": 16,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.6743573835384303,
+  "star+fert": 0.7335539413486434,
+  "star+tok": 0.6867932454187513,
+  "star+glotto": 0.6917587904345854,
+  "star+tok+fert": 0.7403083690532268,
+  "star+fert+glotto": 0.7497982964588671,
+  "all": 0.7523009321517888,
+  "uniq_tok": 0.002502635692921751,
+  "uniq_glotto": 0.011992563098562004,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.482
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.459
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.405
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.327
+   ]
+  ],
+  "rank_IE": 459,
+  "gain_IE": 0.004968974952995198,
+  "rank_Germ": 788,
+  "gain_Germ": 0.0,
+  "rank_Rom": 147,
+  "gain_Rom": 0.04358063898751563,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4585150988476767,
+  "rank_Latin": 592,
+  "gain_Latin": 0.0014397569781435804,
+  "rank_Han": 470,
+  "gain_Han": 0.004595633119239939,
+  "rank_hin-tur": 14,
+  "gain_hin-tur": 0.2393132575209057,
+  "park_eq_meancos2": 0.02759814801944997,
+  "park_eq_null": 0.061128391330454473,
+  "park_eq_p": 0.21539230384807595,
+  "layer": 16,
+  "metric": "causal"
+ },
+ {
+  "star": 0.6868326844072479,
+  "star+fert": 0.765810562494268,
+  "star+tok": 0.697490760935097,
+  "star+glotto": 0.6964866350053815,
+  "star+tok+fert": 0.7696270248607754,
+  "star+fert+glotto": 0.774951057229868,
+  "all": 0.7761748040708258,
+  "uniq_tok": 0.001223746840957829,
+  "uniq_glotto": 0.006547779210050453,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.443
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.441
+   ],
+   [
+    "{hin,tur}",
+    0.327
+   ],
+   [
+    "{deu,hin,tur}",
+    0.299
+   ]
+  ],
+  "rank_IE": 556,
+  "gain_IE": 0.003929820630694025,
+  "rank_Germ": 658,
+  "gain_Germ": 0.0014359939156192159,
+  "rank_Rom": 246,
+  "gain_Rom": 0.02496641459893245,
+  "rank_SOV": 1,
+  "gain_SOV": 0.44266063993299454,
+  "rank_Latin": 1948,
+  "gain_Latin": 0.0,
+  "rank_Han": 203,
+  "gain_Han": 0.032449205254263425,
+  "rank_hin-tur": 3,
+  "gain_hin-tur": 0.3272416832202061,
+  "park_eq_meancos2": 0.01824558255321455,
+  "park_eq_null": 0.04694754316164967,
+  "park_eq_p": 0.1889055472263868,
+  "layer": 18,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7902847881046036,
+  "star+fert": 0.8243929360061241,
+  "star+tok": 0.8256682329779967,
+  "star+glotto": 0.8021852350013072,
+  "star+tok+fert": 0.8536726158857137,
+  "star+fert+glotto": 0.8373610248919483,
+  "all": 0.858471741254924,
+  "uniq_tok": 0.02111071636297568,
+  "uniq_glotto": 0.004799125369210233,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.64
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.37
+   ],
+   [
+    "{hin,zho,jpn}",
+    0.346
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.328
+   ]
+  ],
+  "rank_IE": 235,
+  "gain_IE": 0.015550062551772936,
+  "rank_Germ": 365,
+  "gain_Germ": 0.005753589821329896,
+  "rank_Rom": 234,
+  "gain_Rom": 0.01568163974868586,
+  "rank_SOV": 4,
+  "gain_SOV": 0.3281017703243392,
+  "rank_Latin": 126,
+  "gain_Latin": 0.04217449104734983,
+  "rank_Han": 8,
+  "gain_Han": 0.29227030373637786,
+  "rank_hin-tur": 54,
+  "gain_hin-tur": 0.09503749258408778,
+  "park_eq_meancos2": 0.010679925345587798,
+  "park_eq_null": 0.031142117130185193,
+  "park_eq_p": 0.15542228885557222,
+  "layer": 18,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.6967835595923484,
+  "star+fert": 0.7521506197564188,
+  "star+tok": 0.747940155557354,
+  "star+glotto": 0.7173008454238466,
+  "star+tok+fert": 0.7921032231265054,
+  "star+fert+glotto": 0.7733726962532687,
+  "all": 0.7977216698914278,
+  "uniq_tok": 0.024348973638159133,
+  "uniq_glotto": 0.005618446764922402,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.581
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.455
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.386
+   ],
+   [
+    "{eng,hin,zho,jpn,tur}",
+    0.33
+   ]
+  ],
+  "rank_IE": 279,
+  "gain_IE": 0.013267592036426246,
+  "rank_Germ": 507,
+  "gain_Germ": 0.0022625055665984606,
+  "rank_Rom": 265,
+  "gain_Rom": 0.014349419474830816,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4547895099734798,
+  "rank_Latin": 320,
+  "gain_Latin": 0.009741489596521213,
+  "rank_Han": 35,
+  "gain_Han": 0.13247059671219497,
+  "rank_hin-tur": 34,
+  "gain_hin-tur": 0.1360018559416274,
+  "park_eq_meancos2": 0.009356224650506574,
+  "park_eq_null": 0.026431599549824113,
+  "park_eq_p": 0.1454272863568216,
+  "layer": 18,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.6377355231586199,
+  "star+fert": 0.7167672963165046,
+  "star+tok": 0.649915255687523,
+  "star+glotto": 0.652504371023368,
+  "star+tok+fert": 0.7212140755465288,
+  "star+fert+glotto": 0.7300526544132271,
+  "all": 0.7312950147061253,
+  "uniq_tok": 0.0012423602928982591,
+  "uniq_glotto": 0.010080939159596514,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.459
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.447
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.387
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.344
+   ]
+  ],
+  "rank_IE": 532,
+  "gain_IE": 0.0027476548069357287,
+  "rank_Germ": 716,
+  "gain_Germ": 0.0001643904626249526,
+  "rank_Rom": 180,
+  "gain_Rom": 0.0348588293426203,
+  "rank_SOV": 1,
+  "gain_SOV": 0.4586980667126268,
+  "rank_Latin": 659,
+  "gain_Latin": 0.0005554226623610825,
+  "rank_Han": 419,
+  "gain_Han": 0.006925156675473887,
+  "rank_hin-tur": 19,
+  "gain_hin-tur": 0.21213095067254273,
+  "park_eq_meancos2": 0.03131696664797564,
+  "park_eq_null": 0.06372860442878067,
+  "park_eq_p": 0.2653673163418291,
+  "layer": 18,
+  "metric": "causal"
+ },
+ {
+  "star": 0.5461997432063548,
+  "star+fert": 0.6480976522701722,
+  "star+tok": 0.5731499266552861,
+  "star+glotto": 0.5658960933440429,
+  "star+tok+fert": 0.6575435344279857,
+  "star+fert+glotto": 0.6678350119440537,
+  "all": 0.6711646131535367,
+  "uniq_tok": 0.003329601209483002,
+  "uniq_glotto": 0.013621078725550961,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.449
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.446
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.321
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.277
+   ]
+  ],
+  "rank_IE": 433,
+  "gain_IE": 0.008346144579776449,
+  "rank_Germ": 623,
+  "gain_Germ": 0.001935812374931789,
+  "rank_Rom": 197,
+  "gain_Rom": 0.03325300516547691,
+  "rank_SOV": 2,
+  "gain_SOV": 0.4458370099555088,
+  "rank_Latin": 1950,
+  "gain_Latin": 0.0,
+  "rank_Han": 242,
+  "gain_Han": 0.02548024013085659,
+  "rank_hin-tur": 5,
+  "gain_hin-tur": 0.2719453917467328,
+  "park_eq_meancos2": 0.012002637284335479,
+  "park_eq_null": 0.03179427080858282,
+  "park_eq_p": 0.1744127936031984,
+  "layer": 20,
+  "metric": "euc"
+ },
+ {
+  "star": 0.7576358932508158,
+  "star+fert": 0.7734136213638168,
+  "star+tok": 0.8274812478071024,
+  "star+glotto": 0.7851603141632357,
+  "star+tok+fert": 0.8387864248670409,
+  "star+fert+glotto": 0.8010261013589791,
+  "all": 0.8438278156023296,
+  "uniq_tok": 0.04280171424335044,
+  "uniq_glotto": 0.005041390735288642,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.489
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.419
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.409
+   ],
+   [
+    "{eng,fra,spa,arb,vie,ind}",
+    0.36
+   ]
+  ],
+  "rank_IE": 416,
+  "gain_IE": 0.004474391284165713,
+  "rank_Germ": 425,
+  "gain_Germ": 0.00403857724996648,
+  "rank_Rom": 205,
+  "gain_Rom": 0.022611691351875796,
+  "rank_SOV": 3,
+  "gain_SOV": 0.4087917213706713,
+  "rank_Latin": 130,
+  "gain_Latin": 0.042562227344418946,
+  "rank_Han": 53,
+  "gain_Han": 0.09841733920066864,
+  "rank_hin-tur": 36,
+  "gain_hin-tur": 0.12122554396066643,
+  "park_eq_meancos2": 0.003667220042087745,
+  "park_eq_null": 0.015717901369719105,
+  "park_eq_p": 0.03548225887056472,
+  "layer": 20,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.6545025851514871,
+  "star+fert": 0.6839007702274453,
+  "star+tok": 0.7392688925189193,
+  "star+glotto": 0.6905704606041139,
+  "star+tok+fert": 0.7523661786513114,
+  "star+fert+glotto": 0.7202659198221704,
+  "all": 0.7652926305861831,
+  "uniq_tok": 0.04502671076401277,
+  "uniq_glotto": 0.012926451934871741,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.489
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.451
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.382
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.381
+   ]
+  ],
+  "rank_IE": 391,
+  "gain_IE": 0.0070853785287758875,
+  "rank_Germ": 772,
+  "gain_Germ": 0.0,
+  "rank_Rom": 132,
+  "gain_Rom": 0.04736735026337868,
+  "rank_SOV": 1,
+  "gain_SOV": 0.4889362385797207,
+  "rank_Latin": 225,
+  "gain_Latin": 0.023677754529118467,
+  "rank_Han": 131,
+  "gain_Han": 0.04737286137530705,
+  "rank_hin-tur": 14,
+  "gain_hin-tur": 0.18326042752716543,
+  "park_eq_meancos2": 0.005114070082239621,
+  "park_eq_null": 0.01588702430182749,
+  "park_eq_p": 0.08845577211394302,
+  "layer": 20,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.5067799625934721,
+  "star+fert": 0.593961989783417,
+  "star+tok": 0.5383280594595186,
+  "star+glotto": 0.5310654563957852,
+  "star+tok+fert": 0.6082312339626013,
+  "star+fert+glotto": 0.6176268399481574,
+  "all": 0.6237127370621014,
+  "uniq_tok": 0.006085897113944028,
+  "uniq_glotto": 0.015481503099500138,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.435
+   ],
+   [
+    "{deu,hin,jpn,tur}",
+    0.419
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.381
+   ],
+   [
+    "{hin,jpn,tur,ind}",
+    0.326
+   ]
+  ],
+  "rank_IE": 422,
+  "gain_IE": 0.006703066391053003,
+  "rank_Germ": 703,
+  "gain_Germ": 0.00021645309172091398,
+  "rank_Rom": 183,
+  "gain_Rom": 0.035396599907236315,
+  "rank_SOV": 1,
+  "gain_SOV": 0.43451824902767033,
+  "rank_Latin": 556,
+  "gain_Latin": 0.002229902121069771,
+  "rank_Han": 335,
+  "gain_Han": 0.012096243916359883,
+  "rank_hin-tur": 19,
+  "gain_hin-tur": 0.22226892295365708,
+  "park_eq_meancos2": 0.020357564889300264,
+  "park_eq_null": 0.044116780715670816,
+  "park_eq_p": 0.23638180909545228,
+  "layer": 20,
+  "metric": "causal"
+ },
+ {
+  "star": 0.515036386573579,
+  "star+fert": 0.6666135044990287,
+  "star+tok": 0.5615355610195787,
+  "star+glotto": 0.5425361316528581,
+  "star+tok+fert": 0.6736908961538144,
+  "star+fert+glotto": 0.6939229606013217,
+  "all": 0.6953160400308531,
+  "uniq_tok": 0.0013930794295313742,
+  "uniq_glotto": 0.021625143877038733,
+  "top_splits": [
+   [
+    "{deu,hin,jpn,tur}",
+    0.287
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.24
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.233
+   ],
+   [
+    "{eng,fra,spa,zho,vie,ind}",
+    0.232
+   ]
+  ],
+  "rank_IE": 259,
+  "gain_IE": 0.022957008409610014,
+  "rank_Germ": 700,
+  "gain_Germ": 0.0006690521368658553,
+  "rank_Rom": 131,
+  "gain_Rom": 0.04974089409791427,
+  "rank_SOV": 2,
+  "gain_SOV": 0.24009237892111623,
+  "rank_Latin": 611,
+  "gain_Latin": 0.0017702187037461625,
+  "rank_Han": 90,
+  "gain_Han": 0.06838286026679163,
+  "rank_hin-tur": 18,
+  "gain_hin-tur": 0.16188455161291304,
+  "park_eq_meancos2": 0.012901610087876558,
+  "park_eq_null": 0.027403796560992677,
+  "park_eq_p": 0.23388305847076463,
+  "layer": 22,
+  "metric": "euc"
+ },
+ {
+  "star": 0.8275641205113045,
+  "star+fert": 0.8414908466688872,
+  "star+tok": 0.8836374697258562,
+  "star+glotto": 0.8527587598044122,
+  "star+tok+fert": 0.8883395698951838,
+  "star+fert+glotto": 0.8666274869197759,
+  "all": 0.8985468631808627,
+  "uniq_tok": 0.031919376261086874,
+  "uniq_glotto": 0.010207293285678931,
+  "top_splits": [
+   [
+    "{hin,zho,jpn,tur}",
+    0.255
+   ],
+   [
+    "{hin,arb,zho,jpn,tur}",
+    0.218
+   ],
+   [
+    "{hin,jpn,tur}",
+    0.215
+   ],
+   [
+    "{deu,hin,zho,jpn,tur}",
+    0.211
+   ]
+  ],
+  "rank_IE": 454,
+  "gain_IE": 0.004837427516717452,
+  "rank_Germ": 794,
+  "gain_Germ": 0.0,
+  "rank_Rom": 41,
+  "gain_Rom": 0.08938633368865978,
+  "rank_SOV": 3,
+  "gain_SOV": 0.2153979650393646,
+  "rank_Latin": 39,
+  "gain_Latin": 0.09074531622249249,
+  "rank_Han": 48,
+  "gain_Han": 0.07904748013078522,
+  "rank_hin-tur": 38,
+  "gain_hin-tur": 0.09335409854399457,
+  "park_eq_meancos2": 0.004248623306473424,
+  "park_eq_null": 0.01619725001016956,
+  "park_eq_p": 0.0544727636181909,
+  "layer": 22,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.7222082250177466,
+  "star+fert": 0.7517648809006414,
+  "star+tok": 0.803622904390092,
+  "star+glotto": 0.7594690998151155,
+  "star+tok+fert": 0.8127372855529295,
+  "star+fert+glotto": 0.7894768228474125,
+  "all": 0.8305871914089734,
+  "uniq_tok": 0.04111036856156092,
+  "uniq_glotto": 0.017849905856043957,
+  "top_splits": [
+   [
+    "{hin,jpn,tur}",
+    0.279
+   ],
+   [
+    "{hin,zho,jpn,tur}",
+    0.267
+   ],
+   [
+    "{hin,arb,jpn,tur}",
+    0.229
+   ],
+   [
+    "{hin,arb,zho,jpn,tur}",
+    0.22
+   ]
+  ],
+  "rank_IE": 315,
+  "gain_IE": 0.011998179542652365,
+  "rank_Germ": 788,
+  "gain_Germ": 0.0,
+  "rank_Rom": 42,
+  "gain_Rom": 0.08889364365646624,
+  "rank_SOV": 1,
+  "gain_SOV": 0.2791042908394943,
+  "rank_Latin": 49,
+  "gain_Latin": 0.08384495211336118,
+  "rank_Han": 113,
+  "gain_Han": 0.04774789928958445,
+  "rank_hin-tur": 24,
+  "gain_hin-tur": 0.12367108651632386,
+  "park_eq_meancos2": 0.005333376091719985,
+  "park_eq_null": 0.015420996216282958,
+  "park_eq_p": 0.09695152423788106,
+  "layer": 22,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.4195489759170149,
+  "star+fert": 0.5479951646863996,
+  "star+tok": 0.4795075481210449,
+  "star+glotto": 0.4599290359647219,
+  "star+tok+fert": 0.5654282464354985,
+  "star+fert+glotto": 0.5881864596820175,
+  "all": 0.5939879248736415,
+  "uniq_tok": 0.005801465191623945,
+  "uniq_glotto": 0.028559678438143,
+  "top_splits": [
+   [
+    "{eng,fra,spa,zho,vie}",
+    0.331
+   ],
+   [
+    "{deu,rus,hin,jpn,tur}",
+    0.322
+   ],
+   [
+    "{eng,fra,spa,arb,zho,vie}",
+    0.287
+   ],
+   [
+    "{eng,fra,spa,zho,vie,ind}",
+    0.279
+   ]
+  ],
+  "rank_IE": 279,
+  "gain_IE": 0.018726021272570947,
+  "rank_Germ": 628,
+  "gain_Germ": 0.0010242397763234878,
+  "rank_Rom": 116,
+  "gain_Rom": 0.052655773052395105,
+  "rank_SOV": 6,
+  "gain_SOV": 0.25375417407451495,
+  "rank_Latin": 328,
+  "gain_Latin": 0.01427662849550071,
+  "rank_Han": 152,
+  "gain_Han": 0.041832075718132855,
+  "rank_hin-tur": 40,
+  "gain_hin-tur": 0.1499381084200726,
+  "park_eq_meancos2": 0.020519841834682428,
+  "park_eq_null": 0.03618900266279001,
+  "park_eq_p": 0.3053473263368316,
+  "layer": 22,
+  "metric": "causal"
+ },
+ {
+  "star": 0.6908485459035794,
+  "star+fert": 0.8335998514902336,
+  "star+tok": 0.7286161876186903,
+  "star+glotto": 0.7014991762450703,
+  "star+tok+fert": 0.8361237740095048,
+  "star+fert+glotto": 0.844066816956949,
+  "all": 0.8445409440442392,
+  "uniq_tok": 0.00047412708729022146,
+  "uniq_glotto": 0.008417170034734411,
+  "top_splits": [
+   [
+    "{eng,fra,spa,zho,jpn,vie}",
+    0.313
+   ],
+   [
+    "{eng,fra,spa,zho,jpn}",
+    0.272
+   ],
+   [
+    "{deu,hin,arb,tur,ind}",
+    0.261
+   ],
+   [
+    "{eng,spa,zho,jpn,vie}",
+    0.223
+   ]
+  ],
+  "rank_IE": 236,
+  "gain_IE": 0.022599855368801047,
+  "rank_Germ": 803,
+  "gain_Germ": 0.0,
+  "rank_Rom": 178,
+  "gain_Rom": 0.03418392118716285,
+  "rank_SOV": 99,
+  "gain_SOV": 0.058144548887509084,
+  "rank_Latin": 422,
+  "gain_Latin": 0.006336384288547103,
+  "rank_Han": 5,
+  "gain_Han": 0.22148479379922903,
+  "rank_hin-tur": 67,
+  "gain_hin-tur": 0.07973673438849027,
+  "park_eq_meancos2": 0.012030878950291157,
+  "park_eq_null": 0.020581601425218837,
+  "park_eq_p": 0.3193403298350825,
+  "layer": 24,
+  "metric": "euc"
+ },
+ {
+  "star": 0.8864600010352175,
+  "star+fert": 0.8991919863291287,
+  "star+tok": 0.9342858105473137,
+  "star+glotto": 0.8984525673719017,
+  "star+tok+fert": 0.9376276357588677,
+  "star+fert+glotto": 0.9111802737414778,
+  "all": 0.9414191822871375,
+  "uniq_tok": 0.030238908545659693,
+  "uniq_glotto": 0.0037915465282698513,
+  "top_splits": [
+   [
+    "{hin,arb}",
+    0.299
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.284
+   ],
+   [
+    "{rus,hin,arb}",
+    0.28
+   ],
+   [
+    "{rus,hin,arb,jpn}",
+    0.271
+   ]
+  ],
+  "rank_IE": 759,
+  "gain_IE": 0.0,
+  "rank_Germ": 758,
+  "gain_Germ": 0.0,
+  "rank_Rom": 77,
+  "gain_Rom": 0.060788885821478456,
+  "rank_SOV": 18,
+  "gain_SOV": 0.12187770658982189,
+  "rank_Latin": 2,
+  "gain_Latin": 0.2836846854994992,
+  "rank_Han": 63,
+  "gain_Han": 0.06983314818200825,
+  "rank_hin-tur": 91,
+  "gain_hin-tur": 0.05183172424604254,
+  "park_eq_meancos2": 0.002639915516862701,
+  "park_eq_null": 0.012680558049483684,
+  "park_eq_p": 0.04447776111944028,
+  "layer": 24,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.814622424515661,
+  "star+fert": 0.841681586121795,
+  "star+tok": 0.8915544110327471,
+  "star+glotto": 0.8340313248088802,
+  "star+tok+fert": 0.899782651444418,
+  "star+fert+glotto": 0.8611430252186847,
+  "all": 0.906281297182972,
+  "uniq_tok": 0.045138271964287324,
+  "uniq_glotto": 0.006498645738553965,
+  "top_splits": [
+   [
+    "{rus,hin,arb,jpn}",
+    0.312
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.286
+   ],
+   [
+    "{rus,hin,arb,jpn,tur}",
+    0.277
+   ],
+   [
+    "{hin,arb,jpn}",
+    0.254
+   ]
+  ],
+  "rank_IE": 660,
+  "gain_IE": 0.00025468559964847426,
+  "rank_Germ": 765,
+  "gain_Germ": 0.0,
+  "rank_Rom": 71,
+  "gain_Rom": 0.06484551659186799,
+  "rank_SOV": 11,
+  "gain_SOV": 0.1692222369691404,
+  "rank_Latin": 2,
+  "gain_Latin": 0.2862342419506638,
+  "rank_Han": 147,
+  "gain_Han": 0.03351956141848589,
+  "rank_hin-tur": 47,
+  "gain_hin-tur": 0.08048575658464863,
+  "park_eq_meancos2": 0.0035854215313385167,
+  "park_eq_null": 0.009644742669053833,
+  "park_eq_p": 0.12243878060969515,
+  "layer": 24,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.7434125455927831,
+  "star+fert": 0.8074994278106955,
+  "star+tok": 0.8005017512807859,
+  "star+glotto": 0.7681764228529283,
+  "star+tok+fert": 0.8382576548445136,
+  "star+fert+glotto": 0.833518985265153,
+  "all": 0.8517368884689538,
+  "uniq_tok": 0.01821790320380079,
+  "uniq_glotto": 0.013479233624440146,
+  "top_splits": [
+   [
+    "{eng,fra,spa,zho,vie}",
+    0.23
+   ],
+   [
+    "{eng,fra,spa,arb,zho,vie}",
+    0.203
+   ],
+   [
+    "{deu,hin,jpn,tur,ind}",
+    0.19
+   ],
+   [
+    "{eng,deu,fra,spa,rus}",
+    0.183
+   ]
+  ],
+  "rank_IE": 135,
+  "gain_IE": 0.044881205037493044,
+  "rank_Germ": 775,
+  "gain_Germ": 3.5935319907864915e-05,
+  "rank_Rom": 128,
+  "gain_Rom": 0.047680010193603684,
+  "rank_SOV": 21,
+  "gain_SOV": 0.15175121999886476,
+  "rank_Latin": 312,
+  "gain_Latin": 0.013888102159828608,
+  "rank_Han": 75,
+  "gain_Han": 0.08069696281765126,
+  "rank_hin-tur": 47,
+  "gain_hin-tur": 0.10248228156259875,
+  "park_eq_meancos2": 0.008000733612428566,
+  "park_eq_null": 0.01650469022555423,
+  "park_eq_p": 0.2063968015992004,
+  "layer": 24,
+  "metric": "causal"
+ },
+ {
+  "star": 0.8387191177711768,
+  "star+fert": 0.9044968402491448,
+  "star+tok": 0.8706057046559663,
+  "star+glotto": 0.845024729362139,
+  "star+tok+fert": 0.9102751548914305,
+  "star+fert+glotto": 0.9103480370415173,
+  "all": 0.913545074744177,
+  "uniq_tok": 0.0031970377026596664,
+  "uniq_glotto": 0.0032699198527464945,
+  "top_splits": [
+   [
+    "{eng,zho,jpn,vie}",
+    0.322
+   ],
+   [
+    "{eng,rus,arb,zho,jpn,vie}",
+    0.299
+   ],
+   [
+    "{eng,arb,zho,jpn,vie}",
+    0.286
+   ],
+   [
+    "{deu,hin,tur,ind}",
+    0.275
+   ]
+  ],
+  "rank_IE": 374,
+  "gain_IE": 0.007969853483271061,
+  "rank_Germ": 761,
+  "gain_Germ": 0.0,
+  "rank_Rom": 170,
+  "gain_Rom": 0.031478885239384025,
+  "rank_SOV": 253,
+  "gain_SOV": 0.017317801527598653,
+  "rank_Latin": 340,
+  "gain_Latin": 0.009993534610873489,
+  "rank_Han": 17,
+  "gain_Han": 0.18273859461042075,
+  "rank_hin-tur": 63,
+  "gain_hin-tur": 0.08461977843269564,
+  "park_eq_meancos2": 0.016652341054873423,
+  "park_eq_null": 0.012445801094410937,
+  "park_eq_p": 0.768615692153923,
+  "layer": 26,
+  "metric": "euc"
+ },
+ {
+  "star": 0.9066857924872033,
+  "star+fert": 0.9122344490245948,
+  "star+tok": 0.9500376546456005,
+  "star+glotto": 0.9150030347033933,
+  "star+tok+fert": 0.950159162728164,
+  "star+fert+glotto": 0.9205547949719284,
+  "all": 0.9522240167848418,
+  "uniq_tok": 0.03166922181291343,
+  "uniq_glotto": 0.0020648540566777784,
+  "top_splits": [
+   [
+    "{rus,hin,arb,jpn}",
+    0.437
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.421
+   ],
+   [
+    "{hin,arb}",
+    0.396
+   ],
+   [
+    "{rus,hin,arb}",
+    0.365
+   ]
+  ],
+  "rank_IE": 699,
+  "gain_IE": 0.0,
+  "rank_Germ": 698,
+  "gain_Germ": 0.0,
+  "rank_Rom": 115,
+  "gain_Rom": 0.041428960059717856,
+  "rank_SOV": 196,
+  "gain_SOV": 0.021220953473854554,
+  "rank_Latin": 2,
+  "gain_Latin": 0.4211655945696997,
+  "rank_Han": 64,
+  "gain_Han": 0.07252875671601178,
+  "rank_hin-tur": 387,
+  "gain_hin-tur": 0.004996017078484516,
+  "park_eq_meancos2": 0.003014897977831315,
+  "park_eq_null": 0.011800059039731869,
+  "park_eq_p": 0.10394802598700649,
+  "layer": 26,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.8668617573096347,
+  "star+fert": 0.8790615638541549,
+  "star+tok": 0.9287329097234247,
+  "star+glotto": 0.8797518078985791,
+  "star+tok+fert": 0.9300984368604572,
+  "star+fert+glotto": 0.8918615916890755,
+  "all": 0.9338111081612915,
+  "uniq_tok": 0.04194951647221601,
+  "uniq_glotto": 0.0037126713008343026,
+  "top_splits": [
+   [
+    "{rus,hin,arb,jpn}",
+    0.544
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.453
+   ],
+   [
+    "{rus,hin,arb}",
+    0.407
+   ],
+   [
+    "{hin,arb,jpn}",
+    0.335
+   ]
+  ],
+  "rank_IE": 695,
+  "gain_IE": 0.0,
+  "rank_Germ": 694,
+  "gain_Germ": 0.0,
+  "rank_Rom": 93,
+  "gain_Rom": 0.05311285090181328,
+  "rank_SOV": 149,
+  "gain_SOV": 0.03259587594863678,
+  "rank_Latin": 2,
+  "gain_Latin": 0.45341634766866423,
+  "rank_Han": 167,
+  "gain_Han": 0.02691495105332331,
+  "rank_hin-tur": 314,
+  "gain_hin-tur": 0.00805579620828445,
+  "park_eq_meancos2": 0.005228242232793621,
+  "park_eq_null": 0.007560009190653189,
+  "park_eq_p": 0.41179410294852575,
+  "layer": 26,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.8750253002069286,
+  "star+fert": 0.8895174697548524,
+  "star+tok": 0.9116649203273774,
+  "star+glotto": 0.8962933494329274,
+  "star+tok+fert": 0.913163765494626,
+  "star+fert+glotto": 0.9103655850385075,
+  "all": 0.9247461100950363,
+  "uniq_tok": 0.014380525056528759,
+  "uniq_glotto": 0.0115823446004103,
+  "top_splits": [
+   [
+    "{rus,arb,zho,jpn,vie}",
+    0.287
+   ],
+   [
+    "{eng,rus,arb,zho,jpn,vie}",
+    0.277
+   ],
+   [
+    "{eng,rus,zho,jpn,vie}",
+    0.249
+   ],
+   [
+    "{rus,zho,jpn,vie}",
+    0.235
+   ]
+  ],
+  "rank_IE": 299,
+  "gain_IE": 0.012961756323727869,
+  "rank_Germ": 763,
+  "gain_Germ": 0.0,
+  "rank_Rom": 36,
+  "gain_Rom": 0.12815539643258034,
+  "rank_SOV": 324,
+  "gain_SOV": 0.010956715718833276,
+  "rank_Latin": 296,
+  "gain_Latin": 0.013145549474957274,
+  "rank_Han": 154,
+  "gain_Han": 0.03633348177308571,
+  "rank_hin-tur": 459,
+  "gain_hin-tur": 0.0038103237879745233,
+  "park_eq_meancos2": 0.02277123182187744,
+  "park_eq_null": 0.011881063137647061,
+  "park_eq_p": 0.9345327336331835,
+  "layer": 26,
+  "metric": "causal"
+ },
+ {
+  "star": 0.6432731965123006,
+  "star+fert": 0.645028839260094,
+  "star+tok": 0.687167853731952,
+  "star+glotto": 0.6612829002161968,
+  "star+tok+fert": 0.687167853731952,
+  "star+fert+glotto": 0.6634835648500056,
+  "all": 0.696574200540938,
+  "uniq_tok": 0.0330906356909324,
+  "uniq_glotto": 0.009406346808986,
+  "top_splits": [
+   [
+    "{rus,arb,zho,jpn,vie}",
+    0.455
+   ],
+   [
+    "{rus,arb,jpn,vie}",
+    0.43
+   ],
+   [
+    "{eng,deu,fra,spa,hin,ind}",
+    0.402
+   ],
+   [
+    "{rus,arb,jpn,tur,vie}",
+    0.377
+   ]
+  ],
+  "rank_IE": 209,
+  "gain_IE": 0.02138520668661459,
+  "rank_Germ": 682,
+  "gain_Germ": 0.0,
+  "rank_Rom": 290,
+  "gain_Rom": 0.012249251019783802,
+  "rank_SOV": 1995,
+  "gain_SOV": 0.0,
+  "rank_Latin": 25,
+  "gain_Latin": 0.1624544478083888,
+  "rank_Han": 80,
+  "gain_Han": 0.06447148673109537,
+  "rank_hin-tur": 2002,
+  "gain_hin-tur": 0.0,
+  "park_eq_meancos2": 0.010656407574026295,
+  "park_eq_null": 0.03540087127732047,
+  "park_eq_p": 0.09145427286356822,
+  "layer": 28,
+  "metric": "euc"
+ },
+ {
+  "star": 0.9350129838462987,
+  "star+fert": 0.9374753115607601,
+  "star+tok": 0.9676185925944889,
+  "star+glotto": 0.9407869428984142,
+  "star+tok+fert": 0.9676185925944889,
+  "star+fert+glotto": 0.943088123967317,
+  "all": 0.9690173237766811,
+  "uniq_tok": 0.025929199809364145,
+  "uniq_glotto": 0.0013987311821922477,
+  "top_splits": [
+   [
+    "{rus,hin,arb,jpn}",
+    0.452
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.436
+   ],
+   [
+    "{rus,hin,arb}",
+    0.41
+   ],
+   [
+    "{rus,hin,arb,vie}",
+    0.317
+   ]
+  ],
+  "rank_IE": 645,
+  "gain_IE": 0.0,
+  "rank_Germ": 643,
+  "gain_Germ": 0.0,
+  "rank_Rom": 112,
+  "gain_Rom": 0.04319550304518682,
+  "rank_SOV": 1980,
+  "gain_SOV": 0.0,
+  "rank_Latin": 2,
+  "gain_Latin": 0.43556559750026724,
+  "rank_Han": 68,
+  "gain_Han": 0.06824738061938329,
+  "rank_hin-tur": 434,
+  "gain_hin-tur": 0.0024213483172664807,
+  "park_eq_meancos2": 0.0039797399595840185,
+  "park_eq_null": 0.008356319758561714,
+  "park_eq_p": 0.19390304847576212,
+  "layer": 28,
+  "metric": "lda01"
+ },
+ {
+  "star": 0.9045592927116404,
+  "star+fert": 0.9083665809621598,
+  "star+tok": 0.9487208344975637,
+  "star+glotto": 0.9103317139988902,
+  "star+tok+fert": 0.9487469423549718,
+  "star+fert+glotto": 0.9138856850336727,
+  "all": 0.9495850125728399,
+  "uniq_tok": 0.03569932753916716,
+  "uniq_glotto": 0.000838070217868081,
+  "top_splits": [
+   [
+    "{rus,hin,arb,jpn}",
+    0.412
+   ],
+   [
+    "{rus,hin,arb,zho,jpn}",
+    0.334
+   ],
+   [
+    "{rus,hin,arb,jpn,vie}",
+    0.296
+   ],
+   [
+    "{rus,hin,arb}",
+    0.281
+   ]
+  ],
+  "rank_IE": 742,
+  "gain_IE": 0.0,
+  "rank_Germ": 739,
+  "gain_Germ": 0.0,
+  "rank_Rom": 240,
+  "gain_Rom": 0.016351614057299457,
+  "rank_SOV": 1989,
+  "gain_SOV": 0.0,
+  "rank_Latin": 2,
+  "gain_Latin": 0.3337924140227516,
+  "rank_Han": 186,
+  "gain_Han": 0.02365967778379252,
+  "rank_hin-tur": 653,
+  "gain_hin-tur": 0.0001599151180232683,
+  "park_eq_meancos2": 0.003192319381992676,
+  "park_eq_null": 0.00699432726616489,
+  "park_eq_p": 0.17091454272863568,
+  "layer": 28,
+  "metric": "lda05"
+ },
+ {
+  "star": 0.43657375285122446,
+  "star+fert": 0.43657375285122424,
+  "star+tok": 0.5231029636800061,
+  "star+glotto": 0.5722661427494519,
+  "star+tok+fert": 0.5231029636800061,
+  "star+fert+glotto": 0.572266142749452,
+  "all": 0.6157788079038089,
+  "uniq_tok": 0.04351266515435692,
+  "uniq_glotto": 0.09267584422380282,
+  "top_splits": [
+   [
+    "{eng,fra,spa,ind}",
+    0.36
+   ],
+   [
+    "{eng,deu,fra,spa,ind}",
+    0.325
+   ],
+   [
+    "{fra,spa,ind}",
+    0.292
+   ],
+   [
+    "{eng,fra,spa,arb,ind}",
+    0.256
+   ]
+  ],
+  "rank_IE": 726,
+  "gain_IE": 0.0,
+  "rank_Germ": 723,
+  "gain_Germ": 0.0,
+  "rank_Rom": 14,
+  "gain_Rom": 0.19433092924825401,
+  "rank_SOV": 343,
+  "gain_SOV": 0.009965951848094678,
+  "rank_Latin": 34,
+  "gain_Latin": 0.13215272513183085,
+  "rank_Han": 2018,
+  "gain_Han": 0.0,
+  "rank_hin-tur": 291,
+  "gain_hin-tur": 0.013219633719328883,
+  "park_eq_meancos2": 0.03215403038466453,
+  "park_eq_null": 0.03143556654133835,
+  "park_eq_p": 0.6231884057971014,
+  "layer": 28,
+  "metric": "causal"
+ }
+]

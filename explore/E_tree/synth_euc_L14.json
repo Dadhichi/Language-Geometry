@@ -1,0 +1,25 @@
+[
+ {
+  "glotto_p|star": 0.0,
+  "split_Germ_p|star": 0.0,
+  "split_Rom_p|star": 0.2,
+  "glotto_p|star+tok+fert": 0.0,
+  "split_Germ_p|star+tok+fert": 0.0,
+  "split_Rom_p|star+tok+fert": 0.0,
+  "g1_p": 0.0,
+  "g2_p": 0.0,
+  "g3_p": 0.0,
+  "g4_p": 0.0,
+  "park_p_orth": 0.0,
+  "mean_glotto_gain|star": 0.04909696530899392,
+  "mean_glotto_gain|star+tok+fert": 0.045326622472460845,
+  "mean_park_meancos2": 0.19576563891861581,
+  "mean_park_null_meancos2": 0.18390977780306547,
+  "mean_g1": 0.255512502004688,
+  "world": "glotto",
+  "f": 0.1,
+  "metric": "euc",
+  "layer": 14,
+  "reps": 5
+ }
+]

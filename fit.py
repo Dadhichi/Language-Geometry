@@ -401,11 +401,12 @@ def analyze_with_null(Xfit, Xtests, k, mode, la, null_reps=0, **kw):
                                       mdl["infl_t"]) for i in range(L)]), None) for s in Xtests}
         proj_n, _ = make_projector(Xf_null, k, mode, la)
         o = analyze(proj_n(Xf_null), {s: (proj_n(X), None) for s, (X, _) in Xt_null.items()},
-                    "full" if k is None else k, la, seed=kw.get("seed", 0) + rep)
+                    "full" if k is None else k, la, langs=kw.get("langs"), seed=kw.get("seed", 0) + rep)
         for _, r in o["summary"].iterrows():
             rows.append(dict(rep=rep, split=r["split"], c_proc=r["c_proc_mean"], c_ridge=r["c_ridge_mean"],
                              cocycle=r["cocycle"], spectral_frac=r["spectral_frac"], sync_gap=r["sync_gap"],
-                             rho_procrustes=r["rho_procrustes"], rho_ridge=r["rho_ridge"]))
+                             rho_procrustes=r["rho_procrustes"], rho_ridge=r["rho_ridge"],
+                             **{c: r[c] for c in r.index if c.startswith("pivot_")}))
     null = pd.DataFrame(rows)
     if len(null):
         for s in out["summary"]["split"].unique():
@@ -417,6 +418,10 @@ def analyze_with_null(Xfit, Xtests, k, mode, la, null_reps=0, **kw):
                              ("null_sync_gap_max", ns["sync_gap"].max()),
                              ("null_rho_procrustes", ns["rho_procrustes"].mean())):
                 out["summary"].loc[sel, col] = val
+            # pivot deltas under a consistent model differ only through per-language estimation noise:
+            # read pivot_X against null_pivot_X, not against 0 or against the other pivots
+            for c in [c for c in null.columns if c.startswith("pivot_")]:
+                out["summary"].loc[sel, "null_" + c] = ns[c].mean()
         null.insert(0, "k", "full" if k is None else k)
     out["null"] = null
     out.pop("model")
@@ -496,6 +501,17 @@ def synth(kind, L=6, n_fit=400, n_test=300, d=96, noise=0.15, seed=0):
         elif kind == "linear_gauge":
             M = (np.eye(d) + 0.6 * rs.randn(d, d) / np.sqrt(d)).astype(np.float32)
             fd, ft = Hd @ M, Ht @ M
+        elif kind == "hub0":
+            # language 0 is the undistorted hub; every other language adds its own nonlinear distortion
+            # and a rotation, so routing through language 0 adds no distortion and it is the best pivot
+            if i == 0:
+                fd, ft = Hd, Ht
+            else:
+                rp = np.random.RandomState(seed + 100 + i)   # own stream: other scenarios are unchanged
+                Fi = (rp.randn(d, d) / np.sqrt(d)).astype(np.float32)
+                Q = np.linalg.svd(rp.randn(d, d))[0].astype(np.float32)
+                fd = (Hd + s * np.tanh(3 * Hd @ Fi / s)) @ Q
+                ft = (Ht + s * np.tanh(3 * Ht @ Fi / s)) @ Q
         elif kind == "family":
             gs, gf = f"s{script[i]}", f"f{family[i]}"
             fd, ft = Hd + F(Hd, gs) + F(Hd, gf), Ht + F(Ht, gs) + F(Ht, gf)
@@ -514,7 +530,7 @@ def selftest(do_mlp=False):
             "spectral_frac", "sync_gap", "null_sync_gap_max"]
     scenarios = (("shift", None, "shared"), ("gauge", None, "shared"), ("linear_gauge", None, "shared"),
                  ("family", None, "shared"), ("gauge", 32, "shared"), ("gauge", 32, "per_lang"),
-                 ("family", 32, "per_lang"))
+                 ("family", 32, "per_lang"), ("hub0", None, "shared"))
     for kind, k, mode in scenarios:
         Xd, Xt = synth(kind)
         out = analyze_with_null(Xd, {"test": (Xt, None)}, k, mode, la, null_reps=3, do_mlp=do_mlp)
@@ -526,6 +542,9 @@ def selftest(do_mlp=False):
             print(f"  {c:20s} {s[c]:.4f}")
     sh, ga, lg, fa = (res[n] for n in ("shift", "gauge", "linear_gauge", "family"))
     tsh, tpl, fpl = res["gauge_k32_shared"], res["gauge_k32_per_lang"], res["family_k32_per_lang"]
+    hb = res["hub0"]
+    excess = lambda r: {c[6:]: r[c] - r["null_" + c] for c in r.index if c.startswith("pivot_")}
+    ex_g, ex_h = excess(ga), excess(hb)
     checks = [
         ("shift: translation alone ~ procrustes", sh.rho_shift - sh.rho_procrustes < 0.03),
         ("shift: all pivots ~ neutral", all(abs(v) < 0.02 for c, v in sh.items() if c.startswith("pivot_"))),
@@ -546,6 +565,10 @@ def selftest(do_mlp=False):
          and 0.85 < tpl.null_rho_procrustes / tpl.rho_procrustes < 1.8),
         ("per-language PCA k=32: gauge artefact covered by the null", tpl.c_proc_mean < tpl.null_c_proc_max),
         ("per-language PCA k=32 still detects family structure", fpl.c_proc_mean > 3 * fpl.null_c_proc_max),
+        ("pivot null: in the gauge world every pivot sits at its null (|excess| < 0.005)",
+         max(abs(v) for v in ex_g.values()) < 0.005),
+        ("pivot null: the undistorted hub is the best pivot relative to null, by a clear margin",
+         ex_h["0"] > max(v for p, v in ex_h.items() if p != "0") + 0.01),
     ]
     print()
     ok = True

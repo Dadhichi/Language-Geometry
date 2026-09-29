@@ -23,7 +23,7 @@ use plain names in any write-up.
   right singular vectors of final_norm ⊙ lm_head). Layout: `{pooling}_{split}_L{layer}.f16.npy`
   → [n_lang, n_sent, d]. Splits are appended incrementally to the same --tag.
 - `build_ted.py` — n-way parallel TED sentences → FLORES-style `tedfit`/`tedtest` splits (needs n_fit ≫ k).
-- `fit.py`      — the analysis. `python fit.py --selftest` must pass (15 checks) after ANY edit to it.
+- `fit.py`      — the analysis. `python fit.py --selftest` must pass (17 checks) after ANY edit to it.
 - `colab/run.ipynb` — clone/pull repo, install, extract, fit, push results.
 - `results/<model>_<pooling>/*.csv` — outputs (summary.csv is the headline table, one row per layer/k/split).
 
@@ -67,7 +67,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
 ## Status
 - Repo: github.com/Dadhichi/Language-Geometry, working branch `claude/compassionate-newton-vufc0c`.
   colab/run.ipynb clones that branch and pushes results/ back to it (pull --rebase first).
-- fit.py: selftest 15/15 on CPU (numpy path, ~3 min). run_real exercised on fake data in the extract.py
+- fit.py: selftest 17/17 on CPU (numpy path, ~1 min). summary.csv has null_pivot_<lang> (mean pivot delta under
+  the consistent null; read pivot_X - null_pivot_X, since raw deltas are all < 0 and track per-language
+  estimation noise). Synthetic "hub0" scenario checks it. run_real exercised on fake data in the extract.py
   layout (3 and 12 languages, per_lang k and full). Needs >= 3 languages (exits otherwise).
   Torch/GPU path (`--device cuda`) ran on Colab (smoke test). analyze() is batched on the backend
   (pairs scored against all targets at once, triples batched over m, GPA batched SVD, spectral_frac on

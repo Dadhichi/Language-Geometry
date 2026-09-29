@@ -152,17 +152,19 @@ def locate(model):
 
 
 class Capture:
-    """Forward hooks storing the residual stream after the embedding and after every block."""
+    """Forward hooks pooling the residual stream after the embedding and after every block.
+    Pooling inside the hook (set .mask before the forward) means no [B,T,d] state outlives its layer."""
 
     def __init__(self, blocks, embed):
-        self.buf = {}
+        self.mask = None
+        self.out = {}
         self.handles = [embed.register_forward_hook(self._mk(0))]
         for i, b in enumerate(blocks):
             self.handles.append(b.register_forward_hook(self._mk(i + 1)))
 
     def _mk(self, idx):
         def hook(_m, _inp, out):
-            self.buf[idx] = out[0] if isinstance(out, (tuple, list)) else out
+            self.out[idx] = pool(out[0] if isinstance(out, (tuple, list)) else out, self.mask)
         return hook
 
     def close(self):
@@ -229,7 +231,9 @@ def main():
     ap.add_argument("--local_dir", default=None, help="dir checked first for {split}/{lang}.{split} files")
     ap.add_argument("--langs", default=DEFAULT_LANGS)
     ap.add_argument("--splits", default="dev,devtest")
-    ap.add_argument("--batch", type=int, default=32)
+    ap.add_argument("--batch", type=int, default=256, help="max sentences per forward")
+    ap.add_argument("--batch_tokens", type=int, default=16384,
+                    help="max padded tokens per forward (16k fits a 7-8B model on a 24 GB L4; raise on A100)")
     ap.add_argument("--max_tokens", type=int, default=512)
     ap.add_argument("--smoke", type=int, default=0, help="use only N sentences per split")
     ap.add_argument("--dtype", default="bfloat16", choices=["bfloat16", "float16", "float32"])
@@ -266,7 +270,7 @@ def main():
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(args.model, token=token)
     dtype = getattr(torch, args.dtype)
-    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=dtype, token=token,
+    model = AutoModelForCausalLM.from_pretrained(args.model, dtype=dtype, token=token,
                                                  device_map={"": 0})
     model.eval()
     blocks, embed, fnorm, head, paths = locate(model)
@@ -304,31 +308,65 @@ def main():
                                            dtype=np.float16, shape=(len(langs), n, n_layers, 2))
         ntok = np.zeros((len(langs), n), dtype=np.int32)
 
+        pad_id = tok.pad_token_id if tok.pad_token_id is not None else 0
         for li, lang in enumerate(langs):
             t0 = time.time()
-            enc = [tok.encode(s, add_special_tokens=False)[: args.max_tokens - 1] for s in sents[lang]]
-            enc = [[sink_id] + e for e in enc]
-            ntok[li] = [len(e) - 1 for e in enc]
-            order = np.argsort([-len(e) for e in enc])  # long first: fail fast on OOM
-            for s in range(0, n, args.batch):
-                idx = order[s:s + args.batch]
-                L = max(len(enc[i]) for i in idx)
-                ids_t = torch.full((len(idx), L), tok.pad_token_id if tok.pad_token_id is not None else 0,
-                                   dtype=torch.long)
+            enc = tok(sents[lang], add_special_tokens=False)["input_ids"]
+            enc = [[sink_id] + e[: args.max_tokens - 1] for e in enc]
+            lens = np.array([len(e) for e in enc])
+            ntok[li] = lens - 1
+            # per-language host buffers [n_layers, n, d], written to the memmaps contiguously at the end
+            h_mean = np.empty((n_layers, n, d), dtype=np.float16)
+            h_last = np.empty((n_layers, n, d), dtype=np.float16)
+            h_diag = np.empty((n, n_layers, 2), dtype=np.float16)
+
+            def step(idx):
+                L = int(lens[idx].max())
+                ids_t = torch.full((len(idx), L), pad_id, dtype=torch.long)
                 mask = torch.zeros((len(idx), L), dtype=torch.bool)
                 for r, i in enumerate(idx):
-                    ids_t[r, :len(enc[i])] = torch.tensor(enc[i])
-                    mask[r, :len(enc[i])] = True
+                    ids_t[r, :lens[i]] = torch.tensor(enc[i])
+                    mask[r, :lens[i]] = True
                 ids_t, mask = ids_t.to(dev), mask.to(dev)
                 with torch.inference_mode():
-                    cap.buf.clear()
+                    cap.out.clear()
+                    cap.mask = mask
                     base(input_ids=ids_t, attention_mask=mask.long(), use_cache=False)
-                    for layer in range(n_layers):
-                        m, l, dg = pool(cap.buf[layer], mask)
-                        f_mean[layer][li, idx, :] = m.cpu().numpy().astype(np.float16)
-                        f_last[layer][li, idx, :] = l.cpu().numpy().astype(np.float16)
-                        f_diag[li, idx, layer, :] = dg.cpu().numpy().astype(np.float16)
-            print(f"  {split} {lang}: {n} sents, mean {ntok[li].mean():.1f} tok, {time.time() - t0:.0f}s")
+                    outs = [cap.out[layer] for layer in range(n_layers)]
+                    cap.out.clear()
+                    # one device->host copy per tensor per batch
+                    h_mean[:, idx] = torch.stack([o[0] for o in outs]).half().cpu().numpy()
+                    h_last[:, idx] = torch.stack([o[1] for o in outs]).half().cpu().numpy()
+                    h_diag[idx] = torch.stack([o[2] for o in outs], dim=1).half().cpu().numpy()
+
+            def run(idx):
+                try:
+                    step(idx)
+                    return
+                except torch.cuda.OutOfMemoryError:
+                    if len(idx) == 1:
+                        raise
+                cap.out.clear()
+                torch.cuda.empty_cache()
+                print(f"    OOM at {len(idx)} x {int(lens[idx].max())} tokens; splitting batch")
+                h = len(idx) // 2
+                run(idx[:h])
+                run(idx[h:])
+
+            # long first (fail fast on OOM); batches are length-homogeneous and capped by padded tokens
+            order = np.argsort(-lens, kind="stable")
+            s = 0
+            while s < n:
+                b = max(1, min(args.batch, args.batch_tokens // int(lens[order[s]])))
+                run(order[s:s + b])
+                s += b
+            for layer in range(n_layers):
+                f_mean[layer][li] = h_mean[layer]
+                f_last[layer][li] = h_last[layer]
+            f_diag[li] = h_diag
+            dt = time.time() - t0
+            print(f"  {split} {lang}: {n} sents, mean {ntok[li].mean():.1f} tok, {dt:.0f}s "
+                  f"({lens.sum() / max(dt, 1e-9):.0f} tok/s)")
         for f in f_mean + f_last + [f_diag]:
             f.flush()
         del f_mean, f_last, f_diag

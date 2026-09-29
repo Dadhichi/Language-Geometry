@@ -72,7 +72,14 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   Torch/GPU path (`--device cuda`) untested; LA.to now accepts tensors (np.ascontiguousarray on a CUDA
   tensor raised inside procrustes/polar).
 - extract.py, build_ted.py: syntax-checked only; never run against real models/data. Expect small fixes.
-  FLORES+ is believed to name Chinese cmn_Hans; load_flores_hf tries zho_Hans then cmn_Hans (unverified).
+  extract.py loads Qwen2.5-7B on Colab but OOMs on a T4 (bf16 weights ~15.2 GB > 14.6 GiB): use L4/A100.
+  Throughput: pooling happens inside the hooks, batches are budgeted by padded tokens (--batch_tokens,
+  default 16k for a 24 GB L4) with OOM → split-batch fallback. vLLM-style engines don't help: no
+  generation, and they don't expose per-layer residuals. Model download/load dominates wall time.
+  FLORES+ names Chinese cmn_Hans (verified; the zho_Hans→cmn_Hans alias works).
+  2026-09-29: smoke test passed end-to-end on Colab (Qwen2.5-1.5B, 3 langs, 16 sents; extract.py
+  pre-batching-rewrite + fit.py --device cuda). FLORES+ needs the HF gate accepted AND, for fine-grained
+  tokens, "read access to public gated repos" ticked.
 - Storage (f16, mean+last, all layers, 12 langs): Qwen2.5-7B ~5 GB per FLORES split, Llama-3.1-8B ~6.5 GB;
   a 7000-sentence TED fit+test ~35 GB for Qwen. Check Drive quota before full runs.
 - Not yet written: plot.py (depth curves from summary.csv), W_U energy diagnostic in run_real (function

@@ -3,6 +3,6 @@ scipy
 pandas
 scikit-learn
 torch
-transformers>=4.45
+transformers>=4.56
 datasets
 accelerate

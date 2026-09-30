@@ -147,3 +147,21 @@ Same depth profile as Qwen: OV gain rises from ~0 at L0 to a mid-depth peak (L10
 ~.01-.05 in the last third; genealogy is high at L0 (lexical), ~.2 mid-depth, and highest in the late layers
 (L18-L30, .4-.6). sqrt(ntok) pooling: H1/H2 hold (p <= .0015; lda05 OV gain shrinks to .017), H3 .017 / .165.
 Two models with different tokenizers, data and training runs show the same two structures at the same relative depth.
+
+# PRE-REGISTERED token-level belief-simplex test (explore/prereg_belief; prereg d8f2d66, data at c1658c2, results 99f9a0b)
+Qwen2.5-7B, FLORES devtest x 12 languages, every token, 15 layers projected on [11-d language span | 117 PCs];
+the model's own P(language | prefix) from 12 language-tag-conditioned log-likelihoods; 28,800 code-switch sequences.
+- P1 (graded belief) SUPPORTED: at ambiguous positions (max posterior < .9; 26k test positions) an affine map from the
+  posterior predicts span coordinates much better than the argmax one-hot (mid-depth MSE difference 55.6, p = .0001;
+  holds at every layer). Secondary: the TRUE language one-hot beats the posterior (the internal state is more certain
+  than the tag-prompt estimate of the model's belief); token identity + position beats the posterior alone, but adding
+  the posterior improves on token identity at every layer (e.g. L14 102 -> 85): belief carries information beyond the
+  current token.
+- P2 (Bayesian code-switch) NOT SUPPORTED: after a switch the representation jumps to the new language within ~1-1.5
+  tokens; a step fits far better than sigmoid(cumulative LLR) (mid-depth MSE .11 vs .25). One Bayes-like trace: the
+  lag grows with the length of the preceding A prefix (Spearman +.13, p = .0005).
+- EXPLORATORY (exploratory_belief.py): a leaky integrator of the same LLR (best half-life 8 tokens) does not rescue it
+  (MSE .21 vs step .11; step + leaky .123 vs .126). Reading: the residual stream tracks the language of the LOCAL span
+  (near-step at switches, small hysteresis growing with prefix length) with graded uncertainty when evidence is
+  ambiguous -- not a whole-document Bayesian posterior. Caveat: the tag-prompt posterior is a noisy proxy for the
+  model's belief (the true label beats it), which weakens every test that uses it.

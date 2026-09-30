@@ -1,0 +1,4 @@
+L 8 best half-life 8 tokens (scale 1.0) | test MSE leaky 0.2235 vs step 0.1257 | step+leaky 0.1232
+L12 best half-life 8 tokens (scale 1.0) | test MSE leaky 0.2137 vs step 0.1147 | step+leaky 0.1118
+L14 best half-life 8 tokens (scale 1.0) | test MSE leaky 0.2177 vs step 0.1166 | step+leaky 0.1142
+L16 best half-life 8 tokens (scale 1.0) | test MSE leaky 0.2119 vs step 0.1107 | step+leaky 0.1084

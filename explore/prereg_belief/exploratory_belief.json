@@ -1,0 +1,30 @@
+{
+ "8": {
+  "best_half_life": 8.0,
+  "best_scale": 1.0,
+  "mse_leaky": 0.22353207415065737,
+  "mse_step": 0.12567388587582803,
+  "mse_step_plus_leaky": 0.12324627692608298
+ },
+ "12": {
+  "best_half_life": 8.0,
+  "best_scale": 1.0,
+  "mse_leaky": 0.2136623658635938,
+  "mse_step": 0.11465303545048049,
+  "mse_step_plus_leaky": 0.11184040273674643
+ },
+ "14": {
+  "best_half_life": 8.0,
+  "best_scale": 1.0,
+  "mse_leaky": 0.21766135406628706,
+  "mse_step": 0.11664699958012495,
+  "mse_step_plus_leaky": 0.11418710901831337
+ },
+ "16": {
+  "best_half_life": 8.0,
+  "best_scale": 1.0,
+  "mse_leaky": 0.21187259805738243,
+  "mse_step": 0.11072419633898993,
+  "mse_step_plus_leaky": 0.10840162057907243
+ }
+}

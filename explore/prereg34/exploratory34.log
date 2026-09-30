@@ -1,0 +1,24 @@
+  causal all + geography              n=34 H1_gain=0.0828 H1_p=0.0010 OV|H1_gain=0.1005 OV|H1_p=0.0005
+  causal drop IE + geography          n=18 H1_gain=0.0787 H1_p=0.0460 OV|H1_gain=0.0970 OV|H1_p=0.0040
+  causal drop Semitic + geography     n=31 H1_gain=0.0965 H1_p=0.0010 OV|H1_gain=0.1170 OV|H1_p=0.0005
+  causal drop Turkic + geography      n=31 H1_gain=0.0589 H1_p=0.0100 OV|H1_gain=0.0439 OV|H1_p=0.0020
+  causal drop Finnic + geography      n=32 H1_gain=0.0826 H1_p=0.0025 OV|H1_gain=0.1826 OV|H1_p=0.0005
+  causal drop Sinitic + geography     n=32 H1_gain=0.1011 H1_p=0.0005 OV|H1_gain=0.1214 OV|H1_p=0.0005
+  causal drop Austronesian + geography n=32 H1_gain=0.0884 H1_p=0.0015 OV|H1_gain=0.1024 OV|H1_p=0.0005
+  causal drop Austroasiatic + geography n=32 H1_gain=0.0980 H1_p=0.0015 OV|H1_gain=0.1026 OV|H1_p=0.0005
+  causal drop Dravidian + geography   n=32 H1_gain=0.0992 H1_p=0.0005 OV|H1_gain=0.0704 OV|H1_p=0.0005
+  causal drop Japanese + geography    n=33 H1_gain=0.0896 H1_p=0.0005 OV|H1_gain=0.0939 OV|H1_p=0.0005
+  causal drop Korean + geography      n=33 H1_gain=0.0918 H1_p=0.0005 OV|H1_gain=0.0792 OV|H1_p=0.0005
+  causal drop Indo-Iranian + geography n=30 H1_gain=0.1330 H1_p=0.0005 OV|H1_gain=0.0698 OV|H1_p=0.0005
+  lda05  all + geography              n=34 H1_gain=0.2422 H1_p=0.0005 OV|H1_gain=0.2126 OV|H1_p=0.0005
+  lda05  drop IE + geography          n=18 H1_gain=0.2386 H1_p=0.0005 OV|H1_gain=0.2017 OV|H1_p=0.0005
+  lda05  drop Semitic + geography     n=31 H1_gain=0.2846 H1_p=0.0005 OV|H1_gain=0.2498 OV|H1_p=0.0005
+  lda05  drop Turkic + geography      n=31 H1_gain=0.2219 H1_p=0.0005 OV|H1_gain=0.1562 OV|H1_p=0.0005
+  lda05  drop Finnic + geography      n=32 H1_gain=0.2592 H1_p=0.0005 OV|H1_gain=0.2723 OV|H1_p=0.0005
+  lda05  drop Sinitic + geography     n=32 H1_gain=0.2441 H1_p=0.0005 OV|H1_gain=0.2797 OV|H1_p=0.0005
+  lda05  drop Austronesian + geography n=32 H1_gain=0.2607 H1_p=0.0005 OV|H1_gain=0.1956 OV|H1_p=0.0005
+  lda05  drop Austroasiatic + geography n=32 H1_gain=0.2701 H1_p=0.0005 OV|H1_gain=0.2288 OV|H1_p=0.0005
+  lda05  drop Dravidian + geography   n=32 H1_gain=0.2410 H1_p=0.0005 OV|H1_gain=0.1775 OV|H1_p=0.0005
+  lda05  drop Japanese + geography    n=33 H1_gain=0.2735 H1_p=0.0005 OV|H1_gain=0.1885 OV|H1_p=0.0005
+  lda05  drop Korean + geography      n=33 H1_gain=0.2725 H1_p=0.0005 OV|H1_gain=0.1662 OV|H1_p=0.0005
+  lda05  drop Indo-Iranian + geography n=30 H1_gain=0.2606 H1_p=0.0005 OV|H1_gain=0.2046 OV|H1_p=0.0005

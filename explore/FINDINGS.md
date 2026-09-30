@@ -104,3 +104,32 @@ planted gains 0.25/1.00 and attribute bag vs prefix correctly.
   11 switch points), word-swap mixtures p = 0..1, ambiguity probes. Tests: posterior-affine map beats one-hot and
   token-identity baselines at ambiguous positions; post-switch paths stay on the A-B edge and follow the logistic of
   the cumulative log-likelihood ratio under the natural-text map without refitting.
+
+# PRE-REGISTERED 34-language test (explore/prereg34; prereg 0d40bdd + d976f88, results 1e1d796)
+Qwen2.5-7B, 34 FLORES+ languages, mean pooling, primary = L8-L20 averaged cross-split Gram, NNLS split model over
+star + script splits + token distance + |dlog fertility|, 1e4 permutations, Bonferroni alpha 0.0125. Synthetic
+validation beforehand: conditional tests separate planted genealogy from planted word order.
+
+| metric | R2 star / base | H1 genealogy (gain, p) | H1given OV p | H2 OV (gain, p) | OV given H1 p | H3 same-lang 2-script p |
+|---|---|---|---|---|---|---|
+| causal | .52 / .85 | .096, .0005 | .0007 | .114, .0002 | .0001 | .0078 |
+| lda05  | .75 / .92 | .288, .0001 | .0001 | .195, .0001 | .0001 | .0001 |
+
+=> BOTH pre-registered claims hold in both metrics: the mid-depth language geometry carries genealogical tree
+structure AND an object-verb word-order axis, each beyond the other, beyond script, token overlap and fertility.
+Sentence-bootstrap 90% intervals are ~+-0.001 (sampling noise negligible). Same-language/two-script pairs
+(hin-urd, hrv-srp, cmn Hans-Hant) are among the closest 0.4-0.7% of 561 pairs under lda05 (7-21% under causal).
+Secondary: sqrt(ntok) pooling keeps H1/H2 (p <= .0025) but H3 weakens (p .08-.11); adding deu/nld (WALS 'no
+dominant order', V2 main clauses) to OV weakens it (gain .070 vs .114): main-clause OV order is what aligns.
+Depth (descriptive): genealogy gain is largest early (L1-L5, .25-.47) and late (L23-L27, .26-.49) and smallest
+mid-depth (~.08-.10 causal); OV gain peaks mid-late (L10-L20, .10-.24) and vanishes at L26-L28.
+
+EXPLORATORY robustness (exploratory34.py, after seeing results): adding great-circle geography (WALS coordinates)
+and leave-one-family-out (11 families): OV|H1 significant in all 24 runs (p <= .005; weakest dropping Turkic,
+gain .044, or Indo-Iranian/Dravidian, .07); H1 significant in all (weakest dropping all of IE, n=18, p=.046 causal).
+
+Caveats: (1) genealogy may partly be cognate/lexical overlap that unigram token distance misses -- the early/late
+peaks fit a lexical origin; the mid-depth part is the interesting residue. (2) OV stands for a correlated
+typological bundle (OV ~ postpositions ~ head-final); this design cannot say which feature. (3) One model, mean
+pooling, no training-data-size covariate. Next: Llama-3.1-8B replication; cognate-controlled lexical distance;
+WALS 85A (adpositions) vs 83A to separate the bundle; per-layer figure.

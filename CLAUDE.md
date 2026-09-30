@@ -73,6 +73,13 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   in the W_U subspace (energy.csv / wu diagnostic).
 
 ## Status
+- 2026-09-30 PRE-REGISTERED RESULTS (explore/FINDINGS.md bottom; explore/prereg34, explore/prereg_belief):
+  34 FLORES languages, mid-depth centroid geometry carries BOTH a Glottolog genealogy tree and a WALS-83A OV
+  word-order axis, each beyond the other and beyond script/token overlap/fertility; same-language two-script pairs
+  among the closest pairs. Replicated on Llama-3.1-8B (larger effects, same relative-depth profile: OV peaks
+  mid-depth, genealogy peaks early + late). Token level (Qwen): graded belief over languages at ambiguous positions
+  (P1 supported) but code-switches are near-step (~1 token) with small prefix-length hysteresis (P2 not supported).
+  Colab jobs run via the Colab CLI (memory: colab-cli-setup); ~5 CU spent.
 - 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):
   in ambient coordinates x_{i,s} ~= mu_i + e^{s_i} b_s + small rotation + noise. Translation removes 82-91% of
   the removable residual (centroid subtraction alone: P@1 0.99 at L14); s_i is mean-pooling dilution

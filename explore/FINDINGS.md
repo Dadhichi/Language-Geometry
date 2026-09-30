@@ -133,3 +133,17 @@ peaks fit a lexical origin; the mid-depth part is the interesting residue. (2) O
 typological bundle (OV ~ postpositions ~ head-final); this design cannot say which feature. (3) One model, mean
 pooling, no training-data-size covariate. Next: Llama-3.1-8B replication; cognate-controlled lexical distance;
 WALS 85A (adpositions) vs 83A to separate the bundle; per-layer figure.
+
+## Pre-registered REPLICATION on Llama-3.1-8B (PREREG_llama.md d392d70; results34_llama.json)
+Same languages/tree/OV/tests/claim rules; primary window L9-L23 of 32 blocks (same relative depth); causal metric from
+Llama's lm_head (rows < 128000). Both claims replicate in both metrics:
+
+| metric | R2 star / base | H1 genealogy (gain, p) | H1 given OV p | H2 OV (gain, p) | OV given H1 p | H3 p |
+|---|---|---|---|---|---|---|
+| causal | .62 / .86 | .294, .0001 | .0001 | .281, .0001 | .0001 | .0001 |
+| lda05  | .73 / .91 | .340, .0001 | .0001 | .239, .0001 | .0001 | .0001 |
+
+Same depth profile as Qwen: OV gain rises from ~0 at L0 to a mid-depth peak (L10-L16, causal .27-.37) and fades to
+~.01-.05 in the last third; genealogy is high at L0 (lexical), ~.2 mid-depth, and highest in the late layers
+(L18-L30, .4-.6). sqrt(ntok) pooling: H1/H2 hold (p <= .0015; lda05 OV gain shrinks to .017), H3 .017 / .165.
+Two models with different tokenizers, data and training runs show the same two structures at the same relative depth.

@@ -165,3 +165,19 @@ the model's own P(language | prefix) from 12 language-tag-conditioned log-likeli
   (near-step at switches, small hysteresis growing with prefix length) with graded uncertainty when evidence is
   ambiguous -- not a whole-document Bayesian posterior. Caveat: the tag-prompt posterior is a noisy proxy for the
   model's belief (the true label beats it), which weakens every test that uses it.
+
+# PRE-REGISTERED causal steering of the OV direction (explore/steer_ov; prereg + code 5e5e095, run at 5e5e095)
+Qwen2.5-7B; 999 UD minimal pairs (8 languages; clause-level verb + object subtree swapped); add k * beta_OV
+(held-out-language OLS direction from the 34-language centroids, ||beta_OV|| units) to block-14 output at all
+positions; margin = log p(OV variant) - log p(VO variant).
+- PRIMARY: slope b_OV = +1.52 nats per unit k (95% CI 1.40-1.65), above all 32 norm-matched random span directions
+  (max 1.16, mean -0.05 +- 0.32; z = +4.99, p_emp = .03) -> CLAIM HOLDS: the OV axis is causally used.
+- Positive in 8/8 languages, OV and VO alike (deu 1.08, eng 1.20, fra 1.84, hin 1.36, jpn 0.88, rus 1.49, tur 1.38,
+  zho 2.96). Monotone dose-response at L8, L14, L20 (L14 mean Delta by k: -3.06, -1.19, +0.98, +3.03).
+  IE (genealogy) control direction, same norm: slope -0.25 (L14), ~0 at L8/L20.
+- EXPLORATORY: asymmetric saturation -- pushing a VO language toward OV moves it a lot (zho margin -14.1 -> -3.5,
+  eng -14.3 -> -10.2), pushing it further toward VO little; mirror image for OV languages (hin +9.0 -> +3.4 at
+  k=-2, ~unchanged at k=+2). k=+-2 flips the model's preferred order in ~9-10% of pairs, in the pushed direction.
+  NOT surgical: k=+2 lowers log p of the attested sentence by 34 nats (random directions: mean -17, range -96..-2);
+  the same-norm IE direction also flips ~9% of pairs one way at k=+2, so flip counts alone are not specific -- the
+  pre-registered slope (mean Delta) is. Caveat: preference over fixed-token variants, not word order in free generation.

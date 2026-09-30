@@ -1,0 +1,6 @@
+PRIMARY L14 slope(k=+-2): b_OV +1.5224 | random -0.0528 +- 0.3157 (min -0.4735, max +1.1556) | z +4.99 | p_emp 0.030 | CLAIM True
+   per language: {'deu_Latn': 1.081, 'eng_Latn': 1.2, 'fra_Latn': 1.838, 'hin_Deva': 1.363, 'jpn_Jpan': 0.878, 'rus_Cyrl': 1.485, 'tur_Latn': 1.379, 'zho_Hans': 2.956}
+IE control L14 b -0.2543 | b_OV > 0 in 8/8 languages | b_OV 95% CI [1.396590268611908, 1.65381383895874]
+L 8: b_OV(all k) +1.0605 | b_IE -0.1234 | OV-langs +1.1829 VO-langs +1.0529 | mean Delta by k -2:-2.621 -1:-1.153 +1:+0.941 +2:+1.635
+L14: b_OV(all k) +1.4346 | b_IE -0.2151 | OV-langs +1.1751 VO-langs +1.7399 | mean Delta by k -2:-3.062 -1:-1.187 +1:+0.979 +2:+3.027
+L20: b_OV(all k) +0.9999 | b_IE -0.0142 | OV-langs +0.7509 VO-langs +1.1597 | mean Delta by k -2:-1.918 -1:-0.993 +1:+1.083 +2:+2.044

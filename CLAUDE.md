@@ -79,7 +79,11 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   among the closest pairs. Replicated on Llama-3.1-8B (larger effects, same relative-depth profile: OV peaks
   mid-depth, genealogy peaks early + late). Token level (Qwen): graded belief over languages at ambiguous positions
   (P1 supported) but code-switches are near-step (~1 token) with small prefix-length hysteresis (P2 not supported).
-  Colab jobs run via the Colab CLI (memory: colab-cli-setup); ~5 CU spent.
+  Colab jobs run via the Colab CLI (memory: colab-cli-setup); ~6.7 CU spent.
+  2026-10-01 CAUSAL (explore/steer_ov, pre-registered): adding k*beta_OV (held-out OLS direction) at Qwen L14
+  shifts log p(OV variant) - log p(VO variant) on 999 UD minimal pairs by +1.52 nats/k, above all 32 random
+  directions (z 4.99), 8/8 languages, monotone at L8/14/20; genealogy control ~0. Not surgical (fluency cost);
+  tested as preference over fixed-token variants, not free generation.
 - 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):
   in ambient coordinates x_{i,s} ~= mu_i + e^{s_i} b_s + small rotation + noise. Translation removes 82-91% of
   the removable residual (centroid subtraction alone: P@1 0.99 at L14); s_i is mean-pooling dilution

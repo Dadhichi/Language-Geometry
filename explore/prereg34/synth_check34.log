@@ -1,0 +1,5 @@
+null   c=0.0: reject H1 0.05  H2 0.10  (alpha .05, 300 perms)
+glotto c=0.1: reject H1 0.93  H2 0.28  (alpha .05, 300 perms)
+ov     c=0.1: reject H1 0.12  H2 0.65  (alpha .05, 300 perms)
+glotto c=0.2: reject H1 1.00  H2 0.30  (alpha .05, 300 perms)
+ov     c=0.2: reject H1 0.23  H2 0.95  (alpha .05, 300 perms)

@@ -16,12 +16,14 @@ ALPHA = 0.05 / 4                             # Bonferroni over {H1, H2} x {causa
 
 
 def load(data):
-    grams = {l: np.load(os.path.join(data, "grams", f"L{l}.npz")) for l in range(29)}
+    n_layers = json.load(open(os.path.join(data, "meta.json")))["n_layers"]     # 29 for Qwen2.5-7B, 33 for Llama-3.1-8B
+    grams = {l: np.load(os.path.join(data, "grams", f"L{l}.npz")) for l in range(n_layers)}
     tok = np.load(os.path.join(data, "tokstats.npz"))
     return grams, tok
 
 
-def avg_gram(grams, metric, key="dt", layers=LAYERS_PRIMARY):
+def avg_gram(grams, metric, key="dt", layers=None):
+    layers = LAYERS_PRIMARY if layers is None else layers
     Ks = [0.5 * (grams[l][f"{metric}_{key}"] + grams[l][f"{metric}_{key}"].T) for l in layers]
     return np.mean([K / np.trace(K) for K in Ks], axis=0)
 
@@ -69,12 +71,17 @@ def main():
     ap.add_argument("data")
     ap.add_argument("--n_perm", type=int, default=10000)
     ap.add_argument("--out", default="results34.json")
+    ap.add_argument("--primary", default=None, help="primary layer window 'a-b' (default 8-20 = Qwen2.5-7B)")
     args = ap.parse_args()
+    global LAYERS_PRIMARY
+    if args.primary:                                   # e.g. "9-23" (Llama replication: same relative depth window)
+        a, b = map(int, args.primary.split("-"))
+        LAYERS_PRIMARY = list(range(a, b + 1))
     grams, tok = load(args.data)
     sp = T.Space()
     base, base_ns = bases(sp, tok)
     res = {"prereg": {"alpha": ALPHA, "layers": LAYERS_PRIMARY, "metrics": PRIMARY_METRICS, "n_perm": args.n_perm}}
-    print("== PRIMARY (averaged trace-normalised cross-split Gram, L8-L20)")
+    print(f"== PRIMARY (averaged trace-normalised cross-split Gram, L{LAYERS_PRIMARY[0]}-L{LAYERS_PRIMARY[-1]})")
     for m in PRIMARY_METRICS:
         t0 = time.time()
         r = tests(sp, avg_gram(grams, m), base, base_ns, args.n_perm, seed=17)
@@ -108,7 +115,7 @@ def main():
               f"| H3 p={r['H3_p']:.4f}", flush=True)
     print("== DESCRIPTIVE: per layer x metric (500 permutations, no multiplicity claims)")
     rows = []
-    for l in range(29):
+    for l in range(len(grams)):
         for m in ALL_METRICS:
             K = 0.5 * (grams[l][f"{m}_dt"] + grams[l][f"{m}_dt"].T)
             r = tests(sp, K / np.trace(K), base, base_ns, 500, seed=100 + l, full=False)

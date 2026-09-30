@@ -12,7 +12,9 @@ MID_P2 = [8, 12, 14, 16]
 
 def ridge_mse(Xf, yf, Xt, yt):
     m = RidgeCV(alphas=ALPHAS, cv=5).fit(Xf, yf)
-    return ((m.predict(Xt) - yt) ** 2).sum(1)                                # per-row squared error
+    # BUGFIX after first run (no change to the statistic): RidgeCV returns (n,) for a (n,1) target, which broadcast
+    # to (n,n); reshape the prediction to the target's shape.
+    return ((m.predict(Xt).reshape(yt.shape) - yt) ** 2).sum(1)              # per-row squared error
 
 
 def boot_mean_p(per_unit, n_boot, rs):

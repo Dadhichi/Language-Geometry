@@ -1,0 +1,27 @@
+tag-window positions 283900, ambiguous test positions 26435
+L 0 P1 ambiguous-test MSE: posterior 0.0363 | argmax one-hot 0.0424 | true lang 0.0308 | token+pos 0.0000 | token+pos+posterior 0.0000
+L 2 P1 ambiguous-test MSE: posterior 17.4489 | argmax one-hot 22.7123 | true lang 14.5401 | token+pos 6.5950 | token+pos+posterior 5.5930
+L 4 P1 ambiguous-test MSE: posterior 27.4291 | argmax one-hot 42.0063 | true lang 20.4977 | token+pos 15.9647 | token+pos+posterior 12.6537
+L 6 P1 ambiguous-test MSE: posterior 53.0740 | argmax one-hot 74.2883 | true lang 40.0411 | token+pos 29.1993 | token+pos+posterior 24.3025
+L 8 P1 ambiguous-test MSE: posterior 94.0648 | argmax one-hot 131.7622 | true lang 74.3045 | token+pos 62.9833 | token+pos+posterior 52.3029
+L10 P1 ambiguous-test MSE: posterior 122.0092 | argmax one-hot 170.8411 | true lang 99.1295 | token+pos 81.6739 | token+pos+posterior 66.8751
+L12 P1 ambiguous-test MSE: posterior 133.4921 | argmax one-hot 186.1647 | true lang 106.2791 | token+pos 92.7699 | token+pos+posterior 76.5365
+L14 P1 ambiguous-test MSE: posterior 147.0805 | argmax one-hot 203.5905 | true lang 115.4148 | token+pos 102.4134 | token+pos+posterior 84.6921
+L16 P1 ambiguous-test MSE: posterior 179.7978 | argmax one-hot 255.8650 | true lang 138.2405 | token+pos 126.3143 | token+pos+posterior 103.0403
+L18 P1 ambiguous-test MSE: posterior 222.4619 | argmax one-hot 312.7386 | true lang 169.8888 | token+pos 158.3432 | token+pos+posterior 128.9035
+L20 P1 ambiguous-test MSE: posterior 414.8877 | argmax one-hot 645.2880 | true lang 288.6387 | token+pos 320.2911 | token+pos+posterior 241.3210
+L22 P1 ambiguous-test MSE: posterior 894.6141 | argmax one-hot 1329.6642 | true lang 631.8861 | token+pos 639.3969 | token+pos+posterior 496.1173
+L24 P1 ambiguous-test MSE: posterior 3069.1617 | argmax one-hot 4614.1588 | true lang 2328.9088 | token+pos 2246.7477 | token+pos+posterior 1736.5383
+L26 P1 ambiguous-test MSE: posterior 8514.9350 | argmax one-hot 14073.1100 | true lang 7079.6128 | token+pos 6958.6297 | token+pos+posterior 5260.9630
+L28 P1 ambiguous-test MSE: posterior 116385.6484 | argmax one-hot 182154.6212 | true lang 78654.4682 | token+pos 108833.8222 | token+pos+posterior 79872.2271
+P1 PRIMARY (onehot - posterior MSE, L8-16): 55.63585  p=0.0001
+L 2 P2 MSE sigmoid(LLR) 0.2563 vs step 0.1257 | lag~prefix Spearman +0.103 | mean lag 0.79 tokens
+L 4 P2 MSE sigmoid(LLR) 0.2027 vs step 0.0889 | lag~prefix Spearman +0.119 | mean lag 1.53 tokens
+L 8 P2 MSE sigmoid(LLR) 0.2555 vs step 0.1257 | lag~prefix Spearman +0.107 | mean lag 1.01 tokens
+L12 P2 MSE sigmoid(LLR) 0.2472 vs step 0.1147 | lag~prefix Spearman +0.149 | mean lag 1.19 tokens
+L14 P2 MSE sigmoid(LLR) 0.2496 vs step 0.1166 | lag~prefix Spearman +0.147 | mean lag 1.24 tokens
+L16 P2 MSE sigmoid(LLR) 0.2434 vs step 0.1107 | lag~prefix Spearman +0.121 | mean lag 1.21 tokens
+L20 P2 MSE sigmoid(LLR) 0.1705 vs step 0.0674 | lag~prefix Spearman +0.154 | mean lag 1.67 tokens
+L24 P2 MSE sigmoid(LLR) 0.1893 vs step 0.0793 | lag~prefix Spearman +0.113 | mean lag 1.53 tokens
+P2 PRIMARY: step - sigmoid MSE -0.13961 p=1.0000 | lag rho +0.131 p=0.0005
+CLAIM P1 (belief-affine): True | CLAIM P2 (Bayesian code-switch): False

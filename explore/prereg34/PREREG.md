@@ -45,7 +45,10 @@ residual SSE removed by the tested splits.
 ## Validation before data (synthetic worlds, same code; synth_check34.log, synth_cond34.log)
 Planted BM worlds with a star, a high-fertility outlier and nuisance script clades. Marginal tests (40 reps, 300
 perms, alpha .05): null H1 .05 / H2 .10; genealogy c=.1: H1 .93 / H2 .28; OV c=.1: H1 .12 / H2 .65; genealogy c=.2:
-H1 1.00 / H2 .30; OV c=.2: H1 .23 / H2 .95. Conditional tests: see synth_cond34.log (appended before the run).
+H1 1.00 / H2 .30; OV c=.2: H1 .23 / H2 .95. Conditional tests (60 reps, 200 perms; synth_cond34.log, completed
+before any 34-language data were downloaded): null H1|OV .07 / OV|H1 .03; genealogy c=.1: .92 / .08; OV c=.1:
+.10 / .50; genealogy c=.2: 1.00 / .12; OV c=.2: .02 / .93. The conditional tests separate the two structures, so
+the claim rules above stand unchanged.
 
 ## What would change our mind
 Genealogy claim with no word-order claim -> emergent phylogeny (candidate 1). Word-order claim without genealogy ->

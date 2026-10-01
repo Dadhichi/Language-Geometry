@@ -84,6 +84,18 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   shifts log p(OV variant) - log p(VO variant) on 999 UD minimal pairs by +1.52 nats/k, above all 32 random
   directions (z 4.99), 8/8 languages, monotone at L8/14/20; genealogy control ~0. Not surgical (fluency cost);
   tested as preference over fixed-token variants, not free generation.
+  2026-10-01 TYPOLOGY + LEXICAL (explore/typology_lex, pre-registered): the axis is a head-direction bundle
+  (OV and adposition order each survive the other in 3/4 analyses, both models), OV the largest unique share in 3/4;
+  genealogy survives romanised character-overlap and ASJP basic-vocabulary controls.
+  2026-10-01 FREE GENERATION (explore/steer_gen, pre-registered b140a1d): primary NOT EVALUABLE -- the inclusion
+  rule (>= 20 pairs in all 53 conditions) excluded all 8 languages because a few random directions at k* = 2 push
+  each language out of itself. Exploratory (per-direction inclusion): OV slope +6.8 pts/k vs random max +1.1
+  (z 10); noun objects reorder in Russian (1% -> 36% first) and German (72% -> 14%, English-like verb placement);
+  the French rise is an object-type artefact (clitics); rigid-order languages leave the language instead
+  (sign-specific, p .016); threshold-like (~0 at k = 1); text repetition 4.6% -> 7.5% (random 6.1%). A confirmatory rerun
+  needs per-direction inclusion and strength calibrated on the WORST random direction.
+  WRITE-UP: explore/writeup (template.html + sections/*.html + extra_figs.js -> build_data.py -> inject.py ->
+  word-order-axis.html, published as a claude.ai artifact). Verify with node --check _check.js and a jsdom run.
 - 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):
   in ambient coordinates x_{i,s} ~= mu_i + e^{s_i} b_s + small rotation + noise. Translation removes 82-91% of
   the removable residual (centroid subtraction alone: P@1 0.99 at L14); s_i is mean-pooling dilution

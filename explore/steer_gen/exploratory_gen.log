@@ -1,0 +1,27 @@
+E1 per-language slope per unit k (k* = 2.0); rank of OV among defined random directions
+  deu_Latn: b_OV +0.0569 | IE +0.0439 | random -0.0036 +- 0.0315 (n=19) | random >= OV: 0 | z 1.92
+  eng_Latn: b_OV +0.0021 | IE +0.0041 | random +0.0013 +- 0.0046 (n=21) | random >= OV: 12 | z 0.17
+  fra_Latn: b_OV +0.0892 | IE -0.0031 | random +0.0004 +- 0.0215 (n=21) | random >= OV: 0 | z 4.14
+  hin_Deva: b_OV +0.0856 | IE +nan | random +0.0053 +- 0.0363 (n=16) | random >= OV: 0 | z 2.21
+  jpn_Jpan: b_OV +nan | IE +0.0000 | random +0.0000 +- 0.0000 (n=21) | random >= OV: None | z None
+  rus_Cyrl: b_OV +0.1066 | IE +0.0015 | random +0.0039 +- 0.0173 (n=18) | random >= OV: 0 | z 5.94
+  tur_Latn: b_OV +nan | IE +nan | random -0.0001 +- 0.0015 (n=18) | random >= OV: None | z None
+  zho_Hans: b_OV +nan | IE +0.0000 | random +0.0000 +- 0.0000 (n=24) | random >= OV: None | z None
+E2 pooled (per-direction inclusion): b_OV +0.0681 over 5 langs | IE +0.0077 | random +0.0011 +- 0.0067 (max +0.0108) | z +10.02 | p_emp 0.040
+E3 paired on shared language sets: OV above random in 24/24 (median difference +0.0659)
+E4 prompt-bootstrap 95% CI of pooled b_OV: [+0.0430, +0.0862]
+E6 deu OV rate: base 0.82 (n 119) | ov- 0.6 (n 85) | ov+ 0.8275862068965517 (n 87) | random 5-95% [0.67, 0.90] (n 42)
+E6 eng OV rate: base 0.03 (n 145) | ov- 0.014184397163120567 (n 141) | ov+ 0.02247191011235955 (n 89) | random 5-95% [0.01, 0.05] (n 44)
+E6 fra OV rate: base 0.18 (n 137) | ov- 0.19310344827586207 (n 145) | ov+ 0.55 (n 20) | random 5-95% [0.09, 0.28] (n 45)
+E6 hin OV rate: base 0.97 (n 30) | ov- 0.5106382978723404 (n 47) | ov+ 0.8529411764705882 (n 34) | random 5-95% [0.70, 1.00] (n 40)
+E6 jpn OV rate: base 1.00 (n 145) | ov- None (n 2) | ov+ 1.0 (n 53) | random 5-95% [1.00, 1.00] (n 45)
+E6 rus OV rate: base 0.09 (n 99) | ov- 0.08235294117647059 (n 85) | ov+ 0.5087719298245614 (n 57) | random 5-95% [0.02, 0.18] (n 42)
+E6 tur OV rate: base 1.00 (n 111) | ov- None (n 10) | ov+ 1.0 (n 62) | random 5-95% [0.99, 1.00] (n 42)
+E6 zho OV rate: base 0.00 (n 235) | ov- 0.0 (n 244) | ov+ None (n 3) | random 5-95% [0.00, 0.00] (n 48)
+E5 random directions that keep < 50% language match, per language: {'deu': 9, 'eng': 4, 'fra': 5, 'hin': 6, 'jpn': 3, 'rus': 6, 'tur': 6, 'zho': 0} (of 48) | languages affected 7/8
+E7 language match pushing AGAINST own order 0.642 vs TOWARD 0.963; against lower in 7/7 non-tied languages (two-sided sign test p = 0.016)
+E8 OV slope at k*/2 per language: {'deu': 0.0028, 'eng': 0.0, 'fra': -0.0007, 'hin': 0.1566, 'jpn': 0.0, 'rus': 0.0152, 'tur': 0.0, 'zho': 0.0} | mean over defined +0.0217
+E9 nom objects only: b_OV +0.0858 | per language {'eng': 0.0, 'deu': 0.181, 'fra': nan, 'rus': 0.077, 'hin': nan} | random +0.0034 +- 0.0100 (max +0.0275) | z +8.21 | random >= OV 0/24
+E9 pron objects only: b_OV -0.0217 | per language {'eng': nan, 'deu': -0.022, 'fra': nan, 'rus': nan, 'hin': nan} | random +0.0054 +- 0.0245 (max +0.0679) | z -1.10 | random >= OV 15/24
+E9 repetition, mean over languages: unsteered 0.046 | word order +-k* 0.075 | IE 0.068 | random 0.061
+E9 re-parse reproduces the original counts in {'eng': '7665/7930', 'deu': '7623/7913', 'fra': '7557/7948', 'rus': '7695/7940', 'hin': '7440/7936'}

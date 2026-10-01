@@ -70,10 +70,15 @@ table{border-collapse:collapse;font-family:var(--sans);font-size:.86rem;width:10
 th,td{padding:.42rem .6rem;text-align:left;border-bottom:1px solid var(--grid);vertical-align:top}
 th{font-weight:500;color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
 td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+th.n{text-align:right}td.n .nn{display:block;font-size:.68rem;color:var(--muted)}
+#tab-gen-obj td.n{text-align:right}#tab-gen-obj th.n{text-transform:none}th.grp{text-align:center;border-bottom:1px solid var(--axis)}
 .pass{color:var(--gen);font-weight:600}
 .fail{color:var(--muted);font-weight:600}
 .pair{font-family:var(--sans);font-size:.92rem;display:grid;gap:.15rem;margin:0 0 .7rem}
 .pair .tag{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.genex{margin:0 0 1.3rem;padding:.9rem 1.1rem .3rem;background:var(--surface);border:1px solid var(--hair);border-radius:6px}
+.genex .pair{gap:.3rem;margin-bottom:1rem}.genex .pair>span .tag{margin-right:.35rem}
+.pair .gl{color:var(--ink2);font-size:.85rem}.pair u{text-decoration-thickness:1.5px;text-underline-offset:3px}
 ol.refs{font-family:var(--sans);font-size:.85rem;line-height:1.5;color:var(--ink2);padding-left:1.4rem;display:grid;gap:.45rem}
 .small{font-size:.86rem}
 .m{white-space:nowrap}
@@ -108,6 +113,7 @@ math{font-size:1.04em;color:var(--ink)}
       <li>The word-order axis is <b>head direction</b>, the bundle of object–verb order, postpositions and genitive order, with object–verb order its most distinctive part. The family tree is not explained by vocabulary the languages share.</li>
       <li>The two structures sit at different depths. Word order peaks in the middle layers and fades before the output. The family tree is strongest in the first and last layers, where the model reads and writes words.</li>
       <li>The word-order axis is used. Adding a direction estimated from <em>other</em> languages to the middle of the network shifts the model's preference between object-before-verb and verb-before-object versions of 999 real sentences, in all 8 languages tested (<span class="num">z = 4.99</span> against random directions of the same size).</li>
+      <li id="sum-gen">Whether the same push changes the order the model <em>writes</em> is not settled. The pre-registered test could not be evaluated, because our own inclusion rule excluded every language. Exploratory analysis shows it reordering noun objects in Russian (1% → 36% placed before the verb) and German (72% → 14%), but only at a strength that also degrades text and, in languages with a fixed order, makes the model leave the language.</li>
       <li id="sum-extra">At the token level, the model's sense of "which language is this" is graded when the evidence is ambiguous, but it switches within about one token when the language actually changes.</li>
     </ul>
   </div>
@@ -251,11 +257,11 @@ math{font-size:1.04em;color:var(--ink)}
     <div class="mb">a_i=\beta_0+\beta_{\text{OV}}\,\mathbb 1_{\text{OV}}(i)+\beta_{\text{IE}}\,\mathbb 1_{\text{IE}}(i)+\sum_{\sigma\in\{\text{Latn},\text{Cyrl},\text{Arab},\text{Deva}\}}\beta_\sigma\,\mathbb 1_\sigma(i)+\beta_n\log n_i+e_i .</div>
     <p>The coefficient <span class="m">\beta_{\text{OV}}\in\mathbb R^{3584}</span> is a direction in the residual stream: how object-before-verb languages differ from the rest with family, script and length held fixed. For each test language <span class="m">h</span> we re-estimate it by ordinary least squares on the other 33 languages, <span class="m">\beta_{\text{OV}}^{(-h)}</span>, so the direction is never fit on the language it is applied to. As a first check, the held-out projection</p>
     <div class="mb">\pi_h=\frac{\big\langle a_h,\ \beta^{(-h)}_{\text{OV}}\big\rangle}{\lVert\beta^{(-h)}_{\text{OV}}\rVert^2}</div>
-    <p>measures where language <span class="m">h</span> falls on an axis whose unit is the object-before-verb contrast itself. Before any intervention, the left-out languages already fall on the correct side (Figure 3).</p>
+    <p>measures where language <span class="m">h</span> falls on an axis whose unit is the object-before-verb contrast itself. Before any intervention, the left-out languages already fall on the correct side (Figure 4).</p>
   </div>
   <figure class="wide">
     <div class="fig-frame"><svg id="fig-proj" role="img" aria-label="Held-out languages projected onto the word-order direction"></svg></div>
-    <figcaption><b>Figure 3. The direction predicts word order for languages it never saw.</b> Each language's centroid projected onto the word-order direction estimated from the other 33 languages, in units of the difference between object-before-verb and verb-before-object languages. Hindi, Turkish and Japanese land on the object-first side, English, French and Russian on the verb-first side, and German, which WALS lists as having no dominant order, at zero. Chinese, which is verb-first, also sits near zero.</figcaption>
+    <figcaption><b>Figure 4. The direction predicts word order for languages it never saw.</b> Each language's centroid projected onto the word-order direction estimated from the other 33 languages, in units of the difference between object-before-verb and verb-before-object languages. Hindi, Turkish and Japanese land on the object-first side, English, French and Russian on the verb-first side, and German, which WALS lists as having no dominant order, at zero. Chinese, which is verb-first, also sits near zero.</figcaption>
   </figure>
   <div class="col">
     <p><b>The test.</b> From Universal Dependencies treebanks <a href="#r12">[12]</a> in eight languages we took 999 real sentences in which a verb and its object are next to each other, and built a twin of each with the two swapped. Both versions use exactly the same tokens.</p>
@@ -271,14 +277,14 @@ math{font-size:1.04em;color:var(--ink)}
       <button aria-pressed="false" data-v="8">8</button><button aria-pressed="true" data-v="14">14</button><button aria-pressed="false" data-v="20">20</button></div>
       <div class="legend"><span><i class="swl" style="background:var(--ov)"></i>word-order direction</span><span><i class="swl" style="background:var(--gen)"></i>Indo-European direction (control)</span><span><i class="swl" style="background:var(--rand)"></i>32 random directions (layer 14)</span></div></div>
     <div class="fig-frame"><svg id="fig-steer" role="img" aria-label="Change in word-order preference as a function of steering strength"></svg></div>
-    <figcaption><b>Figure 4. Steering along the axis shifts word-order preference, and random directions do not.</b> Mean change in log p(object-first twin) − log p(verb-first twin), in nats, averaged over the eight languages, as a function of steering strength k (in units of the direction's own length). The pre-registered statistic is the slope between k = −2 and k = +2 at layer 14: <span class="num" id="steer-stat"></span>. The control direction for Indo-European membership, scaled to the same length, has essentially no effect.</figcaption>
+    <figcaption><b>Figure 5. Steering along the axis shifts word-order preference, and random directions do not.</b> Mean change in log p(object-first twin) − log p(verb-first twin), in nats, averaged over the eight languages, as a function of steering strength k (in units of the direction's own length). The pre-registered statistic is the slope between k = −2 and k = +2 at layer 14: <span class="num" id="steer-stat"></span>. The control direction for Indo-European membership, scaled to the same length, has essentially no effect.</figcaption>
   </figure>
   <div class="col">
-    <p>The effect appears in all eight languages, in both directions. Pushing a verb-first language toward object-first makes the object-first twin much more likely; pushing an object-first language toward verb-first does the reverse (Figure 5). Pushing a language further toward the order it already has does little, which is what one would expect if the model reads this direction to decide word order and is already confident in the familiar case.</p>
+    <p>The effect appears in all eight languages, in both directions. Pushing a verb-first language toward object-first makes the object-first twin much more likely; pushing an object-first language toward verb-first does the reverse (Figure 6). Pushing a language further toward the order it already has does little, which is what one would expect if the model reads this direction to decide word order and is already confident in the familiar case.</p>
   </div>
   <figure class="wide">
     <div class="fig-frame"><svg id="fig-langs" role="img" aria-label="Per-language preference before and after steering"></svg></div>
-    <figcaption><b>Figure 5. Every language moves, and it moves toward the order it is pushed to.</b> Average preference for the object-first twin (nats) in the unsteered model (grey), with steering toward object-first (orange, k = +2) and toward verb-first (blue, k = −2). Languages are sorted by their unsteered preference.</figcaption>
+    <figcaption><b>Figure 6. Every language moves, and it moves toward the order it is pushed to.</b> Average preference for the object-first twin (nats) in the unsteered model (grey), with steering toward object-first (orange, k = +2) and toward verb-first (blue, k = −2). Languages are sorted by their unsteered preference.</figcaption>
   </figure>
   <div class="col">
     <p class="note">The intervention is not surgical. At k = +2 it lowers the log-probability of the original sentence by about 34 nats on average, against 17 for random directions of the same size, and the preferred twin flips in only about 10% of pairs. The pre-registered comparison accounts for disruption, since random directions disrupt the model too without producing the effect. Still, these are shifts in preference between two given strings, and the next section asks whether they show up in what the model writes.</p>
@@ -306,7 +312,7 @@ math{font-size:1.04em;color:var(--ink)}
       <button aria-pressed="false" data-v="4">4</button><button aria-pressed="true" data-v="14">14</button><button aria-pressed="false" data-v="24">24</button></div>
       <div class="legend"><span><i class="swl" style="background:var(--vo)"></i>representation (observed)</span><span><i class="swl" style="background:var(--muted)"></i>Bayesian posterior over the whole sequence</span></div></div>
     <div class="fig-frame"><svg id="fig-cs" role="img" aria-label="Position on the language axis around a code switch"></svg></div>
-    <figcaption><b>Figure 6. At a code switch, the representation jumps to the new language within about one token.</b> 28,800 sequences that start a sentence in language A and finish the same sentence in language B (8 language pairs, both directions, 9 switch points). The vertical axis is the position of each token's representation on the line from A's centroid (0) to B's centroid (1). Token 0 is the first token of B. The grey curve is the posterior of B given everything read so far, from the model's own language-conditioned likelihoods. A belief that integrated the whole sequence would follow it; the representation instead moves almost half-way on the first token of B and most of the way by the second.</figcaption>
+    <figcaption><b>Figure 9. At a code switch, the representation jumps to the new language within about one token.</b> 28,800 sequences that start a sentence in language A and finish the same sentence in language B (8 language pairs, both directions, 9 switch points). The vertical axis is the position of each token's representation on the line from A's centroid (0) to B's centroid (1). Token 0 is the first token of B. The grey curve is the posterior of B given everything read so far, from the model's own language-conditioned likelihoods. A belief that integrated the whole sequence would follow it; the representation instead moves almost half-way on the first token of B and most of the way by the second.</figcaption>
   </figure>
   <div class="col">
     <p>The representation therefore behaves like an estimate of the language of the <em>current stretch</em> of text, graded when that stretch is ambiguous, with a little inertia: the number of tokens until <span class="m">\lambda_t&gt;0.5</span> grows with the length of the preceding passage in A (Spearman ρ = +0.13, p = 0.0005). In an exploratory follow-up we let the observer forget, <span class="m">L_h(t)=\sum_{\tau\le t}\rho^{\,t-\tau}d_\tau</span> with <span class="m">\rho=2^{-1/h}</span>, and fit the half-life <span class="m">h</span>. The best fit (<span class="m">h=8</span> tokens) still did far worse than the step (0.21 against 0.11). A caveat applies to both tests: the prompt-based posterior is a noisy estimate of the model's belief. The true language label predicts the representation better than <span class="m">\pi_t</span> does, so the internal state is more certain than our estimate of it.</p>
@@ -330,7 +336,7 @@ math{font-size:1.04em;color:var(--ink)}
 
 <section class="col" id="discussion">
   <h2>Discussion and limitations</h2>
-  <p>Two linguistically meaningful structures are present in how these models arrange languages, and they occupy different depths: genealogy at the layers that handle words, word order in the middle. Word order is the more interesting of the two, because it cannot be read off any single token, and because steering along it changes the model's word-order preferences in eight languages from five families.</p>
+  <p>Two linguistically meaningful structures are present in how these models arrange languages, and they occupy different depths: genealogy at the layers that handle words, word order in the middle. Word order is the more interesting of the two, because it cannot be read off any single token, and because steering along it changes the model's word-order preferences in eight languages from five families. Whether it also governs the order the model writes is the open question: the exploratory evidence says yes for noun objects in Russian and German, at a strength that also damages the text, and our pre-registered test of it did not run.</p>
   <p>Several limits apply. We have shown that the structure is <em>present</em> in two independently trained models, not how it <em>emerges</em> during training; models with released checkpoints would answer that. Only three of our languages break the head-direction bundle, so separating its parts rests on few data points. The intervention is blunt, and our steering direction was defined by object–verb order alone. All representations are averages over FLORES sentences, a single domain. We did not control for how much training data each language had, although tokens per sentence partly tracks it. And we tested four word-order features out of the hundreds WALS describes.</p>
   <p>The broader point is methodological as much as linguistic. Geometric claims about language representations are easy to fool: per-language PCA invents inconsistency, mean pooling invents per-language scale, and shared tokens can masquerade as genealogy. Each finding above survived a test designed in advance to rule out such artefacts, and two of our own early findings did not.</p>
 </section>
@@ -345,6 +351,7 @@ math{font-size:1.04em;color:var(--ink)}
       <tr><td>Replication, Llama-3.1-8B</td><td class="n">d392d70</td><td class="pass">both claims replicate</td></tr>
       <tr><td>Token-level belief</td><td class="n">d8f2d66</td><td>graded belief holds; Bayesian switching does not</td></tr>
       <tr><td>Steering, minimal pairs</td><td class="n">5e5e095</td><td class="pass">claim holds (z = 4.99)</td></tr>
+      <tr><td>Steering, free generation</td><td class="n">b140a1d</td><td>not evaluable: the inclusion rule excluded all 8 languages (exploratory analysis positive, z = 10.0)</td></tr>
       <tr><td>Word-order bundle and lexical controls</td><td class="n">a9c7488</td><td>head-direction bundle (not object–verb order alone); genealogy survives lexical controls</td></tr>
     </tbody>
   </table></div>
@@ -353,7 +360,7 @@ math{font-size:1.04em;color:var(--ink)}
   <h3>Statistical details</h3>
   <p class="small">All split models are fit by non-negative least squares on the 561 values of <span class="m">D^2_{ij}</span>; covariate columns are divided by their standard deviation. The primary family of tests ({genealogy, word order} × {causal, whitened}) uses a Bonferroni threshold of 0.0125. Power was estimated before data collection by simulating Brownian motion on the Glottolog tree with realistic leaf lengths and script structure: with 34 languages and internal branches carrying 10% of the distance, the genealogy test has 80–86% power, against 18–42% for the 12-language pilot. Sentence-bootstrap intervals (50 resamples, the same sentence indices in every language) are reported for every primary gain. The <span class="m">\sqrt n</span>-rescaled variant multiplies each sentence vector by <span class="m">\sqrt{n_{i,s}/\bar n}</span> before averaging.</p>
   <h3>Robustness (exploratory)</h3>
-  <p class="small">Run after the primary results and labelled as exploratory in the repository: great-circle geographic distance between WALS coordinates as an extra covariate; leave-one-family-out for all 11 families; adding German and Dutch to the object-before-verb split; per-layer profiles in four geometries (Euclidean, two shrinkage levels, causal); steering flip rates and the change in log-probability of the attested sentence; a forgetting Bayesian observer for code switches.</p>
+  <p class="small">Run after the primary results and labelled as exploratory in the repository: great-circle geographic distance between WALS coordinates as an extra covariate; leave-one-family-out for all 11 families; adding German and Dutch to the object-before-verb split; per-layer profiles in four geometries (Euclidean, two shrinkage levels, causal); steering flip rates and the change in log-probability of the attested sentence; a forgetting Bayesian observer for code switches; for free generation, inclusion decided per direction, the object-first slope at half strength, sign-specific language loss, and a re-parse that splits verb–object pairs by object type and scores repetition.</p>
   <h3>Reproduction</h3>
   <p class="small">Each study directory under <span class="m">\texttt{explore/}</span> contains its pre-registration, frozen analysis code, the Colab job script and the result files. Extraction for one model and 34 languages takes about 30 minutes on an L4 GPU; the whole study used about 10 L4 GPU-hours.</p>
   <h3>References</h3>
@@ -507,7 +514,7 @@ function drawProf(metric) {
 }
 const profMetric = seg("prof-metric", v => drawProf(v));
 
-/* ---------- Figure 3: held-out projections ---------- */
+/* ---------- Figure 4: held-out projections ---------- */
 function drawProj() {
   const svg = d3.select("#fig-proj"); svg.selectAll("*").remove();
   const P = D.steering.heldout_proj;
@@ -543,7 +550,7 @@ function drawPairs() {
   });
 }
 
-/* ---------- Figure 4: steering dose-response ---------- */
+/* ---------- Figure 5: steering dose-response ---------- */
 function drawSteer(layer) {
   const svg = d3.select("#fig-steer"); svg.selectAll("*").remove();
   const S = D.steering, W = width(svg.node()), H = 330, m = {t: 18, r: 30, b: 40, l: 48};
@@ -576,7 +583,7 @@ function drawSteer(layer) {
 }
 const steerLayer = seg("steer-layer", v => drawSteer(v));
 
-/* ---------- Figure 5: per-language dumbbells ---------- */
+/* ---------- Figure 6: per-language dumbbells ---------- */
 function drawLangs() {
   const svg = d3.select("#fig-langs"); svg.selectAll("*").remove();
   const rows = [...D.steering.per_language].sort((a, b) => a.base - b.base);
@@ -599,7 +606,7 @@ function drawLangs() {
   });
 }
 
-/* ---------- Figure 6: code-switch trajectories ---------- */
+/* ---------- Figure 9: code-switch trajectories ---------- */
 function drawCS(layer) {
   const svg = d3.select("#fig-cs"); svg.selectAll("*").remove();
   const B = D.belief[layer], W = width(svg.node()), H = 300, m = {t: 16, r: 24, b: 40, l: 44};

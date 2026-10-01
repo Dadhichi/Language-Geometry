@@ -1,0 +1,18 @@
+C:\Users\ASUS\OneDrive\Documents\Projects\Language Structure in LLMs\Language-Geometry\explore\steer_gen\analysis_gen.py:35: RuntimeWarning: Mean of empty slice
+  return float(np.nanmean(list(per.values()))), per
+C:\Users\ASUS\OneDrive\Documents\Projects\Language Structure in LLMs\Language-Geometry\explore\steer_gen\analysis_gen.py:80: RuntimeWarning: Mean of empty slice
+  bs.append(np.nanmean(vals))
+C:\Users\ASUS\AppData\Local\Temp\claude\c--Users-ASUS-OneDrive-Documents-Projects-Language-Structure-in-LLMs\fa049fb0-6ccd-47bf-be70-a43fa5fa9e65\scratchpad\venv\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:1573: RuntimeWarning: All-NaN slice encountered
+  return _nanquantile_unchecked(
+k* = 2.0 (calibration {'base_rate': 0.9875, 'rates': {'2.0': 0.8875, '1.0': 0.984375, '0.5': 0.9833333333333333}, 'kstar': 2.0}) | languages with >= 20 counted deps in every needed condition: []
+PRIMARY OV-rate slope per unit k: b_OV +nan | random +nan +- nan (max +nan) | z +nan | p_emp 0.040 | CLAIM False
+   per language: {}
+IE control +nan | OV at k*/2 +nan | OV without language filter +nan | positive in 0/0 languages
+  base    deu 0.82/0.99 eng 0.03/1.00 fra 0.18/0.98 hin 0.97/1.00 jpn 1.00/1.00 rus 0.09/1.00 tur 1.00/0.97 zho 0.00/0.95
+  ov-1    deu 0.78/0.99 eng 0.01/1.00 fra 0.19/0.98 hin 0.62/1.00 jpn 1.00/0.99 rus 0.12/1.00 tur 1.00/0.96 zho 0.00/0.95
+  ov+1    deu 0.79/1.00 eng 0.01/0.99 fra 0.19/0.98 hin 0.93/1.00 jpn 1.00/1.00 rus 0.15/1.00 tur 1.00/0.95 zho 0.00/0.94
+  ov-2    deu 0.60/0.95 eng 0.01/0.99 fra 0.19/0.97 hin 0.51/0.99 jpn 1.00/0.40 rus 0.08/1.00 tur 0.50/0.55 zho 0.00/0.93
+  ov+2    deu 0.83/0.97 eng 0.02/0.80 fra 0.55/0.41 hin 0.85/0.99 jpn 1.00/0.91 rus 0.51/0.97 tur 1.00/0.94 zho 0.00/0.08
+  ie-2    deu 0.63/0.94 eng 0.00/0.99 fra 0.20/0.93 hin 0.97/1.00 jpn 1.00/1.00 rus 0.09/1.00 tur 1.00/0.97 zho 0.00/0.96
+  ie+2    deu 0.81/0.99 eng 0.02/1.00 fra 0.19/0.98 hin 1.00/0.21 jpn 1.00/0.99 rus 0.09/1.00 tur 1.00/0.08 zho 0.00/0.93
+b_OV prompt-bootstrap 95% CI [nan, nan]

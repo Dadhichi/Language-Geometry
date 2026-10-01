@@ -197,3 +197,32 @@ best described as head direction (OV + postpositions, partly genitive-noun), wit
 (B) Genealogy beyond shared vocabulary SUPPORTED: gain unchanged with romanised FLORES character-3gram distance
 (Qwen .096/.288 -> .096/.288; Llama .294/.340 -> .293/.339; p <= .0011); still significant with the over-conservative
 ASJP basic-vocabulary LDND added (Qwen .095/.171, Llama .143/.150; p <= .0002).
+
+# PRE-REGISTERED free-generation steering (explore/steer_gen; prereg b140a1d) -- NOT EVALUABLE
+Qwen2.5-7B, 1,200 prompts (150 FLORES devtest sentences x 8 languages, first 40% of characters), greedy 40 tokens;
+k * v added at block-14 output (v = held-out beta_OV of the prompt language; IE control; 24 random span directions,
+same norm). 55 conditions, 66,000 continuations; Stanza UD parse; OV rate over langid-matched continuations.
+- Calibration rule (3 random directions x 20 prompts) chose k* = 2 (match .8875 vs .9875 unsteered).
+- PRIMARY NOT EVALUABLE: the inclusion rule (>= 20 counted verb-object pairs in EVERY one of 53 needed conditions)
+  excluded all 8 languages. Across all 24 random directions at k = 2, 3-9 of each language's 48 random conditions
+  keep < 50% language match (zho 0, but zho loses its language under OV +2: 8% match). The strength rule bounded
+  AVERAGE damage, the inclusion rule needed EVERY direction harmless -- inconsistent design. No claim either way.
+- EXPLORATORY (exploratory_gen.py; inclusion per direction: base, +k*, -k* each >= 20 pairs):
+  pooled OV slope +0.068 per unit k over 5 languages (eng fra deu hin rus) vs random +0.001 +- 0.007 (max +0.011),
+  z = 10.0, above all 24 (also 24/24 when paired on shared language sets); prompt bootstrap 95% [+0.043, +0.086];
+  IE +0.008. Per language z: rus 5.9, fra 4.1, hin 2.2, deu 1.9, eng 0.2.
+  Rates (base -> -2 / +2; random 5-95%): rus .09 -> .08/.51 [.02,.18] (97% match at +2, fluent noun-object
+  scrambling); deu .82 -> .60/.83 [.67,.90] (English verb placement inside German, ungrammatical); hin .97 ->
+  .51/.85 [.70,1.0] (base n = 30; -2 text often loops); fra .18 -> .19/.55 [.09,.28] (+2 rests on 20 pairs, 41%
+  match, repetitive); eng/zho/jpn/tur do not reorder. Floor/ceiling asymmetry as in the minimal-pair test.
+  Threshold: at k = +-1 the OV slope is ~0 except hin (+.157); rus .015, deu .003.
+  Sign-specific language loss: match when pushed AGAINST own majority order .64 vs TOWARD .96, lower in 7/7
+  non-tied languages (sign test p = .016); jpn -2 -> zh, fra +2 -> ja, but zho +2 -> en (destination not simply
+  a language of the target order). The direction carries part of language identity.
+  Object type (reparse_objtype.py on Colab L4, base + OV/IE +-2 + all 48 random; re-parse reproduces original
+  counts in 94-97% of continuations): NOUN objects first, -2 / 0 / +2: deu .14/.72/.86 (pronouns stay .92-.96 ->
+  real reordering of nouns), rus .05/.01/.36 (real), fra 0/0/0 of 218 noun objects (the +2 OV-rate rise is pure
+  composition: nouns vanish 100 -> 6, preverbal clitics remain -> ARTEFACT), hin .53/.92/.91 (n 17 at -2; rest of
+  the drop = non-noun/non-pronoun objects that never occur unsteered), eng 0 throughout. Noun-only pooled slope
+  (eng deu rus qualify) +0.086/k vs random +0.003 +- 0.010 (max +0.028), z 8.2.
+  Repetition (1 - distinct word-bigram ratio): unsteered .046, OV +-2 .075, IE .068, random .061 (range 0-.25).

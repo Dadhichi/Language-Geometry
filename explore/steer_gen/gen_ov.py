@@ -46,7 +46,7 @@ def lid_match(gens):
     return gens
 
 
-def generate(args, prompts, conds):
+def generate(args, prompts, conds, ckpt=None):
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(args.model, token=os.environ.get("HF_TOKEN"))
     tok.padding_side = "left"
@@ -69,9 +69,23 @@ def generate(args, prompts, conds):
     handle = blocks[13].register_forward_hook(hook)                         # block 14 output (layer index 14)
     assert all(c["layer"] in (None, 14) for c in conds)
     langs = sorted({p["lang"] for p in prompts})
-    out = []
+    out, done = [], set()
+    if ckpt and os.path.exists(ckpt):                                       # resume: keep complete conditions
+        prev = [json.loads(l) for l in open(ckpt, encoding="utf-8")]
+        n_per = {}
+        for g in prev:
+            n_per[g["cond"]] = n_per.get(g["cond"], 0) + 1
+        done = {c for c, n in n_per.items() if n == len(prompts)}
+        out = [g for g in prev if g["cond"] in done]
+        with open(ckpt, "w", encoding="utf-8") as f:
+            for g in out:
+                f.write(json.dumps(g, ensure_ascii=False) + "\n")
+        print(f"resume: {len(done)} complete conditions loaded from {ckpt}", flush=True)
     t0 = time.time()
     for ci, c in enumerate(conds):
+        if ci in done:
+            continue
+        n0 = len(out)
         for lang in langs:
             idx = [i for i, p in enumerate(prompts) if p["lang"] == lang]
             if c["kind"] == "base":
@@ -88,6 +102,10 @@ def generate(args, prompts, conds):
                 for i, row in zip(b, g[:, enc["input_ids"].shape[1]:]):
                     cont = tok.decode(row, skip_special_tokens=True).split("\n")[0]
                     out.append(dict(cond=ci, lang=lang, sent=prompts[i]["sent"], cont=cont))
+        if ckpt:                                                            # checkpoint the finished condition
+            with open(ckpt, "a", encoding="utf-8") as f:
+                for g in out[n0:]:
+                    f.write(json.dumps(g, ensure_ascii=False) + "\n")
         print(f"gen cond {ci + 1}/{len(conds)} {c} ({time.time() - t0:.0f}s) e.g. {out[-1]['cont'][:60]!r}", flush=True)
     handle.remove()
     del model
@@ -103,6 +121,14 @@ def parse(args, prompts, gens):
         g["n_ov"] = g["n_vo"] = 0
     t0 = time.time()
     for lang in sorted(STANZA):
+        part = os.path.join(args.out, f"parsed_{lang}.json")
+        if os.path.exists(part):                                            # resume: counts already parsed
+            saved = json.load(open(part))
+            for g in gens:
+                if g["lang"] == lang:
+                    g["n_ov"], g["n_vo"] = saved[f"{g['cond']}_{g['sent']}"]
+            print(f"parsed {lang}: loaded from checkpoint", flush=True)
+            continue
         try:                                 # mwt exists only for some languages (fr, de, tr, ...)
             nlp = stanza.Pipeline(STANZA[lang], processors="tokenize,mwt,pos,lemma,depparse", use_gpu=True,
                                   verbose=False, download_method=None)
@@ -126,6 +152,8 @@ def parse(args, prompts, gens):
                                     g["n_ov"] += 1
                                 else:
                                     g["n_vo"] += 1
+        json.dump({f"{g['cond']}_{g['sent']}": [g["n_ov"], g["n_vo"]] for g in gens if g["lang"] == lang},
+                  open(part, "w"))
         print(f"parsed {lang}: {len(rows)} texts ({time.time() - t0:.0f}s)", flush=True)
         del nlp
     return gens
@@ -149,22 +177,25 @@ def main():
         prompts = [p for p in prompts if cnt.setdefault(p["lang"], 0) < args.limit and not cnt.__setitem__(p["lang"], cnt[p["lang"]] + 1)]
     # ---- calibration (random directions only; PREREG rule): k* = largest k in CAL_KS whose random-direction
     # language-match rate is >= 80% of the base rate, on the first 20 prompts per language
-    cnt = {}
-    cal_prompts = [p for p in prompts if cnt.setdefault(p["lang"], 0) < 20 and not cnt.__setitem__(p["lang"], cnt[p["lang"]] + 1)]
-    cal_conds = calib_conditions()
-    cal = lid_match(generate(args, cal_prompts, cal_conds))
-    rate = lambda pred: float(np.mean([g["match"] for g in cal if pred(cal_conds[g["cond"]])]))
-    base_rate = rate(lambda c: c["kind"] == "base")
-    rates = {k: rate(lambda c, k=k: c["kind"] == "rand" and abs(c["k"]) == k) for k in CAL_KS}
-    kstar = next((k for k in CAL_KS if rates[k] >= 0.8 * base_rate), min(CAL_KS))
-    json.dump(dict(base_rate=base_rate, rates=rates, kstar=kstar), open(os.path.join(args.out, "calibration.json"), "w"), indent=1)
-    print(f"CALIBRATION base match {base_rate:.3f} | random-direction match by k {rates} -> k* = {kstar}", flush=True)
+    calp = os.path.join(args.out, "calibration.json")
+    if os.path.exists(calp):                                                # resume: calibration already decided
+        kstar = json.load(open(calp))["kstar"]
+        print(f"CALIBRATION loaded: k* = {kstar}", flush=True)
+    else:
+        cnt = {}
+        cal_prompts = [p for p in prompts if cnt.setdefault(p["lang"], 0) < 20 and not cnt.__setitem__(p["lang"], cnt[p["lang"]] + 1)]
+        cal_conds = calib_conditions()
+        cal = lid_match(generate(args, cal_prompts, cal_conds))
+        rate = lambda pred: float(np.mean([g["match"] for g in cal if pred(cal_conds[g["cond"]])]))
+        base_rate = rate(lambda c: c["kind"] == "base")
+        rates = {k: rate(lambda c, k=k: c["kind"] == "rand" and abs(c["k"]) == k) for k in CAL_KS}
+        kstar = next((k for k in CAL_KS if rates[k] >= 0.8 * base_rate), min(CAL_KS))
+        json.dump(dict(base_rate=base_rate, rates=rates, kstar=kstar), open(calp, "w"), indent=1)
+        print(f"CALIBRATION base match {base_rate:.3f} | random-direction match by k {rates} -> k* = {kstar}", flush=True)
     conds = conditions(args.n_rand, kstar)
     json.dump(conds, open(os.path.join(args.out, "conditions.json"), "w"), indent=1)
-    gens = generate(args, prompts, conds)
-    with open(os.path.join(args.out, "gen_raw.jsonl"), "w", encoding="utf-8") as f:
-        for g in gens:
-            f.write(json.dumps(g, ensure_ascii=False) + "\n")
+    gens = generate(args, prompts, conds, ckpt=os.path.join(args.out, "gen_raw.jsonl"))
+    gens.sort(key=lambda g: g["cond"])
     gens = parse(args, prompts, gens)
     with open(os.path.join(args.out, "gen.jsonl"), "w", encoding="utf-8") as f:
         for g in gens:

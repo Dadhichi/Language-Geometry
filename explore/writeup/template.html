@@ -1,0 +1,562 @@
+<title>The Word-Order Axis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a research-article column (~66ch) with figures that break out wider, Distill / Transformer Circuits style. */
+:root{
+  --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
+  --hair:rgba(11,11,11,.10); --wash:#f0efec;
+  --vo:#2a78d6; --ov:#eb6834; --gen:#1baf7a; --mixed:#898781; --rand:#c3c2b7;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col:42rem; --wide:62rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --plane:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+  --hair:rgba(255,255,255,.10); --wash:#383835; --vo:#3987e5; --ov:#d95926; --gen:#199e70; --rand:#4a4a46; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --plane:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+  --hair:rgba(255,255,255,.10); --wash:#383835; --vo:#3987e5; --ov:#d95926; --gen:#199e70; --rand:#4a4a46; color-scheme:dark}
+body{background:var(--plane);color:var(--ink);font-family:var(--serif);font-size:1.075rem;line-height:1.65;
+  padding-inline:16px;padding-block:0 4rem}
+.page{max-width:var(--wide);margin:0 auto}
+.col{max-width:var(--col);margin-inline:auto}
+header.title{padding-block:3.5rem 1.5rem;border-bottom:1px solid var(--grid);margin-bottom:2rem}
+h1{font-family:var(--sans);font-weight:600;font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.01em;margin:0 0 .6rem;text-wrap:balance}
+.subtitle{font-family:var(--sans);color:var(--ink2);font-size:1.15rem;line-height:1.45;max-width:38rem;margin:0 0 1.5rem;text-wrap:balance}
+.byline{display:flex;flex-wrap:wrap;gap:.4rem 2.5rem;font-family:var(--sans);font-size:.85rem;color:var(--ink2)}
+.byline b{display:block;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:.7rem}
+h2{font-family:var(--sans);font-weight:600;font-size:1.6rem;line-height:1.25;margin:3.2rem 0 .8rem;text-wrap:balance}
+h3{font-family:var(--sans);font-weight:600;font-size:1.15rem;margin:2rem 0 .5rem;text-wrap:balance}
+p{margin:0 0 1.1rem}
+a{color:var(--vo);text-decoration-thickness:1px;text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--vo);outline-offset:2px}
+.num{font-family:var(--mono);font-size:.92em;font-variant-numeric:tabular-nums}
+.sum{font-family:var(--sans);font-size:.98rem;line-height:1.55;background:var(--surface);border:1px solid var(--hair);
+  border-radius:6px;padding:1.2rem 1.4rem;margin:0 0 2rem}
+.sum h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 .6rem}
+.sum ul{margin:0;padding-left:1.1rem;display:grid;gap:.5rem}
+nav.toc{font-family:var(--sans);font-size:.9rem;margin:0 0 2rem}
+nav.toc ol{columns:2 15rem;margin:.3rem 0 0;padding-left:1.2rem;color:var(--ink2)}
+nav.toc a{color:var(--ink2);text-decoration:none}
+nav.toc a:hover{color:var(--ink);text-decoration:underline}
+.eq{font-family:var(--mono);font-size:.9rem;background:var(--surface);border:1px solid var(--hair);border-radius:6px;
+  padding:.8rem 1rem;margin:0 0 1.2rem;overflow-x:auto;white-space:nowrap}
+.note{font-family:var(--sans);font-size:.88rem;line-height:1.5;color:var(--ink2);border-left:2px solid var(--grid);padding-left:.9rem;margin:0 0 1.2rem}
+figure{margin:2rem 0 2.2rem;min-width:0}
+figure.wide{max-width:var(--wide);margin-inline:auto}
+.fig-frame{background:var(--surface);border:1px solid var(--hair);border-radius:6px;padding:1rem;overflow-x:auto}
+figcaption{font-family:var(--sans);font-size:.86rem;line-height:1.5;color:var(--ink2);max-width:var(--col);margin:.7rem auto 0}
+figcaption b{color:var(--ink);font-weight:600}
+.controls{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;align-items:center;font-family:var(--sans);font-size:.82rem;color:var(--ink2);margin:0 0 .6rem}
+.seg{display:inline-flex;border:1px solid var(--axis);border-radius:5px;overflow:hidden}
+.seg button{font:inherit;background:transparent;color:var(--ink2);border:0;padding:.3rem .7rem;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--plane)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-family:var(--sans);font-size:.8rem;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.sw{width:.75rem;height:.75rem;border-radius:50%;display:inline-block}
+.swl{width:1.1rem;height:2px;display:inline-block}
+svg text{font-family:var(--sans);fill:var(--ink2);font-size:11px}
+svg .tick text{fill:var(--muted);font-size:10.5px;font-family:var(--mono)}
+svg .domain{stroke:var(--axis)}
+svg .tick line{stroke:var(--grid)}
+.tip{position:fixed;pointer-events:none;z-index:10;background:var(--surface);color:var(--ink);border:1px solid var(--hair);
+  border-radius:5px;padding:.45rem .6rem;font-family:var(--sans);font-size:.8rem;line-height:1.4;box-shadow:0 4px 14px rgba(0,0,0,.12);max-width:16rem}
+.tip strong{font-family:var(--mono);font-weight:500}
+table{border-collapse:collapse;font-family:var(--sans);font-size:.86rem;width:100%}
+.tablewrap{overflow-x:auto;margin:0 0 1.4rem}
+th,td{padding:.42rem .6rem;text-align:left;border-bottom:1px solid var(--grid);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pass{color:var(--gen);font-weight:600}
+.fail{color:var(--muted);font-weight:600}
+.pair{font-family:var(--sans);font-size:.92rem;display:grid;gap:.15rem;margin:0 0 .7rem}
+.pair .tag{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+ol.refs{font-family:var(--sans);font-size:.85rem;line-height:1.5;color:var(--ink2);padding-left:1.4rem;display:grid;gap:.45rem}
+.small{font-size:.86rem}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="page">
+<header class="title col">
+  <h1>The Word-Order Axis</h1>
+  <p class="subtitle">How two multilingual language models arrange 34 languages internally: a family tree in the layers that read and write words, a word-order axis in the middle, and evidence that the model uses that axis.</p>
+  <div class="byline">
+    <div><b>Authors</b>Dadhichi, with Claude</div>
+    <div><b>Models</b>Qwen2.5-7B · Llama-3.1-8B</div>
+    <div><b>Published</b>October 2026</div>
+    <div><b>Code &amp; pre-registrations</b><a href="https://github.com/Dadhichi/Language-Geometry/tree/claude/compassionate-newton-vufc0c">github.com/Dadhichi/Language-Geometry</a></div>
+  </div>
+</header>
+
+<section class="col">
+  <div class="sum">
+    <h2>Summary</h2>
+    <ul>
+      <li>We read sentence representations of 34 languages out of the residual stream of Qwen2.5-7B and Llama-3.1-8B, using translations of the same sentences (FLORES+).</li>
+      <li>After removing what is explained by script, shared tokens and sentence length, the arrangement of the languages carries <b>two separate structures</b>: the Glottolog family tree, and a word-order axis. Each survives controlling for the other. All tests were pre-registered, and the result replicates in the second model.</li>
+      <li>The word-order axis is <b>head direction</b>, the bundle of object–verb order, postpositions and genitive order, with object–verb order its most distinctive part. The family tree is not explained by vocabulary the languages share.</li>
+      <li>The two structures sit at different depths. Word order peaks in the middle layers and fades before the output. The family tree is strongest in the first and last layers, where the model reads and writes words.</li>
+      <li>The word-order axis is used. Adding a direction estimated from <em>other</em> languages to the middle of the network shifts the model's preference between object-before-verb and verb-before-object versions of 999 real sentences, in all 8 languages tested (<span class="num">z = 4.99</span> against random directions of the same size).</li>
+      <li id="sum-extra">At the token level, the model's sense of "which language is this" is graded when the evidence is ambiguous, but it switches within about one token when the language actually changes.</li>
+    </ul>
+  </div>
+  <nav class="toc" aria-label="Contents"><b>Contents</b>
+    <ol>
+      <li><a href="#intro">Languages as points</a></li>
+      <li><a href="#setup">Setup</a></li>
+      <li><a href="#first">A first look: translations and a trap</a></li>
+      <li><a href="#map">The residual map</a></li>
+      <li><a href="#tests">Testing for a tree and an axis</a></li>
+      <li><a href="#depth">Where in depth</a></li>
+      <li><a href="#which">Which parameter, and is it vocabulary?</a></li>
+      <li><a href="#steer">Is the axis used?</a></li>
+      <li><a href="#gen">Steering free generation</a></li>
+      <li><a href="#tokens">Language identity, token by token</a></li>
+      <li><a href="#dead">What did not hold up</a></li>
+      <li><a href="#discussion">Discussion and limitations</a></li>
+      <li><a href="#methods">Methods and pre-registration</a></li>
+    </ol>
+  </nav>
+</section>
+
+<section class="col" id="intro">
+  <h2>Languages as points</h2>
+  <p>Interpretability work keeps finding that models give familiar objects a familiar shape. Days of the week and months sit on circles. Numbers lie on helices, and when a model tracks how many characters fit on a line, the count lives on a rippled curve that attention heads rotate to compare against the line width <a href="#r1">[1]</a>. In each case the geometry mirrors the structure of the thing being represented.</p>
+  <p>Languages have structure too. Linguists organise them in two classic ways: by descent, in family trees such as Indo-European, and by type, along parameters such as whether the object comes before the verb ("the dog the ball chased") or after it ("the dog chased the ball"). A model trained on text from many languages is never told either fact. We ask whether either of these structures appears in how the model arranges languages internally, and if so, whether the model uses it.</p>
+  <p>Earlier work shows that multilingual representations separate into a shared, roughly language-neutral part and a language-specific part, and that subtracting each language's average representation improves cross-lingual matching <a href="#r2">[2]</a><a href="#r3">[3]</a>. Language centroids cluster loosely by family <a href="#r3">[3]</a>, and family trees can be recovered from models' output distributions <a href="#r8">[8]</a>. What has been missing is a test that separates genealogy from typology and from surface overlap (shared script and vocabulary), done inside decoder LLMs, across depth, with a causal check. That is what this article does.</p>
+</section>
+
+<section class="col" id="setup">
+  <h2>Setup</h2>
+  <p><b>Models.</b> Qwen2.5-7B (28 transformer blocks, residual width 3,584) and Llama-3.1-8B (32 blocks, width 4,096), both base models.</p>
+  <p><b>Text.</b> FLORES+ <a href="#r9">[9]</a> provides the same 997 + 1,012 sentences professionally translated into 200+ languages. We use 34 languages chosen to separate family, script and word order: 13 families, 12 scripts, 11 object-before-verb languages spread over five families, and three pairs of one language written in two scripts (Hindi/Urdu, Croatian/Serbian, Simplified/Traditional Chinese).</p>
+  <p><b>Representations.</b> For each sentence we take the residual stream after the embedding and after every block, and average over the sentence's tokens. Every input starts with the same sink token, which is excluded from the average because its activation is unusually large in the middle layers. Each language's <em>centroid</em> at a layer is the average over its sentences. Everything below is a statement about how these 34 centroids sit relative to one another.</p>
+  <p><b>Distances.</b> We measure centroid differences in two geometries. The first is the model's own: Park et al.'s causal inner product, built from the covariance of the unembedding vectors <a href="#r5">[5]</a>, which weighs directions by how much they change the model's next-token predictions. The second is a Mahalanobis geometry that whitens by how much sentences vary within a language. To keep estimation noise out of the distances, the centroids are estimated on the two halves of FLORES separately and crossed; sentence-bootstrap intervals on every headline number are about ±0.001.</p>
+</section>
+
+<section class="col" id="first">
+  <h2>A first look: translations and a trap</h2>
+  <p>A pilot on 12 languages gave a simple picture of the middle layers. A language's sentence representation is mostly the shared content of the sentence plus a constant offset for the language. Subtracting each language's centroid is enough to find the correct translation of a sentence among a thousand candidates 99% of the time at layer 14 of Qwen. On top of that, each language is scaled by its own factor, and that factor turned out to be an artefact of averaging over tokens: languages that need more tokens per sentence get diluted, almost exactly as <span class="num">tokens<sup>−½</sup></span> (correlation −0.93 to −0.96 at every layer). Every analysis below includes tokens per sentence as a covariate.</p>
+  <p>The pilot also produced a cautionary result. Our first analysis fit rotations between languages in each language's own top principal components, and found that these maps failed to compose (going English→German→Russian disagreed with English→Russian) far beyond a null model. Four independent follow-up analyses traced this to the method. Truncating each language to its <em>own</em> top components keeps slightly different subspaces per language, and synthetic data built to be perfectly consistent reproduced the failure exactly (composition error 0.091 against 0.077 real, while our original null predicted 0.017). Choosing the same subspace for every language removed it. We mention this because it is an easy mistake to make with per-language PCA, and because it is why the analysis below works with distances between centroids instead.</p>
+</section>
+
+<section id="map">
+  <div class="col">
+    <h2>The residual map</h2>
+    <p>Most of the variation in distances between centroids is a "star": each language sits at its own distance from the centre, mostly set by tokens per sentence, with long-tokenised languages like Telugu and Khmer far out. We fit that star, plus terms for shared script, shared tokens and the token-count difference, and look at what is left. Figure 1 lays the 34 languages out by those residual distances (classical multidimensional scaling), without telling the method anything about families or word order.</p>
+  </div>
+  <figure class="wide">
+    <div class="controls"><span>Model</span><div class="seg" role="group" aria-label="Model" id="map-model">
+      <button aria-pressed="true" data-v="qwen">Qwen2.5-7B</button><button aria-pressed="false" data-v="llama">Llama-3.1-8B</button></div>
+      <div class="legend"><span><i class="sw" style="background:var(--vo)"></i>verb before object (VO)</span><span><i class="sw" style="background:var(--ov)"></i>object before verb (OV)</span><span><i class="sw" style="background:var(--mixed)"></i>no dominant order</span><span><i class="swl" style="background:var(--axis)"></i>same family</span></div></div>
+    <div class="fig-frame"><svg id="fig-map" role="img" aria-label="Map of 34 languages by residual distance"></svg></div>
+    <figcaption><b>Figure 1. The first axis of the residual map is word order.</b> Classical MDS of mid-depth centroid distances (layers 8–20 of Qwen, 9–23 of Llama, Mahalanobis geometry) after removing each language's own distance from the centre, shared script, shared tokens and token-count differences. Colour shows the order of object and verb from WALS <a href="#r10">[10]</a>; lines join languages of the same family. Nothing about word order went into the layout. The horizontal axis puts Romance, Slavic and Germanic at one end and Indo-Aryan, Turkic, Dravidian, Japanese and Korean at the other, in both models. Persian, Finnish, Estonian and Chinese, which mix head-initial and head-final features, fall in between. The second axis roughly separates Europe and western Asia from East and Southeast Asia. Hover a point for details.</figcaption>
+  </figure>
+</section>
+
+<section class="col" id="tests">
+  <h2>Testing for a tree and an axis</h2>
+  <p>A picture is not a test. To test whether the distances carry a family tree or a word-order split, we use the standard model of evolution along a tree: if each branch adds an independent random step, squared distances add up along the path between two languages. Each <em>split</em> of the languages (for example Romance versus everything else) then adds a fixed amount to the distance of every pair it separates.</p>
+  <div class="eq">D²<sub>ij</sub> = ℓ<sub>i</sub> + ℓ<sub>j</sub> + Σ<sub>script S</sub> b<sub>S</sub>·[S separates i,j] + β<sub>tok</sub>·tokdist<sub>ij</sub> + β<sub>len</sub>·|Δlog tokens|<sub>ij</sub> + Σ<sub>tested splits T</sub> b<sub>T</sub>·[T separates i,j]</div>
+  <p>All coefficients are constrained to be non-negative. The base model (the star ℓ, the four multi-language scripts, token overlap and length) is fit first, and a structure's <em>gain</em> is the fraction of its leftover error that the tested splits remove. We test two structures:</p>
+  <ul>
+    <li><b>Genealogy</b>: the 20 internal splits of the Glottolog tree <a href="#r11">[11]</a> over our languages (Indo-European, Germanic, West Germanic, Romance, Ibero-Romance, Slavic, Indo-Iranian, Semitic, Turkic, and so on). The null hypothesis keeps the tree's shape but shuffles which language sits at which leaf, 10,000 times.</li>
+    <li><b>Word order</b>: one split, the 11 object-before-verb languages (WALS 83A) against the rest. The null draws random groups of 11 languages.</li>
+  </ul>
+  <p>The two structures overlap, since the object-before-verb group consists largely of whole families. Before running anything we confirmed on simulated data that each test, taken alone, picks up the other structure part of the time. So we required each claim to hold <em>conditionally</em> as well: genealogy beyond the word-order split, and word order beyond all 20 family splits. In simulation, the conditional tests detected the planted structure 92–100% of the time and the other structure only 2–12% of the time.</p>
+  <div class="tablewrap"><table id="tab-primary"></table></div>
+  <p class="small">Both claims hold in both geometries and both models. Bonferroni-corrected threshold 0.0125; 0.0001 is the smallest p-value 10,000 permutations can produce. The table also reports the same-language/two-script test: Hindi–Urdu, Croatian–Serbian and the two Chinese scripts are closer than script, tokens and length predict, among the closest 1% of all 561 language pairs in the Mahalanobis geometry of both models.</p>
+  <p>Exploratory checks, run after these results, did not change them. Adding geographic distance between the languages leaves both effects significant. Dropping each of the 11 families in turn leaves the word-order effect significant in all 24 runs and the genealogy effect significant in all of them, weakest when all of Indo-European is removed (18 languages left, p = 0.046). Adding German and Dutch, which put the verb second in main clauses, to the object-before-verb group weakens the effect, so what aligns with the geometry is main-clause object–verb order.</p>
+</section>
+
+<section id="depth">
+  <div class="col">
+    <h2>Where in depth</h2>
+    <p>Repeating the test layer by layer shows that the two structures live in different places.</p>
+  </div>
+  <figure class="wide">
+    <div class="controls"><span>Geometry</span><div class="seg" role="group" aria-label="Geometry" id="prof-metric">
+      <button aria-pressed="true" data-v="causal">Causal (unembedding)</button><button aria-pressed="false" data-v="lda05">Within-language whitened</button></div>
+      <div class="legend"><span><i class="swl" style="background:var(--gen)"></i>family tree (20 splits)</span><span><i class="swl" style="background:var(--ov)"></i>word order (OV split)</span></div></div>
+    <div class="fig-frame"><svg id="fig-prof" role="img" aria-label="Gain of family tree and word-order split by relative depth in two models"></svg></div>
+    <figcaption><b>Figure 2. Word order lives in the middle; the family tree lives at the edges.</b> Fraction of leftover distance error removed by the family tree (green) and by the word-order split (orange) at each layer, plotted against relative depth so the two models line up. The shaded band is the pre-registered window. In both models the word-order signal is near zero at the embedding, peaks around 30–60% depth and fades in the last third. The family-tree signal is high at the embedding, dips through the middle, and rises again in the late layers that prepare the next token.</figcaption>
+  </figure>
+  <div class="col">
+    <p>This is the depth profile one would expect if the two structures had different sources. Languages of a family share vocabulary, so a genealogical signal at the embedding and in the output-preparing layers could simply reflect which tokens a language uses. Word order is not visible in any single token; it is a property of how tokens are arranged, and it appears exactly in the layers that earlier work describes as the model's language-neutral "concept space" <a href="#r4">[4]</a>.</p>
+  </div>
+</section>
+
+<section id="which">
+  <div class="col"><h2>Which parameter, and is it vocabulary?</h2></div>
+  <!--SECTION:which-body--><div class="col"><p class="note">Results of the pre-registered typology and lexical-control analyses are added here when they finish.</p></div><!--/SECTION-->
+</section>
+
+<section id="steer">
+  <div class="col">
+    <h2>Is the axis used?</h2>
+    <p>A direction can describe the data without the model ever reading it. To test use, we push the model along the axis and look for a change in behaviour that only word order could explain.</p>
+    <p><b>The direction.</b> At layer 14 of Qwen we regress the 34 centroids on four labels at once: object-before-verb, Indo-European, script, and log tokens per sentence. The object-before-verb coefficient is a direction in the residual stream: how object-before-verb languages differ from the others, holding family, script and length fixed. For each test language we re-estimate it <em>with that language left out</em>, so the direction is never fit on the language it is applied to. Before any intervention, the left-out languages already fall on the correct side of their own direction (Figure 3).</p>
+  </div>
+  <figure class="wide">
+    <div class="fig-frame"><svg id="fig-proj" role="img" aria-label="Held-out languages projected onto the word-order direction"></svg></div>
+    <figcaption><b>Figure 3. The direction predicts word order for languages it never saw.</b> Each language's centroid projected onto the word-order direction estimated from the other 33 languages, in units of the difference between object-before-verb and verb-before-object languages. Hindi, Turkish and Japanese land on the object-first side, English, French and Russian on the verb-first side, and German, which WALS lists as having no dominant order, at zero. Chinese, which is verb-first, also sits near zero.</figcaption>
+  </figure>
+  <div class="col">
+    <p><b>The test.</b> From Universal Dependencies treebanks <a href="#r12">[12]</a> in eight languages we took 999 real sentences in which a verb and its object are next to each other, and built a twin of each with the two swapped. Both versions use exactly the same tokens.</p>
+    <div id="pairs"></div>
+    <p>We add k times the direction to the output of layer 14 at every position and measure how the model's preference between the twins changes: the log-probability of the object-first version minus that of the verb-first version, relative to the unsteered model. If the direction carries word order, pushing toward object-first should favour the object-first twin. The comparison that matters is with random directions of the same size drawn from the same subspace of language differences, because any push of this size disturbs the model somewhat.</p>
+  </div>
+  <figure class="wide">
+    <div class="controls"><span>Layer</span><div class="seg" role="group" aria-label="Layer" id="steer-layer">
+      <button aria-pressed="false" data-v="8">8</button><button aria-pressed="true" data-v="14">14</button><button aria-pressed="false" data-v="20">20</button></div>
+      <div class="legend"><span><i class="swl" style="background:var(--ov)"></i>word-order direction</span><span><i class="swl" style="background:var(--gen)"></i>Indo-European direction (control)</span><span><i class="swl" style="background:var(--rand)"></i>32 random directions (layer 14)</span></div></div>
+    <div class="fig-frame"><svg id="fig-steer" role="img" aria-label="Change in word-order preference as a function of steering strength"></svg></div>
+    <figcaption><b>Figure 4. Steering along the axis shifts word-order preference, and random directions do not.</b> Mean change in log p(object-first twin) − log p(verb-first twin), in nats, averaged over the eight languages, as a function of steering strength k (in units of the direction's own length). The pre-registered statistic is the slope between k = −2 and k = +2 at layer 14: <span class="num" id="steer-stat"></span>. The control direction for Indo-European membership, scaled to the same length, has essentially no effect.</figcaption>
+  </figure>
+  <div class="col">
+    <p>The effect appears in all eight languages, in both directions. Pushing a verb-first language toward object-first makes the object-first twin much more likely; pushing an object-first language toward verb-first does the reverse (Figure 5). Pushing a language further toward the order it already has does little, which is what one would expect if the model reads this direction to decide word order and is already confident in the familiar case.</p>
+  </div>
+  <figure class="wide">
+    <div class="fig-frame"><svg id="fig-langs" role="img" aria-label="Per-language preference before and after steering"></svg></div>
+    <figcaption><b>Figure 5. Every language moves, and it moves toward the order it is pushed to.</b> Average preference for the object-first twin (nats) in the unsteered model (grey), with steering toward object-first (orange, k = +2) and toward verb-first (blue, k = −2). Languages are sorted by their unsteered preference.</figcaption>
+  </figure>
+  <div class="col">
+    <p class="note">The intervention is not surgical. At k = +2 it lowers the log-probability of the original sentence by about 34 nats on average, against 17 for random directions of the same size, and the preferred twin flips in only about 10% of pairs. The pre-registered comparison accounts for disruption, since random directions disrupt the model too without producing the effect. Still, these are shifts in preference between two given strings, and the next section asks whether they show up in what the model writes.</p>
+  </div>
+</section>
+
+<section id="gen">
+  <div class="col"><h2>Steering free generation</h2></div>
+  <!--SECTION:gen-body--><div class="col"><p class="note">The pre-registered free-generation run (1,200 prompts in 8 languages, continuations parsed with Stanza) is added here when it finishes.</p></div><!--/SECTION-->
+</section>
+
+<section id="tokens">
+  <div class="col">
+    <h2>Language identity, token by token</h2>
+    <p>So far each sentence was one point. A sequence model reads one token at a time, and a natural hypothesis, borrowed from work showing that transformers track belief states over hidden variables <a href="#r6">[6]</a>, is that the model keeps a probability distribution over which language it is reading and updates it with each token. Mean-pooled sentences hide this, so we recorded the residual stream at every token of the 12 pilot languages and estimated the model's own belief by scoring each sentence after a prompt naming each candidate language.</p>
+    <p>Two pre-registered predictions came out differently. Where the evidence is ambiguous (the first few tokens, shared names and numbers), the representation sits between languages in proportion to the model's belief, much better than a hard "most likely language" label predicts (p = 0.0001 at every layer). But when a sentence switches language half-way through, the representation does not drift the way accumulated evidence would. It jumps.</p>
+  </div>
+  <figure class="wide">
+    <div class="controls"><span>Layer</span><div class="seg" role="group" aria-label="Layer" id="cs-layer">
+      <button aria-pressed="false" data-v="4">4</button><button aria-pressed="true" data-v="14">14</button><button aria-pressed="false" data-v="24">24</button></div>
+      <div class="legend"><span><i class="swl" style="background:var(--vo)"></i>representation (observed)</span><span><i class="swl" style="background:var(--muted)"></i>Bayesian posterior over the whole sequence</span></div></div>
+    <div class="fig-frame"><svg id="fig-cs" role="img" aria-label="Position on the language axis around a code switch"></svg></div>
+    <figcaption><b>Figure 6. At a code switch, the representation jumps to the new language within about one token.</b> 28,800 sequences that start a sentence in language A and finish the same sentence in language B (8 language pairs, both directions, 9 switch points). The vertical axis is the position of each token's representation on the line from A's centroid (0) to B's centroid (1). Token 0 is the first token of B. The grey curve is the posterior of B given everything read so far, from the model's own language-conditioned likelihoods. A belief that integrated the whole sequence would follow it; the representation instead moves almost half-way on the first token of B and most of the way by the second.</figcaption>
+  </figure>
+  <div class="col">
+    <p>The representation therefore behaves like an estimate of the language of the <em>current stretch</em> of text, graded when that stretch is ambiguous, with a little inertia: the switch lags slightly more after a longer passage in the first language (Spearman ρ = +0.13, p = 0.0005). A Bayesian integrator that forgets old evidence fit no better than a simple step.</p>
+  </div>
+</section>
+
+<section class="col" id="dead">
+  <h2>What did not hold up</h2>
+  <p>Several elegant hypotheses failed, and the failures constrain the picture. We list them because a structure search is only as informative as the structures it rules out.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Hypothesis</th><th>What we found</th></tr></thead>
+    <tbody>
+      <tr><td>Languages are positions on a torus and the maps between them are rotations, as in rotary position embeddings</td><td>The maps between languages are mostly a translation. The small rotations that remain do not commute and do not share planes.</td></tr>
+      <tr><td>The failure of maps to compose has low-dimensional structure (curvature tied to script or family)</td><td>It was the per-language PCA artefact described above; with a shared subspace the maps compose.</td></tr>
+      <tr><td>Language centroids are sums of a script vector and a family vector</td><td>Leave-one-language-out prediction from script and family is worse than predicting the mean (R² −0.27 to −0.44).</td></tr>
+      <tr><td>Language offsets rotate into the unembedding subspace in late layers</td><td>They are never more aligned with the unembedding than the sentence content itself.</td></tr>
+      <tr><td>A family tree in 12 languages</td><td>Too few languages to test (power 18–42% in simulation). This is why the main study used 34.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="col" id="discussion">
+  <h2>Discussion and limitations</h2>
+  <p>Two linguistically meaningful structures are present in how these models arrange languages, and they occupy different depths: genealogy at the layers that handle words, word order in the middle. Word order is the more interesting of the two, because it cannot be read off any single token, and because steering along it changes the model's word-order preferences in eight languages from five families.</p>
+  <p>Several limits apply. We have shown that the structure is <em>present</em> in two independently trained models, not how it <em>emerges</em> during training; models with released checkpoints would answer that. Only three of our languages break the head-direction bundle, so separating its parts rests on few data points. The intervention is blunt, and our steering direction was defined by object–verb order alone. All representations are averages over FLORES sentences, a single domain. We did not control for how much training data each language had, although tokens per sentence partly tracks it. And we tested four word-order features out of the hundreds WALS describes.</p>
+  <p>The broader point is methodological as much as linguistic. Geometric claims about language representations are easy to fool: per-language PCA invents inconsistency, mean pooling invents per-language scale, and shared tokens can masquerade as genealogy. Each finding above survived a test designed in advance to rule out such artefacts, and two of our own early findings did not.</p>
+</section>
+
+<section class="col" id="methods">
+  <h2>Methods and pre-registration</h2>
+  <p>Every confirmatory test was written, validated on simulated data, and committed before the data it used were extracted or analysed. Exploratory analyses are labelled as such in the repository.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Study</th><th>Pre-registered</th><th>Outcome</th></tr></thead>
+    <tbody id="prereg-rows">
+      <tr><td>Tree and word-order split, Qwen (34 languages)</td><td class="n">0d40bdd</td><td class="pass">both claims hold</td></tr>
+      <tr><td>Replication, Llama-3.1-8B</td><td class="n">d392d70</td><td class="pass">both claims replicate</td></tr>
+      <tr><td>Token-level belief</td><td class="n">d8f2d66</td><td>graded belief holds; Bayesian switching does not</td></tr>
+      <tr><td>Steering, minimal pairs</td><td class="n">5e5e095</td><td class="pass">claim holds (z = 4.99)</td></tr>
+      <tr><td>Word-order bundle and lexical controls</td><td class="n">a9c7488</td><td>head-direction bundle (not object–verb order alone); genealogy survives lexical controls</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Centroids are averaged over content tokens (sink token excluded) of FLORES+ dev and devtest; all distances use the unbiased cross-split Gram matrix. Splits and covariates enter a non-negative least-squares model; p-values come from 10,000 permutations (tree leaf relabelling, or random language subsets of matching size). The causal geometry is diag(g)·Cov(γ)·diag(g), with γ the unembedding rows of real tokens and g the final RMSNorm weight. Steering adds k·β to the output of the chosen block at every position; β is the held-out ordinary-least-squares coefficient described above. Compute: about 10 Colab GPU-hours (L4) in total.</p>
+  <h3>References</h3>
+  <ol class="refs">
+    <li id="r1">Gurnee, W., Ameisen, E., Kauvar, I., Tarng, J., Pearce, A., Olah, C., Batson, J. (2025). <a href="https://transformer-circuits.pub/2025/linebreaks/index.html">When Models Manipulate Manifolds: The Geometry of a Counting Task</a>. Transformer Circuits Thread.</li>
+    <li id="r2">Libovický, J., Rosa, R., Fraser, A. (2020). <a href="https://arxiv.org/abs/2004.05160">On the Language Neutrality of Pre-trained Multilingual Representations</a>. Findings of EMNLP.</li>
+    <li id="r3">Chang, T., Tu, Z., Bergen, B. (2022). <a href="https://arxiv.org/abs/2205.10964">The Geometry of Multilingual Language Model Representations</a>. EMNLP.</li>
+    <li id="r4">Wendler, C., Veselovsky, V., Monea, G., West, R. (2024). <a href="https://arxiv.org/abs/2402.10588">Do Llamas Work in English? On the Latent Language of Multilingual Transformers</a>. ACL.</li>
+    <li id="r5">Park, K., Choe, Y. J., Jiang, Y., Veitch, V. (2024). <a href="https://arxiv.org/abs/2406.01506">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a>; and Park, Choe, Veitch (2023), <a href="https://arxiv.org/abs/2311.03658">The Linear Representation Hypothesis and the Geometry of Large Language Models</a>.</li>
+    <li id="r6">Shai, A. S., Marzen, S. E., Teixeira, L., Oldenziel, A. G., Riechers, P. M. (2024). <a href="https://arxiv.org/abs/2405.15943">Transformers Represent Belief State Geometry in their Residual Stream</a>. NeurIPS.</li>
+    <li id="r7">Lindsey, J., et al. (2025). <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html">On the Biology of a Large Language Model</a> (multilingual circuits). Transformer Circuits Thread.</li>
+    <li id="r8">Rakshit, Goldberg, Conklin (2026). <a href="https://arxiv.org/abs/2607.22699">Language family structure in language model representations</a>. arXiv:2607.22699.</li>
+    <li id="r9">NLLB Team (2022) and the Open Language Data Initiative. <a href="https://huggingface.co/datasets/openlanguagedata/flores_plus">FLORES+</a>.</li>
+    <li id="r10">Dryer, M. S., Haspelmath, M. (eds.) (2013). <a href="https://wals.info/">The World Atlas of Language Structures Online</a>, features 83A, 85A, 86A, 87A.</li>
+    <li id="r11">Hammarström, H., Forkel, R., Haspelmath, M., Bank, S. <a href="https://glottolog.org/">Glottolog</a>.</li>
+    <li id="r12">de Marneffe, M.-C., Manning, C. D., Nivre, J., Zeman, D. (2021). <a href="https://universaldependencies.org/">Universal Dependencies</a>. Computational Linguistics; Qi, P., et al. (2020), <a href="https://stanfordnlp.github.io/stanza/">Stanza</a>.</li>
+    <li id="r13">Wichmann, S., et al. <a href="https://asjp.clld.org/">The ASJP Database</a>; Östling, R., Kurfalı, M. (2023), <a href="https://arxiv.org/abs/2301.08115">Language Embeddings Sometimes Contain Typological Generalizations</a>.</li>
+  </ol>
+</section>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+<script id="figdata" type="application/json">__FIGDATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById("figdata").textContent);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const tip = document.getElementById("tip");
+function showTip(ev, rows) {
+  tip.replaceChildren();
+  rows.forEach(([v, l], i) => {
+    const line = document.createElement("div");
+    if (v !== null) { const s = document.createElement("strong"); s.textContent = v; line.append(s, document.createTextNode(" ")); }
+    line.append(document.createTextNode(l)); tip.append(line);
+  });
+  tip.hidden = false;
+  const r = tip.getBoundingClientRect();
+  let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const hideTip = () => { tip.hidden = true; };
+const fmt = (x, d = 2) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d);
+const width = el => Math.max(320, el.closest(".fig-frame").clientWidth - 32);
+function seg(id, onChange) {
+  const g = document.getElementById(id);
+  g.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    g.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    onChange(b.dataset.v);
+  }));
+  return () => g.querySelector('[aria-pressed="true"]').dataset.v;
+}
+const langs = D.langs;
+const orderColor = l => (l.code === "deu_Latn" || l.code === "nld_Latn") ? css("--mixed") : l.ov ? css("--ov") : css("--vo");
+
+/* ---------- Figure 1: residual map ---------- */
+function drawMap(model) {
+  const svg = d3.select("#fig-map"); svg.selectAll("*").remove();
+  const W = width(svg.node()), H = Math.min(560, Math.max(380, W * 0.6)), m = {t: 20, r: 24, b: 44, l: 24};
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const xy = D.map[model].xy;
+  const x = d3.scaleLinear().domain(d3.extent(xy, d => d[0])).nice().range([m.l, W - m.r]);
+  const y = d3.scaleLinear().domain(d3.extent(xy, d => d[1])).nice().range([H - m.b, m.t]);
+  svg.append("line").attr("x1", m.l).attr("x2", W - m.r).attr("y1", H - m.b + 8).attr("y2", H - m.b + 8).attr("stroke", css("--axis"));
+  svg.append("text").attr("x", m.l).attr("y", H - 12).text("← verb-before-object end");
+  svg.append("text").attr("x", W - m.r).attr("y", H - 12).attr("text-anchor", "end").text("object-before-verb end →");
+  const fams = d3.group(langs.map((l, i) => ({...l, i})), d => d.family);
+  for (const [, mem] of fams) {
+    if (mem.length < 2) continue;
+    for (let a = 0; a < mem.length; a++) for (let b = a + 1; b < mem.length; b++)
+      svg.append("line").attr("x1", x(xy[mem[a].i][0])).attr("y1", y(xy[mem[a].i][1])).attr("x2", x(xy[mem[b].i][0])).attr("y2", y(xy[mem[b].i][1]))
+        .attr("stroke", css("--axis")).attr("stroke-width", 1).attr("opacity", .7);
+  }
+  const g = svg.append("g");
+  langs.forEach((l, i) => {
+    const cx = x(xy[i][0]), cy = y(xy[i][1]);
+    g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 5.5).attr("fill", orderColor(l)).attr("stroke", css("--surface")).attr("stroke-width", 2);
+    g.append("text").attr("x", cx + 8).attr("y", cy + 4).text(l.name).style("font-size", "10.5px").style("fill", css("--ink2"));
+    g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 12).attr("fill", "transparent").attr("tabindex", 0)
+      .on("pointermove focus", ev => showTip(ev.type === "focus" ? {clientX: cx + 40, clientY: cy + 200} : ev,
+        [[null, l.name], [null, `${l.family} · ${l.script} script`], [null, `WALS 83A: ${l.code.startsWith("deu") || l.code.startsWith("nld") ? "no dominant order" : l.ov ? "object before verb" : "verb before object"}`], [null, `adpositions: ${l.post ? "postpositions" : "prepositions / mixed"}`]]))
+      .on("pointerleave blur", hideTip);
+  });
+}
+const mapModel = seg("map-model", v => drawMap(v));
+
+/* ---------- Table: primary results ---------- */
+function drawTable() {
+  const t = document.getElementById("tab-primary"); t.replaceChildren();
+  const head = t.createTHead().insertRow();
+  ["Model · geometry", "Genealogy gain", "p", "beyond word order p", "Word-order gain", "p", "beyond genealogy p", "Same-language two-script p"]
+    .forEach(h => { const th = document.createElement("th"); th.textContent = h; head.append(th); });
+  const body = t.createTBody();
+  for (const [mk, mn] of [["qwen", "Qwen2.5-7B"], ["llama", "Llama-3.1-8B"]]) for (const [g, gn] of [["causal", "causal"], ["lda05", "whitened"]]) {
+    const p = D.profiles[mk].primary[g], r = body.insertRow();
+    const cells = [`${mn} · ${gn}`, p.H1_gain.toFixed(3), p.H1_p.toFixed(4), p["H1|OV_p"].toFixed(4), p.H2_gain.toFixed(3), p.H2_p.toFixed(4), p["OV|H1_p"].toFixed(4), p.H3_p.toFixed(4)];
+    cells.forEach((c, i) => { const td = r.insertCell(); td.textContent = c; if (i) td.className = "n"; });
+  }
+}
+
+/* ---------- Figure 2: depth profiles ---------- */
+function drawProf(metric) {
+  const svg = d3.select("#fig-prof"); svg.selectAll("*").remove();
+  const W = width(svg.node()), panels = W > 640 ? 2 : 1, ph = 250, H = panels === 2 ? ph + 60 : 2 * ph + 100;
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const models = [["qwen", "Qwen2.5-7B", 28], ["llama", "Llama-3.1-8B", 32]];
+  const pw = panels === 2 ? (W - 30) / 2 : W;
+  const ymax = d3.max(models, ([k]) => d3.max(D.profiles[k].per_layer[metric], d => Math.max(d.gen, d.ov))) * 1.08;
+  models.forEach(([k, name, nb], pi) => {
+    const ox = panels === 2 ? pi * (pw + 30) : 0, oy = panels === 2 ? 0 : pi * (ph + 50);
+    const m = {t: 26, r: 12, b: 34, l: 40};
+    const g = svg.append("g").attr("transform", `translate(${ox},${oy})`);
+    const x = d3.scaleLinear().domain([0, 1]).range([m.l, pw - m.r]);
+    const y = d3.scaleLinear().domain([0, ymax]).range([ph - m.b, m.t]);
+    const win = D.profiles[k].window;
+    g.append("rect").attr("x", x(win[0] / nb)).attr("width", x(win[win.length - 1] / nb) - x(win[0] / nb)).attr("y", m.t).attr("height", ph - m.b - m.t).attr("fill", css("--wash")).attr("opacity", .6);
+    g.append("g").attr("transform", `translate(0,${ph - m.b})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")));
+    g.append("g").attr("transform", `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(pw - m.l - m.r))).call(s => s.select(".domain").remove());
+    g.append("text").attr("x", m.l).attr("y", 14).style("font-weight", 600).style("fill", css("--ink")).text(name);
+    g.append("text").attr("x", pw - m.r).attr("y", ph - 4).attr("text-anchor", "end").text("relative depth");
+    const rows = D.profiles[k].per_layer[metric].map(d => ({...d, rd: d.layer / nb}));
+    for (const [key, col] of [["gen", css("--gen")], ["ov", css("--ov")]]) {
+      g.append("path").datum(rows).attr("fill", "none").attr("stroke", col).attr("stroke-width", 2).attr("stroke-linejoin", "round")
+        .attr("d", d3.line().x(d => x(d.rd)).y(d => y(d[key])));
+    }
+    const hair = g.append("line").attr("y1", m.t).attr("y2", ph - m.b).attr("stroke", css("--axis")).attr("opacity", 0);
+    const dots = [["gen", css("--gen")], ["ov", css("--ov")]].map(([key, col]) => g.append("circle").attr("r", 4).attr("fill", col).attr("stroke", css("--surface")).attr("stroke-width", 2).attr("opacity", 0));
+    g.append("rect").attr("x", m.l).attr("y", m.t).attr("width", pw - m.l - m.r).attr("height", ph - m.b - m.t).attr("fill", "transparent")
+      .on("pointermove", ev => {
+        const [px] = d3.pointer(ev); const rd = x.invert(px);
+        const d = rows.reduce((a, b) => Math.abs(b.rd - rd) < Math.abs(a.rd - rd) ? b : a);
+        hair.attr("x1", x(d.rd)).attr("x2", x(d.rd)).attr("opacity", 1);
+        dots[0].attr("cx", x(d.rd)).attr("cy", y(d.gen)).attr("opacity", 1); dots[1].attr("cx", x(d.rd)).attr("cy", y(d.ov)).attr("opacity", 1);
+        showTip(ev, [[null, `${name}, layer ${d.layer} of ${nb}`], [d.gen.toFixed(3), "family tree gain"], [d.ov.toFixed(3), "word-order gain"]]);
+      })
+      .on("pointerleave", () => { hair.attr("opacity", 0); dots.forEach(c => c.attr("opacity", 0)); hideTip(); });
+  });
+}
+const profMetric = seg("prof-metric", v => drawProf(v));
+
+/* ---------- Figure 3: held-out projections ---------- */
+function drawProj() {
+  const svg = d3.select("#fig-proj"); svg.selectAll("*").remove();
+  const P = D.steering.heldout_proj;
+  const rows = Object.entries(P).map(([code, v]) => {
+    const l = langs.find(z => z.code === (code === "zho_Hans" ? "cmn_Hans" : code));
+    return {code, v, name: code === "zho_Hans" ? "Chinese" : l.name, l};
+  }).sort((a, b) => a.v - b.v);
+  const W = width(svg.node()), H = 150, m = {t: 30, r: 30, b: 36, l: 30};
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const x = d3.scaleLinear().domain([-0.5, 0.8]).range([m.l, W - m.r]);
+  svg.append("g").attr("transform", `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(7));
+  svg.append("line").attr("x1", x(0)).attr("x2", x(0)).attr("y1", m.t - 10).attr("y2", H - m.b).attr("stroke", css("--axis"));
+  svg.append("text").attr("x", x(-0.5)).attr("y", 14).text("← verb-before-object side");
+  svg.append("text").attr("x", x(0.8)).attr("y", 14).attr("text-anchor", "end").text("object-before-verb side →");
+  rows.forEach((r, i) => {
+    const yy = m.t + 22 + (i % 3) * 18, col = r.code.startsWith("deu") ? css("--mixed") : r.l && r.l.ov ? css("--ov") : css("--vo");
+    svg.append("circle").attr("cx", x(r.v)).attr("cy", yy).attr("r", 5.5).attr("fill", col).attr("stroke", css("--surface")).attr("stroke-width", 2);
+    svg.append("text").attr("x", x(r.v)).attr("y", yy - 9).attr("text-anchor", "middle").style("font-size", "10.5px").text(r.name);
+    svg.append("circle").attr("cx", x(r.v)).attr("cy", yy).attr("r", 12).attr("fill", "transparent")
+      .on("pointermove", ev => showTip(ev, [[fmt(r.v), `${r.name}, projection with ${r.name} left out of the fit`]])).on("pointerleave", hideTip);
+  });
+}
+
+/* ---------- minimal pair examples ---------- */
+function drawPairs() {
+  const box = document.getElementById("pairs"); box.replaceChildren();
+  D.steering.examples.forEach(e => {
+    const d = document.createElement("div"); d.className = "pair";
+    const t = document.createElement("span"); t.className = "tag"; t.textContent = `${e.lang} · attested order ${e.orig_order}`;
+    const a = document.createElement("span"); a.textContent = "OV: " + e.ov;
+    const b = document.createElement("span"); b.textContent = "VO: " + e.vo;
+    d.append(t, a, b); box.append(d);
+  });
+}
+
+/* ---------- Figure 4: steering dose-response ---------- */
+function drawSteer(layer) {
+  const svg = d3.select("#fig-steer"); svg.selectAll("*").remove();
+  const S = D.steering, W = width(svg.node()), H = 330, m = {t: 18, r: 30, b: 40, l: 48};
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const x = d3.scaleLinear().domain([-2.2, 2.2]).range([m.l, W - m.r]);
+  const y = d3.scaleLinear().domain([-4, 4]).range([H - m.b, m.t]);
+  svg.append("g").attr("transform", `translate(0,${y(0)})`).call(d3.axisBottom(x).tickValues([-2, -1, 0, 1, 2]).tickFormat(d => (d > 0 ? "+" : "") + d)).call(s => s.selectAll(".tick text").attr("dy", "1.6em"));
+  svg.append("g").attr("transform", `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(8).tickSize(-(W - m.l - m.r))).call(s => s.select(".domain").remove());
+  svg.append("text").attr("x", W - m.r).attr("y", H - 8).attr("text-anchor", "end").text("steering strength k");
+  svg.append("text").attr("x", m.l + 4).attr("y", m.t + 2).text("Δ preference for object-first twin (nats)");
+  if (+layer === 14) S.rand.forEach(r => svg.append("line").attr("x1", x(-2)).attr("y1", y(r["-2"])).attr("x2", x(2)).attr("y2", y(r["2"])).attr("stroke", css("--rand")).attr("stroke-width", 1.2));
+  const L = S.layers[layer];
+  const series = [["ov", css("--ov"), "word-order direction"], ["ie", css("--gen"), "Indo-European direction"]];
+  series.forEach(([k, col]) => {
+    const pts = [[-2, L[k]["-2"]], [-1, L[k]["-1"]], [0, 0], [1, L[k]["1"]], [2, L[k]["2"]]];
+    svg.append("path").datum(pts).attr("fill", "none").attr("stroke", col).attr("stroke-width", 2).attr("d", d3.line().x(d => x(d[0])).y(d => y(d[1])));
+    pts.forEach(p => svg.append("circle").attr("cx", x(p[0])).attr("cy", y(p[1])).attr("r", 4.5).attr("fill", col).attr("stroke", css("--surface")).attr("stroke-width", 2));
+  });
+  const hair = svg.append("line").attr("y1", m.t).attr("y2", H - m.b).attr("stroke", css("--axis")).attr("opacity", 0);
+  svg.append("rect").attr("x", m.l).attr("y", m.t).attr("width", W - m.l - m.r).attr("height", H - m.b - m.t).attr("fill", "transparent")
+    .on("pointermove", ev => {
+      const [px] = d3.pointer(ev); const k = [-2, -1, 1, 2].reduce((a, b) => Math.abs(x(b) - px) < Math.abs(x(a) - px) ? b : a);
+      hair.attr("x1", x(k)).attr("x2", x(k)).attr("opacity", 1);
+      const rows = [[null, `layer ${layer}, k = ${k > 0 ? "+" : ""}${k}`], [fmt(L.ov[k]), "word-order direction"], [fmt(L.ie[k]), "Indo-European direction"]];
+      if (+layer === 14 && Math.abs(k) === 2) { const v = S.rand.map(r => r[k]); rows.push([`${fmt(d3.min(v))} … ${fmt(d3.max(v))}`, "random directions"]); }
+      showTip(ev, rows);
+    }).on("pointerleave", () => { hair.attr("opacity", 0); hideTip(); });
+  const p = S.primary;
+  document.getElementById("steer-stat").textContent = `${fmt(p.b_ov)} nats per unit k for the word-order direction, against ${fmt(p.rand_mean)} ± ${p.rand_sd.toFixed(2)} for the 32 random directions (largest ${fmt(d3.max(p.rand_slopes))}); z = ${p.z.toFixed(2)}`;
+}
+const steerLayer = seg("steer-layer", v => drawSteer(v));
+
+/* ---------- Figure 5: per-language dumbbells ---------- */
+function drawLangs() {
+  const svg = d3.select("#fig-langs"); svg.selectAll("*").remove();
+  const rows = [...D.steering.per_language].sort((a, b) => a.base - b.base);
+  const W = width(svg.node()), rowH = 30, m = {t: 28, r: 24, b: 36, l: 92}, H = m.t + m.b + rows.length * rowH;
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const lo = d3.min(rows, r => Math.min(r.base, r.plus2, r.minus2)), hi = d3.max(rows, r => Math.max(r.base, r.plus2, r.minus2));
+  const x = d3.scaleLinear().domain([lo - 1, hi + 1]).nice().range([m.l, W - m.r]);
+  svg.append("g").attr("transform", `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(8).tickSize(-(H - m.b - m.t))).call(s => s.select(".domain").remove());
+  svg.append("line").attr("x1", x(0)).attr("x2", x(0)).attr("y1", m.t).attr("y2", H - m.b).attr("stroke", css("--axis"));
+  svg.append("text").attr("x", x(0) - 6).attr("y", m.t - 10).attr("text-anchor", "end").text("← prefers verb-first twin");
+  svg.append("text").attr("x", x(0) + 6).attr("y", m.t - 10).text("prefers object-first twin →");
+  rows.forEach((r, i) => {
+    const yy = m.t + rowH * i + rowH / 2;
+    svg.append("text").attr("x", m.l - 10).attr("y", yy + 4).attr("text-anchor", "end").style("fill", css("--ink")).text(r.name);
+    svg.append("line").attr("x1", x(Math.min(r.minus2, r.plus2, r.base))).attr("x2", x(Math.max(r.minus2, r.plus2, r.base))).attr("y1", yy).attr("y2", yy).attr("stroke", css("--axis")).attr("stroke-width", 2);
+    [["minus2", css("--vo"), "k = −2 (toward verb-first)"], ["base", css("--muted"), "unsteered"], ["plus2", css("--ov"), "k = +2 (toward object-first)"]].forEach(([k, col, lab]) => {
+      svg.append("circle").attr("cx", x(r[k])).attr("cy", yy).attr("r", 5.5).attr("fill", col).attr("stroke", css("--surface")).attr("stroke-width", 2)
+        .on("pointermove", ev => showTip(ev, [[null, `${r.name} (${r.n} pairs)`], [fmt(r[k], 1), lab]])).on("pointerleave", hideTip);
+    });
+  });
+}
+
+/* ---------- Figure 6: code-switch trajectories ---------- */
+function drawCS(layer) {
+  const svg = d3.select("#fig-cs"); svg.selectAll("*").remove();
+  const B = D.belief[layer], W = width(svg.node()), H = 300, m = {t: 16, r: 24, b: 40, l: 44};
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  const ts = Object.keys(B.observed).map(Number).sort((a, b) => a - b);
+  const x = d3.scaleLinear().domain(d3.extent(ts)).range([m.l, W - m.r]);
+  const y = d3.scaleLinear().domain([-0.1, 1.05]).range([H - m.b, m.t]);
+  svg.append("g").attr("transform", `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(ts.length));
+  svg.append("g").attr("transform", `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues([0, .25, .5, .75, 1]).tickSize(-(W - m.l - m.r))).call(s => s.select(".domain").remove());
+  svg.append("line").attr("x1", x(-0.5)).attr("x2", x(-0.5)).attr("y1", m.t).attr("y2", H - m.b).attr("stroke", css("--axis"));
+  svg.append("text").attr("x", x(-0.5) + 6).attr("y", m.t + 10).text("switch");
+  svg.append("text").attr("x", W - m.r).attr("y", H - 8).attr("text-anchor", "end").text("tokens relative to the first token of language B");
+  svg.append("text").attr("x", m.l + 4).attr("y", y(0) - 6).text("A");
+  svg.append("text").attr("x", m.l + 4).attr("y", y(1) - 6).text("B");
+  for (const [key, col] of [["bayes", css("--muted")], ["observed", css("--vo")]]) {
+    const pts = ts.map(t => [t, B[key][t]]);
+    svg.append("path").datum(pts).attr("fill", "none").attr("stroke", col).attr("stroke-width", 2).attr("d", d3.line().x(d => x(d[0])).y(d => y(d[1])));
+  }
+  const hair = svg.append("line").attr("y1", m.t).attr("y2", H - m.b).attr("stroke", css("--axis")).attr("opacity", 0);
+  svg.append("rect").attr("x", m.l).attr("y", m.t).attr("width", W - m.l - m.r).attr("height", H - m.b - m.t).attr("fill", "transparent")
+    .on("pointermove", ev => {
+      const [px] = d3.pointer(ev); const t = Math.round(x.invert(px));
+      hair.attr("x1", x(t)).attr("x2", x(t)).attr("opacity", 1);
+      showTip(ev, [[null, `layer ${layer}, token ${t > 0 ? "+" : ""}${t}`], [B.observed[t].toFixed(2), "representation position (0 = A, 1 = B)"], [B.bayes[t].toFixed(2), "posterior of B"]]);
+    }).on("pointerleave", () => { hair.attr("opacity", 0); hideTip(); });
+}
+const csLayer = seg("cs-layer", v => drawCS(v));
+
+/* __EXTRA_FIGS__ */
+
+function drawAll() {
+  drawMap(mapModel()); drawTable(); drawProf(profMetric()); drawProj(); drawPairs(); drawSteer(steerLayer()); drawLangs(); drawCS(csLayer());
+  if (window.drawExtra) window.drawExtra();
+}
+drawAll();
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawAll, 150); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);
+new MutationObserver(drawAll).observe(document.documentElement, {attributes: true, attributeFilter: ["data-theme"]});
+})();
+</script>

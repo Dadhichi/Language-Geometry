@@ -8,3 +8,4 @@ data/
 results/**/pairs.csv
 results/**/triples.csv
 results/**/*.png
+explore/writeup/_check.js

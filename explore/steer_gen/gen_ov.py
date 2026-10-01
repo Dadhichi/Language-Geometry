@@ -103,8 +103,12 @@ def parse(args, prompts, gens):
         g["n_ov"] = g["n_vo"] = 0
     t0 = time.time()
     for lang in sorted(STANZA):
-        nlp = stanza.Pipeline(STANZA[lang], processors="tokenize,mwt,pos,lemma,depparse", use_gpu=True,
-                              verbose=False, tokenize_no_ssplit=False)
+        try:                                 # mwt exists only for some languages (fr, de, tr, ...)
+            nlp = stanza.Pipeline(STANZA[lang], processors="tokenize,mwt,pos,lemma,depparse", use_gpu=True,
+                                  verbose=False, download_method=None)
+        except Exception:
+            nlp = stanza.Pipeline(STANZA[lang], processors="tokenize,pos,lemma,depparse", use_gpu=True,
+                                  verbose=False, download_method=None)
         rows = [g for g in gens if g["lang"] == lang and g["cont"].strip()]
         sep = "" if lang in CJK else " "
         texts = [pmap[(lang, g["sent"])] + sep + g["cont"].lstrip() for g in rows]

@@ -9,7 +9,7 @@ pip -q install stanza langid
 python - <<'PY'
 import stanza
 for l in ["en", "de", "fr", "ru", "hi", "tr", "ja", "zh-hans"]:
-    stanza.download(l, processors="tokenize,mwt,pos,lemma,depparse", verbose=False)
+    stanza.download(l, verbose=False)          # default package (includes mwt only where the language has one)
 print("stanza models ready")
 PY
 if [ "${1:-}" = "debug" ]; then

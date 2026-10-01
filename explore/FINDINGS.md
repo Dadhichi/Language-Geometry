@@ -181,3 +181,19 @@ positions; margin = log p(OV variant) - log p(VO variant).
   NOT surgical: k=+2 lowers log p of the attested sentence by 34 nats (random directions: mean -17, range -96..-2);
   the same-norm IE direction also flips ~9% of pairs one way at k=+2, so flip counts alone are not specific -- the
   pre-registered slope (mean Delta) is. Caveat: preference over fixed-token variants, not word order in free generation.
+
+# PRE-REGISTERED typology bundle + lexical control (explore/typology_lex; prereg a9c7488)
+(A) OV (83A) vs POST (85A) vs GENN (86A) vs NADJ (87A), each test with all 20 Glottolog splits in the base:
+| model, geometry | OV given POST | POST given OV | unique share with all four (OV / POST / GENN / NADJ) |
+|---|---|---|---|
+| Qwen causal | .005 (p .023) | .101 (p .0001) | .007 / .057 / .000 / .014 |
+| Qwen lda05 | .060 (p .0001) | .079 (p .0001) | .080 / .008 / .033 / .049 |
+| Llama causal | .092 (p .0001) | .130 (p .0001) | .119 / .023 / .042 / .049 |
+| Llama lda05 | .074 (p .0002) | .084 (p .0001) | .102 / .002 / .075 / .049 |
+Pre-registered verdict: "specifically object-verb order" NOT supported (adposition order survives OV everywhere);
+"head-direction bundle" SUPPORTED (both survive each other in 3/4 analyses, both models). Descriptive: with all four
+features, OV keeps the largest unique share in 3/4 (exception: Qwen causal, where adpositions lead). The axis is
+best described as head direction (OV + postpositions, partly genitive-noun), with verb-object order most distinct.
+(B) Genealogy beyond shared vocabulary SUPPORTED: gain unchanged with romanised FLORES character-3gram distance
+(Qwen .096/.288 -> .096/.288; Llama .294/.340 -> .293/.339; p <= .0011); still significant with the over-conservative
+ASJP basic-vocabulary LDND added (Qwen .095/.171, Llama .143/.150; p <= .0002).

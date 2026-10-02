@@ -1,0 +1,53 @@
+<section id="setup" data-title="Setup">
+  <h2>Setup</h2>
+  <p>This section defines the models, the languages, the sentence representations, the two geometries, and an unbiased estimate of the squared distance between two languages.</p>
+  <p><b>Models.</b> Qwen2.5-7B has 28 transformer blocks and a residual width of 3,584. Llama-3.1-8B has 32 blocks and a width of 4,096. We use the pretrained base checkpoints, not the instruction-tuned ones. Both run in bfloat16 without quantization.</p>
+  <p><b>Text.</b> FLORES+ <a class="cite" href="#r9">[9]</a> gives the same sentences, professionally translated, in more than 200 languages. It has two disjoint halves: dev (997 sentences) and devtest (1,012 sentences).</p>
+  <p><b>Languages.</b> We chose 34 languages to separate family, script and word order. They cover 10 families and 12 scripts. The 11 object-before-verb languages come from 5 families. Three pairs are one language in two scripts: Hindi and Urdu, Croatian and Serbian, and Chinese in simplified and traditional characters.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Family</th><th>Branch</th><th>Languages (script)</th><th>Object and verb (WALS 83A)</th></tr></thead>
+    <tbody>
+      <tr><td>Indo-European</td><td>Germanic</td><td>English, German, Dutch, Swedish (Latin)</td><td>VO; German and Dutch: no dominant order</td></tr>
+      <tr><td></td><td>Romance</td><td>French, Spanish, Portuguese (Latin)</td><td>VO</td></tr>
+      <tr><td></td><td>Slavic</td><td>Russian, Ukrainian, Serbian (Cyrillic); Polish, Croatian (Latin)</td><td>VO</td></tr>
+      <tr><td></td><td>Indo-Iranian</td><td>Hindi, Marathi (Devanagari); Urdu, Persian (Arabic)</td><td>OV</td></tr>
+      <tr><td>Afro-Asiatic</td><td>Semitic</td><td>Arabic (Arabic), Hebrew (Hebrew), Maltese (Latin)</td><td>VO</td></tr>
+      <tr><td>Turkic</td><td></td><td>Turkish, Azerbaijani (Latin); Kazakh (Cyrillic)</td><td>OV (Kazakh not coded; OV by genus)</td></tr>
+      <tr><td>Uralic</td><td>Finnic</td><td>Finnish, Estonian (Latin)</td><td>VO</td></tr>
+      <tr><td>Sino-Tibetan</td><td>Chinese</td><td>Chinese (simplified Han; traditional Han)</td><td>VO</td></tr>
+      <tr><td>Japonic</td><td></td><td>Japanese (Japanese)</td><td>OV</td></tr>
+      <tr><td>Koreanic</td><td></td><td>Korean (Hangul)</td><td>OV</td></tr>
+      <tr><td>Austronesian</td><td></td><td>Indonesian, Filipino (Latin)</td><td>VO</td></tr>
+      <tr><td>Austroasiatic</td><td></td><td>Vietnamese (Latin), Khmer (Khmer)</td><td>VO</td></tr>
+      <tr><td>Dravidian</td><td></td><td>Tamil (Tamil), Telugu (Telugu)</td><td>OV</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tcap">The 34 languages. Word order is the WALS value for the order of object and verb <a class="cite" href="#r10">[10]</a>. In the word-order split, German and Dutch belong to the non-OV group.</p>
+
+  <h3>Sentence representations</h3>
+  <p>Let <span class="m">h^\ell_t(x)\in\mathbb R^d</span> be the residual stream at position <span class="m">t</span> and layer <span class="m">\ell</span> for an input <span class="m">x=(x_0,x_1,\dots,x_T)</span>. Every input starts with the same sink token <span class="m">x_0</span>: the BOS token for Llama, and a newline for Qwen, which has no BOS token. In the middle layers the residual stream at position 0 has a norm much larger than at other positions. We therefore drop position 0 and average over the content positions:</p>
+  <div class="mb">\bar h^\ell(x)=\frac1T\sum_{t=1}^{T}h^\ell_t(x).</div>
+  <p>Let <span class="m">x_{i,s}</span> be sentence <span class="m">s</span> in language <span class="m">i</span>. On one half of FLORES with <span class="m">n</span> sentences, the centroid and the offset of language <span class="m">i</span> are</p>
+  <div class="mb">\mu_i^\ell=\frac1n\sum_{s=1}^{n}\bar h^\ell(x_{i,s}),\qquad a_i^\ell=\mu_i^\ell-\frac1N\sum_{j=1}^{N}\mu_j^\ell,\qquad N=34.</div>
+  <p>All results in this article concern the 34 offsets and the distances between them. We write <span class="m">f_i</span> for the mean number of content tokens per sentence of language <span class="m">i</span> (its fertility).</p>
+
+  <h3>Two geometries</h3>
+  <p>A squared distance <span class="m">\lVert a\rVert_M^2=a^\top Ma</span> needs a positive semi-definite matrix <span class="m">M</span>. We use two, and every pre-registered claim must hold in at least one of them without a reversal in the other.</p>
+  <div class="mb">M_{\text{causal}}=\operatorname{diag}(\omega)\,\operatorname{Cov}_{y}\!\big[\gamma(y)\big]\,\operatorname{diag}(\omega),\qquad M_{\text{wh}}=\Big((1-\eta)\,W+\eta\,\tfrac{\operatorname{tr}W}{d}\,I\Big)^{-1},\quad \eta=\tfrac12 .</div>
+  <ul>
+    <li><b>Causal geometry.</b> <span class="m">\gamma(y)</span> is the unembedding row of token <span class="m">y</span>, and <span class="m">\omega</span> is the weight vector of the final RMSNorm. The covariance runs over the real vocabulary: 151,665 tokens for Qwen, and the 128,000 non-special tokens for Llama. This is the causal inner product of Park et al. <a class="cite" href="#r5">[5]</a>, under which the length of a direction measures how much it moves the logits. We apply it at every layer as an approximation in the style of the logit lens.</li>
+    <li><b>Whitened geometry.</b> <span class="m">W</span> is the pooled within-language covariance of the sentence representations on the dev half, <span class="m">W=\frac{1}{N(n-1)}\sum_{i}\sum_{s}\big(\bar h(x_{i,s})-\mu_i\big)\big(\bar h(x_{i,s})-\mu_i\big)^\top</span>. Distances are then in units of the variation between sentences of one language. The shrinkage <span class="m">\eta</span> keeps the inverse stable in 3,584 or 4,096 dimensions.</li>
+  </ul>
+
+  <h3>Unbiased squared distances</h3>
+  <p>A squared distance between estimated offsets is biased upward by the sampling noise of the centroids. With <span class="m">\Sigma_i</span> the covariance of the sentence representations of language <span class="m">i</span>,</p>
+  <div class="mb">\mathbb E\,\lVert\hat a_i-\hat a_j\rVert_M^2\;\approx\;\lVert a_i-a_j\rVert_M^2+\frac{\operatorname{tr}\!\big(M(\Sigma_i+\Sigma_j)\big)}{n}.</div>
+  <p>Languages whose sentences vary more would therefore look farther apart. To remove this bias, we estimate each offset twice, on dev (<span class="m">\hat a^{(1)}</span>) and on devtest (<span class="m">\hat a^{(2)}</span>), and we cross the two estimates:</p>
+  <div class="mb">K_{ij}=\tfrac12\big(\hat a_i^{(1)\top}M\,\hat a_j^{(2)}+\hat a_j^{(1)\top}M\,\hat a_i^{(2)}\big),\qquad D^2_{ij}=K_{ii}+K_{jj}-2K_{ij}.</div>
+  <p>The two halves contain different sentences, so their sampling errors are independent and <span class="m">\mathbb E[K_{ij}]=a_i^\top Ma_j</span>. Therefore <span class="m">D^2_{ij}</span> is an unbiased estimate of the squared distance between the true offsets.</p>
+  <aside class="sidenote">We estimate <span class="m">W</span> on the dev half and treat <span class="m">M_{\text{wh}}</span> as fixed in this argument.</aside>
+  <p>The primary statistics use a pre-registered window <span class="m">\mathcal W</span> of middle layers: layers 8–20 of Qwen and layers 9–23 of Llama. Both windows cover the same relative depth, 0.29 to 0.71. Over the window, we average the trace-normalized cross-half Gram matrices:</p>
+  <div class="mb">\bar K=\frac1{|\mathcal W|}\sum_{\ell\in\mathcal W}\frac{K^\ell}{\operatorname{tr}K^\ell},\qquad D^2_{ij}=\bar K_{ii}+\bar K_{jj}-2\bar K_{ij}.</div>
+  <p>Sampling noise in the centroids does not limit the results. In 50 sentence bootstrap resamples, which use the same sentence indices in every language, the 90% intervals of the primary gains have half-widths below 0.001. The number of languages limits the results.</p>
+  <figure id="fig-pipeline" data-fig="pipeline"><figcaption><b>Each language becomes one point, and the analysis uses only the distances between the points.</b> Each sentence passes through the model. At layer ℓ we take the residual stream, drop the sink position and average over the tokens. The mean over the sentences of a language is its centroid; minus the mean of all centroids, it is the offset. Offsets from the two FLORES halves give the cross-half Gram matrix <span class="m">K</span> and the squared distances <span class="m">D^2</span>. A regression on splits of the languages then decomposes <span class="m">D^2</span>.</figcaption></figure>
+</section>

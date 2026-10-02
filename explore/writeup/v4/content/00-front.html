@@ -1,0 +1,31 @@
+<header class="front">
+  <h1>The Word-Order Axis</h1>
+  <p class="subtitle">Two multilingual language models arrange 34 languages by descent and by word order. The two structures occupy different depths. Steering along the word-order structure changes which order the model prefers, and in German and Russian the order in which it writes.</p>
+  <dl class="byline">
+    <dt>Authors</dt><dd>Dadhichi, with Claude</dd>
+    <dt>Models</dt><dd>Qwen2.5-7B · Llama-3.1-8B</dd>
+    <dt>Published</dt><dd>October 2026</dd>
+    <dt>Code and pre-registrations</dt><dd><a href="https://github.com/Dadhichi/Language-Geometry/tree/claude/compassionate-newton-vufc0c">github.com/Dadhichi/Language-Geometry</a></dd>
+  </dl>
+</header>
+
+<section id="summary" data-title="Summary">
+  <h2>Summary</h2>
+  <p>We study how two multilingual language models, Qwen2.5-7B and Llama-3.1-8B, place languages relative to one another in their residual stream. Each model reads the same 2,009 sentences in 34 languages (FLORES+ translations). We represent each language by the mean of its sentence representations at each layer, and we analyse the distances between these 34 means.</p>
+  <p>Linguists classify languages in two independent ways. One is descent, in family trees such as Indo-European. The other is type, with properties such as the order of verb and object. We ask whether either classification appears in the distances after we remove the effects of script, shared tokens and sentence length. Then we ask whether the model uses what we find. The main results are:</p>
+  <ul>
+    <li><b>Two structures, each beyond the other.</b> The distances contain the Glottolog family tree and a split between the 11 object-before-verb languages and the rest. Each structure remains significant when the other is held fixed, in two geometries and in both models (all p ≤ 0.0007; Bonferroni threshold 0.0125). <i>Pre-registered; replicated in the second model.</i></li>
+    <li><b>Different depths.</b> The word-order signal is near zero at the embedding, has its maximum between 25% and 71% of the depth, and falls in the last layers. The family-tree signal is strongest in the first and last layers, where the model reads and writes tokens. <i>Descriptive.</i></li>
+    <li><b>The axis is head direction.</b> Object–verb order and adposition order each explain the distances beyond the other in 3 of 4 analyses. The axis is therefore a bundle of head-final features. Object–verb order has the largest unique share in 3 of 4. The family tree is not explained by vocabulary that the languages share. <i>Pre-registered.</i></li>
+    <li><b>The model uses the axis.</b> We add a direction, estimated from 33 other languages, to layer 14 of Qwen2.5-7B. It shifts the model's preference between the object-before-verb and verb-before-object versions of 999 real sentences. The shift occurs in all 8 test languages, with z = 4.99 against 32 random directions of the same norm. <i>Pre-registered.</i></li>
+    <li><b>The axis also changes what the model writes, in German and Russian.</b> Our first pre-registered test of free generation could not be evaluated, because its inclusion rule excluded all 8 languages. Exploratory analysis then found that the direction reorders noun objects in Russian and German. A second pre-registered test on fresh prompts confirmed it. The share of noun objects before the verb moves by +15.0 percentage points per unit of strength (z = 7.83). It falls from 66% to 8% in German at k = −2 and rises from 4% to 58% in Russian at k = +2. <i>Pre-registered replication: confirmed.</i></li>
+    <li><b>Generalization to other languages is open.</b> The same test on four new languages with flexible order was not evaluable. Dutch and Ukrainian changed as much as German and Russian, but Polish and Croatian, pushed against their order, left their language. The effect needs a strength at which the push also degrades text. <i>Pre-registered: not evaluable; Dutch and Ukrainian descriptive.</i></li>
+    <li><b>Token by token, language identity switches fast.</b> The representation encodes graded uncertainty about the language when the evidence is ambiguous. At a code switch, it moves to the new language within about one token, faster than a Bayesian observer of the whole sequence. <i>Pre-registered; graded belief supported, Bayesian switching not supported.</i></li>
+  </ul>
+  <div class="def"><span class="lab">Evidence labels</span>
+    <p><b>Pre-registered</b>: we committed the hypothesis, the test, the threshold and the analysis code to the repository before we extracted or analysed the data. The commit of each pre-registration is in the <a href="#methods">methods</a>.</p>
+    <p><b>Exploratory</b>: we decided the analysis after we saw the data. These results describe the data. They are not tests of a prior hypothesis.</p>
+    <p><b>Descriptive</b>: a pre-registered quantity that we report without a claim, for example a per-layer profile.</p>
+  </div>
+  <figure id="fig-overview" data-fig="overview"><figcaption><b>The 34 languages fall along a word-order axis, and languages of one family stay together.</b> Residual map of Qwen2.5-7B (layers 8–20, whitened geometry; the construction is in <a class="figref" href="#fig-map"></a>). Each point is one language. Shaded hulls enclose closely related languages: one family, or one branch of Indo-European. Colour shows the order of object and verb. The arrow marks the word-order axis, from the verb-before-object languages toward the object-before-verb languages. The layout uses no information about family or word order. n = 34 languages.</figcaption></figure>
+</section>

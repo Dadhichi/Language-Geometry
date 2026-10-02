@@ -1,0 +1,26 @@
+<section id="intro" data-title="Languages as points">
+  <h2>Languages as points</h2>
+  <p>This section states the question, the prior work, and the terms that we use in the rest of the article.</p>
+  <p>Interpretability research often finds that a model represents a familiar object with a shape that matches the structure of the object. Days of the week and months lie on circles. Numbers lie on helices. When a model counts the characters on a line, the count lies on a curved manifold. Attention heads rotate this manifold to compare the count with the line width <a class="cite" href="#r1">[1]</a>.</p>
+  <p>Languages also have structure. Linguists classify them in two independent ways. The first is descent: languages with a common ancestor form a family, and each family forms a tree. For example, Indo-European has Germanic, Romance and Slavic branches. The second is type: languages differ in properties such as the order of the verb and its object, independently of their ancestry.</p>
+  <div class="example">
+    <div class="ex-row"><span class="ex-tag">English (VO)</span> <span class="ex-text" lang="en">The dog <b>chased</b> <u>the ball</u>.</span> <span class="ex-gloss">(verb before object)</span></div>
+    <div class="ex-row"><span class="ex-tag">Turkish (OV)</span> <span class="ex-text" lang="tr">Köpek <u>topu</u> <b>kovaladı</b>.</span> <span class="ex-gloss">(dog ball chased: object before verb)</span></div>
+  </div>
+  <p>A model that learns from text in many languages never sees a label for either property. We ask four questions about the arrangement of languages inside the model:</p>
+  <ol>
+    <li>Does the arrangement contain the family tree?</li>
+    <li>Does it contain a word-order structure, separately from the family tree?</li>
+    <li>At which depth does each structure occur?</li>
+    <li>Does the model use the word-order structure when it processes text?</li>
+  </ol>
+  <p>Earlier work shows that multilingual representations have a language-neutral part and a language-specific part. Subtracting the mean representation of each language improves cross-lingual retrieval <a class="cite" href="#r2">[2]</a><a class="cite" href="#r3">[3]</a>. Language means cluster loosely by family <a class="cite" href="#r3">[3]</a>, and family trees can be recovered from the output distributions of models <a class="cite" href="#r8">[8]</a>. Decoder models process many languages through shared middle-layer features <a class="cite" href="#r4">[4]</a><a class="cite" href="#r7">[7]</a>. We know of no earlier test that separates descent from type and from surface overlap, such as shared script and shared tokens. This article gives such a test for decoder models, across depth, with a causal check.</p>
+  <div class="def"><span class="lab">Terms used in this article</span>
+    <p><b>Layer</b> ℓ: the residual stream after block ℓ; layer 0 is the output of the embedding. <b>Depth</b>: ℓ divided by the number of blocks.</p>
+    <p><b>Centroid</b> and <b>offset</b>: the mean representation of a language, and the centroid minus the mean of all 34 centroids.</p>
+    <p><b>Geometry</b>: the inner product with which we measure distances between offsets (causal or whitened, defined in <a href="#setup">Setup</a>).</p>
+    <p><b>Split</b>: a division of the 34 languages into two groups. <b>Family tree</b>: the 20 splits of the Glottolog tree. <b>Word-order split</b>: the 11 object-before-verb (OV) languages against the 23 others.</p>
+    <p><b>Gain</b>: the fraction of the remaining squared-distance error that a set of splits removes (defined in <a href="#tests">Testing for a tree and an axis</a>).</p>
+    <p><b>Axis</b>: the word-order structure in the arrangement of the languages. <b>Direction</b>: a vector in the residual stream that we add to the model to steer it. <b>Strength</b> k: the multiple of a direction that we add.</p>
+  </div>
+</section>

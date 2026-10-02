@@ -1,0 +1,84 @@
+<section id="tests" data-title="Testing for a tree and an axis">
+  <h2>Testing for a tree and an axis</h2>
+  <p>This section turns the map into two pre-registered tests. Random evolution along a tree predicts that squared distances are a sum of terms, one for each split of the languages. We use this to measure how much the family tree and the word-order split explain. Both structures pass, each beyond the other, in both geometries and in both models.</p>
+
+  <h3>From a tree to a regression on splits</h3>
+  <p>Suppose that the offset of each language is a sum of independent random steps along the branches from a root <span class="m">r</span> to that language:</p>
+  <div class="mb">a_i=\sum_{e\,\in\,\mathrm{path}(r,\,i)}\xi_e,\qquad \mathbb E[\xi_e]=0,\quad \mathbb E\big[\xi_e^\top M\xi_e\big]=\sigma_e^2,\quad \xi_e\ \text{independent}.</div>
+  <p>In the difference of two offsets, the steps on the common part of the two paths cancel. The other steps add in quadrature:</p>
+  <div class="mb">\mathbb E\,\lVert a_i-a_j\rVert_M^2=\sum_{e\,\in\,\mathrm{path}(i,\,j)}\sigma_e^2 .</div>
+  <p>Each internal branch <span class="m">e</span> divides the languages into those below it and the rest. This is a split <span class="m">S_e</span>. The branch adds <span class="m">\sigma_e^2</span> to exactly the pairs that its split separates. Each leaf branch adds a term for one language. With the indicator <span class="m">\delta_S(i,j)=\mathbb 1\big[\lvert S\cap\{i,j\}\rvert=1\big]</span>, a tree with splits <span class="m">\mathcal S</span> predicts</p>
+  <div class="mb">D^2_{ij}=u_i+u_j+\sum_{S\in\mathcal S}\theta_S\,\delta_S(i,j)+\phi^\top c_{ij}+\epsilon_{ij},\qquad u,\ \theta,\ \phi\ \ge 0 .</div>
+  <p>The terms <span class="m">u_i</span> form the star. The covariates <span class="m">c_{ij}</span> remove known surface effects. We fit all coefficients by non-negative least squares over the 561 pairs of languages.</p>
+  <figure id="fig-splits" data-fig="splits"><figcaption><b>A split adds its weight to every pair of languages that it separates.</b> A toy tree with six leaves. Select a branch to see its split <span class="m">S</span> (the leaves below the branch) and the cells of the squared-distance matrix to which the term <span class="m">\theta_S\,\delta_S(i,j)</span> contributes. Pairs inside <span class="m">S</span> and pairs outside <span class="m">S</span> receive nothing from this branch.</figcaption></figure>
+
+  <h3>Base terms and gain</h3>
+  <p>The base terms are the terms that every test keeps fixed:</p>
+  <ul>
+    <li>the star, <span class="m">u_i</span> for each of the 34 languages;</li>
+    <li>one split for each script that more than one language uses: Latin, Cyrillic, Arabic and Devanagari;</li>
+    <li>the token distance <span class="m">1-\sum_y\min\big(p_i(y),p_j(y)\big)</span>, where <span class="m">p_i</span> is the frequency distribution of the model's tokens in the FLORES text of language <span class="m">i</span>;</li>
+    <li>the fertility difference <span class="m">\lvert\log f_i-\log f_j\rvert</span>.</li>
+  </ul>
+  <p>We divide each covariate column by its standard deviation. In Qwen, the base terms explain 85% (causal) and 92% (whitened) of the variation of <span class="m">D^2</span>. We score a set of splits <span class="m">\mathcal S</span> by its <em>gain</em>, the fraction of the remaining squared error that it removes:</p>
+  <div class="mb">G(\mathcal S\mid\mathcal A)=1-\frac{\mathrm{SSE}\big(\mathcal A\cup\mathcal S\big)}{\mathrm{SSE}\big(\mathcal A\big)} .</div>
+  <p>Here <span class="m">\mathcal A</span> is the base terms plus any splits that we hold fixed, and SSE is the residual sum of squares of the non-negative fit. We write <span class="m">G(\mathcal S)</span> when <span class="m">\mathcal A</span> is the base terms alone.</p>
+
+  <h3>The two structures and their null distributions</h3>
+  <ul>
+    <li><b>Family tree</b>, <span class="m">\mathcal T</span>: the 20 internal splits of the Glottolog tree <a class="cite" href="#r11">[11]</a> restricted to our languages. Eleven splits are in Indo-European: Indo-European itself; Germanic; West Germanic (English, German, Dutch); Romance; Ibero-Romance (Spanish, Portuguese); Slavic; East Slavic (Russian, Ukrainian); South Slavic (Croatian, Serbian); Indo-Iranian; Indo-Aryan (Hindi, Urdu, Marathi); Hindi–Urdu. Nine are in other families: Semitic; Arabic–Maltese; Turkic; Oghuz (Turkish, Azerbaijani); Finnic; Chinese; Austronesian; Austroasiatic; Dravidian. The null distribution permutes the leaf labels and keeps the shape of the tree.</li>
+    <li><b>Word-order split</b>, <span class="m">S_{\text{OV}}</span>: the 11 languages with object-before-verb order in WALS feature 83A <a class="cite" href="#r10">[10]</a>, against the other 23. WALS does not code Kazakh; we assign it to the OV group because all coded Turkic languages are OV. The null distribution draws random sets of 11 languages.</li>
+  </ul>
+  <p>Each test uses <span class="m">B=10^4</span> random draws. The p-value is <span class="m">p=\big(1+\#\{b:G_b\ge G_{\text{obs}}\}\big)/(1+B)</span>, so the smallest possible value is 0.0001.</p>
+  <figure id="fig-tree" data-fig="tree"><figcaption><b>The family tree contributes 20 splits; the word-order split cuts across it.</b> Cladogram of the 34 languages after Glottolog. Each internal node is one split of <span class="m">\mathcal T</span>; marked leaves are the 11 object-before-verb languages of <span class="m">S_{\text{OV}}</span>. The OV languages fill whole subtrees (Indo-Iranian, Turkic, Dravidian, Japanese, Korean), which is why the two tests must control for each other. Hover a language to highlight it on the map.</figcaption></figure>
+
+  <h3>Conditional tests and claim rules</h3>
+  <p>The two structures overlap, because the OV group consists mostly of complete subtrees. In simulation, a planted family tree alone makes the marginal word-order test reject, and a planted word-order split alone makes the marginal family-tree test reject. Each claim therefore also needs a conditional test, which holds the other structure fixed: <span class="m">G(\mathcal T\mid S_{\text{OV}})</span> and <span class="m">G(S_{\text{OV}}\mid\mathcal T)</span>. The conditional tests use the same null distributions.</p>
+  <div class="def"><span class="lab">Claim rules (pre-registered)</span>
+    <p><b>Family-tree claim</b>: <span class="m">G(\mathcal T)</span> and <span class="m">G(\mathcal T\mid S_{\text{OV}})</span> both have p &lt; 0.0125 in the same geometry.</p>
+    <p><b>Word-order claim</b>: <span class="m">G(S_{\text{OV}})</span> and <span class="m">G(S_{\text{OV}}\mid\mathcal T)</span> both have p &lt; 0.0125 in the same geometry.</p>
+    <p>A claim must hold in at least one geometry and must not reverse in the other. The threshold 0.0125 is a Bonferroni correction of 0.05 over {family tree, word order} × {causal, whitened}.</p>
+    <p><b>Same-language test</b> (secondary, α = 0.05): Hindi–Urdu, Croatian–Serbian and the two Chinese scripts are closer than predicted. The prediction uses the star, the token distance and the fertility difference, without script terms. The statistic is the mean percentile rank of their three residuals among the 561 pairs. The null distribution draws random sets of three pairs.</p>
+  </div>
+  <p>We checked this design on simulated distances before any data existed. The simulation used Brownian motion on the real tree, a realistic star with one high-fertility outlier, nuisance script structure, and 34 languages. The table gives the rejection rates at α = 0.05.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Planted structure (share c of distance)</th><th>Family tree</th><th>Word order</th><th>Family tree | word order</th><th>Word order | family tree</th></tr></thead>
+    <tbody>
+      <tr><td>none</td><td class="n">0.05</td><td class="n">0.10</td><td class="n">0.07</td><td class="n">0.03</td></tr>
+      <tr><td>family tree, c = 0.1</td><td class="n">0.93</td><td class="n">0.28</td><td class="n">0.92</td><td class="n">0.08</td></tr>
+      <tr><td>family tree, c = 0.2</td><td class="n">1.00</td><td class="n">0.30</td><td class="n">1.00</td><td class="n">0.12</td></tr>
+      <tr><td>word order, c = 0.1</td><td class="n">0.12</td><td class="n">0.65</td><td class="n">0.10</td><td class="n">0.50</td></tr>
+      <tr><td>word order, c = 0.2</td><td class="n">0.23</td><td class="n">0.95</td><td class="n">0.02</td><td class="n">0.93</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tcap">Rejection rates in simulation. Marginal tests: 40 datasets per row, 300 permutations. Conditional tests: 60 datasets per row, 200 permutations. The marginal tests leak into each other; the conditional tests separate the two structures.</p>
+
+  <h3>Results</h3>
+  <div class="tablewrap"><table data-table="primary"></table></div>
+  <p class="tcap">Primary pre-registered results for each model and geometry. Family tree: gain, p-value, and p-value beyond the word-order split. Word order: gain, p-value, and p-value beyond the family tree. Last column: p-value of the same-language test. Bonferroni threshold 0.0125. With 10,000 permutations, 0.0001 is the smallest possible p-value.</p>
+  <div class="takeaway">Both claims hold in both geometries and both models. The family tree and the word-order split each explain the distances beyond the other and beyond script, shared tokens and fertility (all p ≤ 0.0007). The Llama-3.1-8B replication was pre-registered with no change except the layer window and the model-specific inputs.</div>
+  <p>The conditional gains are close to the marginal gains, so neither structure is a proxy for the other. The effects are larger in Llama.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Model · geometry</th><th>Star alone, R²</th><th>Base terms, R²</th><th>Family tree | word order</th><th>Word order | family tree</th></tr></thead>
+    <tbody>
+      <tr><td>Qwen2.5-7B · causal</td><td class="n">0.520</td><td class="n">0.846</td><td class="n">0.085</td><td class="n">0.103</td></tr>
+      <tr><td>Qwen2.5-7B · whitened</td><td class="n">0.749</td><td class="n">0.920</td><td class="n">0.306</td><td class="n">0.215</td></tr>
+      <tr><td>Llama-3.1-8B · causal</td><td class="n">0.615</td><td class="n">0.864</td><td class="n">0.324</td><td class="n">0.312</td></tr>
+      <tr><td>Llama-3.1-8B · whitened</td><td class="n">0.727</td><td class="n">0.905</td><td class="n">0.356</td><td class="n">0.257</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tcap">Variance of <span class="m">D^2</span> explained by the star and by all base terms, and the conditional gains <span class="m">G(\mathcal T\mid S_{\text{OV}})</span> and <span class="m">G(S_{\text{OV}}\mid\mathcal T)</span>. All conditional gains have p ≤ 0.0007.</p>
+  <p>The same-language test also passes in all four analyses (p ≤ 0.0078). In the whitened geometry of both models, the three same-language pairs are among the closest 0.7% of the 561 pairs. In the causal geometry of Llama, they are among the closest 1.1%. In the causal geometry of Qwen they rank lower, between the 7th and the 21st percentile. The distances therefore put one language in two scripts closer together than its token statistics predict.</p>
+
+  <h3>Secondary analyses and robustness</h3>
+  <p>The secondary analyses were pre-registered without a claim. The robustness checks are exploratory: we ran them after we saw the primary results, on Qwen, with 2,000 permutations. None changes the conclusion.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Analysis</th><th>Evidence</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Pooling rescaled by <span class="m">\sqrt{T}</span></td><td>pre-registered, secondary</td><td>Both claims hold in both models and both geometries (all four p ≤ 0.0045). The word-order gain becomes smaller (Qwen 0.046 and 0.058; Llama 0.075 and 0.017). The same-language test weakens (p = 0.08 to 0.16, except Llama causal, 0.017).</td></tr>
+      <tr><td>German and Dutch added to the OV group</td><td>pre-registered, secondary</td><td>The word-order gain falls in every analysis, for example from 0.114 to 0.070 (Qwen, causal). German and Dutch put the verb second in main clauses, so the axis follows main-clause order.</td></tr>
+      <tr><td>Geographic distance added to the base terms</td><td>exploratory</td><td>Great-circle distance between WALS coordinates. Family tree: gain 0.083 (causal, p = 0.001) and 0.242 (whitened, p = 0.0005). Word order beyond the family tree: 0.101 and 0.213 (p = 0.0005).</td></tr>
+      <tr><td>Leave one group out, with geography</td><td>exploratory</td><td>We removed each of the 10 families and, separately, the Indo-Iranian branch. With the full set, this gives 24 runs over the two geometries. Word order beyond the family tree has p ≤ 0.005 in all 24 runs; the smallest gain is 0.044 (Turkic removed, causal). The family tree has p ≤ 0.046 in all runs; the weakest run removes Indo-European (18 languages left, causal, p = 0.046).</td></tr>
+    </tbody>
+  </table></div>
+</section>

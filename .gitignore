@@ -9,3 +9,5 @@ results/**/pairs.csv
 results/**/triples.csv
 results/**/*.png
 explore/writeup/_check.js
+explore/writeup/v4/preview.html
+explore/writeup/v4/dev_content/

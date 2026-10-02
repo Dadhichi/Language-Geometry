@@ -1,0 +1,97 @@
+<section id="methods" data-title="Methods and pre-registration">
+  <h2>Methods and pre-registration</h2>
+  <p>This section gives the pre-registrations and the procedures that a reader needs to reproduce every test. Each study directory under <code>explore/</code> holds its pre-registration (<code>PREREG.md</code>), the frozen analysis code, the job script and the result files. We wrote and validated each confirmatory test on simulated data, and committed it, before we extracted or analysed the data that it uses. Analyses added later are in separate scripts with "exploratory" in their names.</p>
+
+  <h3>Pre-registrations</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Study</th><th>Directory</th><th>Commit</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>Family tree and word-order split, Qwen2.5-7B, 34 languages</td><td><code>prereg34</code></td><td class="n">0d40bdd; conditional tests d976f88</td><td>Both claims hold.</td></tr>
+      <tr><td>Replication, Llama-3.1-8B</td><td><code>prereg34</code></td><td class="n">d392d70</td><td>Both claims replicate.</td></tr>
+      <tr><td>Token-level belief</td><td><code>prereg_belief</code></td><td class="n">d8f2d66</td><td>Graded belief supported; Bayesian switching not supported.</td></tr>
+      <tr><td>Steering, minimal pairs</td><td><code>steer_ov</code></td><td class="n">5e5e095</td><td>Claim holds (z = 4.99).</td></tr>
+      <tr><td>Steering, free generation</td><td><code>steer_gen</code></td><td class="n">b140a1d</td><td>Not evaluable: the inclusion rule excluded all 8 languages. Exploratory analysis positive (z = 10.0).</td></tr>
+      <tr><td>Word-order bundle and lexical controls</td><td><code>typology_lex</code></td><td class="n">a9c7488</td><td>Head-direction bundle, not object–verb order alone. The family tree survives the lexical controls.</td></tr>
+      <tr><td>Steering, free generation, confirmatory</td><td><code>steer_gen2</code></td><td class="n">5146777</td><td>H1 (German, Russian) holds (z = 7.83). H2 (Dutch, Ukrainian, Polish, Croatian) not evaluable: 2 of 4 languages had a defined slope.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tcap">Commits in the repository branch linked at the top. Commit d976f88 added the validation of the conditional tests before we downloaded the 34-language data.</p>
+
+  <h3>Extraction</h3>
+  <ul>
+    <li>Forward hooks on the embedding module and on every decoder block capture the residual stream. We do not use the last hidden state of the Hugging Face output, because it already includes the final norm.</li>
+    <li>Pooling happens inside each hook, so no full sequence of activations is kept across layers. We store the pooled activations in float16. The models run in bfloat16 without quantization.</li>
+    <li>Batches are formed by length and limited by a budget of padded tokens. A batch that runs out of memory is split.</li>
+    <li>Every input starts with the sink token (BOS for Llama, a newline for Qwen), and pooling drops position 0.</li>
+    <li>Fertility <span class="m">f_i</span> is the mean number of content tokens per sentence over both halves. The token distance uses the token-frequency distributions of the dev and devtest text, with each model's own tokenizer.</li>
+  </ul>
+
+  <h3>Geometries, distances and the split regression</h3>
+  <ul>
+    <li><b>Causal geometry.</b> The covariance of the unembedding rows uses the normalization <span class="m">N_V-1</span> over the real vocabulary (rows with an index below 151,665 for Qwen and below 128,000 for Llama). <span class="m">\omega</span> is the weight of the final RMSNorm.</li>
+    <li><b>Whitened geometry.</b> <span class="m">W</span> is computed per layer on the dev half. The per-layer profiles also use the shrinkage <span class="m">\eta=0.1</span> and the Euclidean inner product.</li>
+    <li><b>Bootstrap.</b> 50 resamples of sentences with multinomial weights. The same sentence indices apply to every language, and the window mean is recomputed for each resample.</li>
+    <li><b>Rescaled pooling.</b> Each sentence vector is multiplied by <span class="m">\sqrt{T_{i,s}/\bar T}</span>, where <span class="m">T_{i,s}</span> is its number of content tokens and <span class="m">\bar T</span> the mean over all languages and both halves. The tests then use 2,000 permutations.</li>
+    <li><b>Fit.</b> Non-negative least squares on the 561 values of <span class="m">D^2_{ij}</span>. The columns are the 34 star indicators, the 4 script splits, the two covariates divided by their standard deviations, and the splits under test. <span class="m">R^2=1-\mathrm{SSE}/\mathrm{SST}</span>.</li>
+    <li><b>Permutations.</b> For the family tree, a random permutation of the 34 language labels maps every split of <span class="m">\mathcal T</span> to a new split of the same size and the same nesting. For a single split, the null draws random subsets of the same size. A draw counts as at least as large if <span class="m">G_b\ge G_{\text{obs}}-10^{-12}</span>.</li>
+    <li><b>Same-language test.</b> Residuals of the fit with the star and the two covariates only. Each pair receives its percentile rank among the 561 residuals (0 = closest). The statistic is the mean rank of the three pairs; the p-value counts random triples of pairs with a mean rank at least as small.</li>
+    <li><b>Power.</b> Before data collection we simulated Brownian motion on the Glottolog tree with realistic leaf lengths and script structure. With 34 languages and internal branches that carry 10% of the distance, the family-tree test has a power of 80% to 86%; with the 12 pilot languages, 18% to 42%.</li>
+    <li><b>Exploratory robustness.</b> 2,000 permutations. Geography is the great-circle distance between the WALS coordinates of two languages, added as a covariate.</li>
+  </ul>
+
+  <h3>Typology and lexical controls</h3>
+  <ul>
+    <li>The WALS values come from the WALS data in CLDF format. Uncoded values take the value of the genus: Kazakh for 83A, 85A and 86A, Azerbaijani for 85A, and Maltese for 87A.</li>
+    <li>Character overlap: transliteration with <code>unidecode</code>, lower case, sets of character trigrams, Jaccard index per parallel sentence, mean over the dev and devtest sentences.</li>
+    <li>ASJP: the 40-item lists. The word lists were fixed in advance; Serbian uses the Serbo-Croatian list, both Chinese scripts use the Mandarin list, and Filipino uses the Tagalog list. For synonyms, LDN takes the minimum over the forms.</li>
+    <li>Tests A1 and A2 use random subsets of 11 and 12 languages; B1 and B2 use the leaf-permutation null. 10,000 permutations each.</li>
+  </ul>
+
+  <h3>Steering with minimal pairs</h3>
+  <ul>
+    <li><b>Directions.</b> Ordinary least squares on the dev centroid offsets in the raw coordinates of the residual stream, at layers 8, 14 and 20, once for each held-out test language. The Indo-European direction is rescaled to <span class="m">\lVert\beta_{\text{OV}}\rVert</span>. The 32 random directions are Gaussian vectors in the span of the 33 centred offsets, normalized and scaled to <span class="m">\lVert\beta_{\text{OV}}\rVert</span>, with a fixed seed.</li>
+    <li><b>Pairs.</b> The test sets of the Universal Dependencies treebanks English EWT, German GSD, French GSD, Russian SynTagRus, Hindi HDTB, Turkish IMST, Japanese GSD and Chinese GSD, at most 150 pairs per language.</li>
+    <li><b>Scoring.</b> The sum of the log-probabilities of the content tokens given the sink. The steering vector is added to the output of the block at every position, including the sink.</li>
+    <li><b>Conditions.</b> Unsteered; the word-order and Indo-European directions at layers 8, 14 and 20 with <span class="m">k\in\{\pm1,\pm2\}</span>; the 32 random directions at layer 14 with <span class="m">k=\pm2</span>.</li>
+    <li><b>Statistics.</b> <span class="m">\mathrm{sd}(b_r)</span> uses the normalization <span class="m">n-1</span>. The empirical p-value is <span class="m">(1+\#\{r:b_r\ge b_{\text{OV}}\})/33</span>. The 95% interval of <span class="m">b_{\text{OV}}</span> comes from 5,000 bootstrap resamples of pairs within each language.</li>
+  </ul>
+
+  <h3>Free generation</h3>
+  <ul>
+    <li><b>Prompts.</b> A seeded shuffle of the 1,012 devtest indices; the first study takes the first 150, and the confirmatory study takes the next 150 that the first study did not use. A prompt keeps the first 40% of the words (at least 3 words), or for Chinese and Japanese the first 40% of the characters (at least 6).</li>
+    <li><b>Language identification.</b> <code>langid.py</code> <a class="cite" href="#r14">[14]</a>, restricted to the study languages; a continuation shorter than 3 characters counts as no language.</li>
+    <li><b>Parsing.</b> Stanza with tokenization, multi-word-token expansion where the language has it, part-of-speech tagging, lemmatization and dependency parsing, applied to prompt and continuation together. A word counts as generated if it starts after the end of the prompt.</li>
+    <li><b>Exploratory statistics.</b> The prompt bootstrap uses 2,000 resamples of the 150 sentence indices. The re-parse by object type ran on the unsteered condition, the word-order and Indo-European directions at ±2 and all 48 random conditions.</li>
+    <li><b>Confirmatory run.</b> A debug run on 2 prompts per language with 1 random direction tested the pipeline first; its numbers are not used. The frozen analysis code (<code>analysis_gen2.py</code>) contains the synthetic check of power and false-positive rate and produced <code>results_gen2.json</code>.</li>
+    <li><b>Confirmatory, descriptive additions.</b> The prompt bootstrap of the pooled slopes (<code>bootstrap_gen2.py</code>, not pre-registered) draws the 150 sentences with replacement 2,000 times. Each draw applies to every language and condition and keeps the inclusion rule. The destination languages of Polish and Croatian continuations come from the language-identifier labels of the generated text.</li>
+  </ul>
+
+  <h3>Token-level study</h3>
+  <ul>
+    <li>Each token state is projected onto the 11-dimensional span of the language offsets (dev centroids) and onto the top 117 principal components of the token states orthogonal to that span. The tests use the span coordinates.</li>
+    <li>The tag-conditioned log-likelihoods cover the first 24 content tokens of every sentence (283,900 positions). Ambiguous positions have <span class="m">\max_j\pi_t(j)&lt;0.9</span>.</li>
+    <li>The baseline for token identity uses the layer-0 embedding of the current token, projected to the span, plus a one-hot code of the position.</li>
+    <li>The code-switched sequences use the states at 8 layers and the log-likelihoods under the tags of A and B. The lag is censored at the length of the B segment.</li>
+  </ul>
+
+  <h3>Compute</h3>
+  <p>The GPU jobs ran on Google Colab, on L4 GPUs. Extraction for one model and 34 languages takes about 30 minutes; the whole project used about 10 L4 GPU-hours. The confirmatory free-generation run used 2.76 Colab compute units.</p>
+
+  <h3>References</h3>
+  <ol class="refs">
+    <li id="r1">Gurnee, W., Ameisen, E., Kauvar, I., Tarng, J., Pearce, A., Olah, C., Batson, J. (2025). <a href="https://transformer-circuits.pub/2025/linebreaks/index.html">When Models Manipulate Manifolds: The Geometry of a Counting Task</a>. Transformer Circuits Thread.</li>
+    <li id="r2">Libovický, J., Rosa, R., Fraser, A. (2020). <a href="https://arxiv.org/abs/2004.05160">On the Language Neutrality of Pre-trained Multilingual Representations</a>. Findings of EMNLP.</li>
+    <li id="r3">Chang, T., Tu, Z., Bergen, B. (2022). <a href="https://arxiv.org/abs/2205.10964">The Geometry of Multilingual Language Model Representations</a>. EMNLP.</li>
+    <li id="r4">Wendler, C., Veselovsky, V., Monea, G., West, R. (2024). <a href="https://arxiv.org/abs/2402.10588">Do Llamas Work in English? On the Latent Language of Multilingual Transformers</a>. ACL.</li>
+    <li id="r5">Park, K., Choe, Y. J., Jiang, Y., Veitch, V. (2024). <a href="https://arxiv.org/abs/2406.01506">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a>; and Park, K., Choe, Y. J., Veitch, V. (2023). <a href="https://arxiv.org/abs/2311.03658">The Linear Representation Hypothesis and the Geometry of Large Language Models</a>.</li>
+    <li id="r6">Shai, A. S., Marzen, S. E., Teixeira, L., Oldenziel, A. G., Riechers, P. M. (2024). <a href="https://arxiv.org/abs/2405.15943">Transformers Represent Belief State Geometry in their Residual Stream</a>. NeurIPS.</li>
+    <li id="r7">Lindsey, J., et al. (2025). <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html">On the Biology of a Large Language Model</a> (section on multilingual circuits). Transformer Circuits Thread.</li>
+    <li id="r8">Rakshit, Goldberg, Conklin (2026). <a href="https://arxiv.org/abs/2607.22699">Language family structure in language model representations</a>. arXiv:2607.22699.</li>
+    <li id="r9">NLLB Team (2022) and the Open Language Data Initiative. <a href="https://huggingface.co/datasets/openlanguagedata/flores_plus">FLORES+</a>.</li>
+    <li id="r10">Dryer, M. S., Haspelmath, M. (eds.) (2013). <a href="https://wals.info/">The World Atlas of Language Structures Online</a>, features 83A, 85A, 86A, 87A.</li>
+    <li id="r11">Hammarström, H., Forkel, R., Haspelmath, M., Bank, S. <a href="https://glottolog.org/">Glottolog</a>.</li>
+    <li id="r12">de Marneffe, M.-C., Manning, C. D., Nivre, J., Zeman, D. (2021). <a href="https://universaldependencies.org/">Universal Dependencies</a>. Computational Linguistics; and Qi, P., et al. (2020). <a href="https://stanfordnlp.github.io/stanza/">Stanza</a>.</li>
+    <li id="r13">Wichmann, S., et al. <a href="https://asjp.clld.org/">The ASJP Database</a>; and Östling, R., Kurfalı, M. (2023). <a href="https://arxiv.org/abs/2301.08115">Language Embeddings Sometimes Contain Typological Generalizations</a>.</li>
+    <li id="r14">Lui, M., Baldwin, T. (2012). <a href="https://github.com/saffsd/langid.py">langid.py: An Off-the-shelf Language Identification Tool</a>. ACL System Demonstrations.</li>
+  </ol>
+</section>

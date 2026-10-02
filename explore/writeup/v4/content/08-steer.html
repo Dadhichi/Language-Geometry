@@ -1,0 +1,53 @@
+<section id="steer" data-title="Is the axis used?">
+  <h2>Is the axis used?</h2>
+  <p>A structure in the representations can describe the data without the model reading it. This section tests use. We add a word-order direction to the residual stream of Qwen2.5-7B and measure a change in behaviour that only word order can explain. The pre-registered test passes: the direction shifts the model's preference between the two orders of the same words, in all 8 test languages.</p>
+
+  <h3>The word-order direction</h3>
+  <p>At layer 14 we regress the dev-half offsets on language properties. It is one ordinary least-squares regression with all 3,584 coordinates as responses:</p>
+  <div class="mb">a_j=\beta_0+\beta_{\text{OV}}\,\mathbb 1_{\text{OV}}(j)+\beta_{\text{IE}}\,\mathbb 1_{\text{IE}}(j)+\sum_{\sigma\in\{\text{Latin},\,\text{Cyrillic},\,\text{Arabic},\,\text{Devanagari}\}}\beta_\sigma\,\mathbb 1_\sigma(j)+\beta_f\log f_j+e_j .</div>
+  <p>The coefficient <span class="m">\beta_{\text{OV}}\in\mathbb R^{3584}</span> is a direction in the residual stream. It is the difference between object-before-verb languages and the others, with Indo-European membership, script and fertility held fixed. For each test language <span class="m">i</span>, we fit the regression on the other 33 languages and call the result <span class="m">\beta_{\text{OV}}^{(-i)}</span>. The direction is therefore never fitted on the language that it steers. At layer 14 its norm is between 11.6 and 12.1, and its cosine with <span class="m">\beta_{\text{IE}}</span> is between −0.03 and +0.02.</p>
+  <p>Before any intervention, we check where each test language falls on its own held-out direction:</p>
+  <div class="mb">\mathrm{proj}_i=\frac{\big\langle a_i,\ \beta^{(-i)}_{\text{OV}}\big\rangle}{\lVert\beta^{(-i)}_{\text{OV}}\rVert^2}.</div>
+  <p>On this scale, the mean projection of the OV languages is between +0.50 and +0.53. The mean projection of the other languages is between −0.24 and −0.25. The ranges come from the 8 regressions, one for each left-out test language.</p>
+  <figure id="fig-proj" data-fig="proj"><figcaption><b>The direction places languages that it never saw on the correct side.</b> Projection <span class="m">\mathrm{proj}_i</span> of each test language onto the word-order direction estimated without that language, at layer 14 of Qwen2.5-7B. Hindi (+0.48), Turkish (+0.64) and Japanese (+0.40) fall on the object-first side. English (−0.20), French (−0.33) and Russian (−0.14) fall on the verb-first side. German, which WALS codes as having no dominant order, falls near zero (+0.05). Chinese, a verb-first language, also falls near zero (+0.03). n = 8 languages.</figcaption></figure>
+
+  <h3>Minimal pairs</h3>
+  <p>From Universal Dependencies treebanks <a class="cite" href="#r12">[12]</a> in 8 languages, we took 999 real sentences in which a verb and its object are adjacent. For each sentence we built a variant with the two parts swapped. The two variants contain exactly the same tokens. The languages are English, French, Russian and Chinese (verb before object), Hindi, Turkish and Japanese (object before verb), and German (no dominant order). We keep a sentence if:</p>
+  <ul>
+    <li>the verb is the first clause-level verb with an object dependent;</li>
+    <li>the object subtree is one contiguous span of at most 6 words without punctuation;</li>
+    <li>the object span is adjacent to the verb with its auxiliaries and particles;</li>
+    <li>neither span starts the sentence, the sentence has 5 to 40 words, and it has no multi-word tokens.</li>
+  </ul>
+  <p>The same detokenizer rebuilds both variants, so their formatting cannot differ.</p>
+  <figure id="fig-pairs" data-fig="pairs"><figcaption><b>Each minimal pair contains the same words in two orders.</b> Examples from the 999 pairs: the object-before-verb (OV) variant and the verb-before-object (VO) variant of one sentence, with the order of the original sentence. One variant is the attested sentence; the other is the swap.</figcaption></figure>
+
+  <h3>Intervention and test statistic</h3>
+  <p>We add a multiple of a direction <span class="m">v</span> to the output of block 14, at every position including the sink:</p>
+  <div class="mb">h^{14}_t\;\leftarrow\;h^{14}_t+k\,v,\qquad k\in\{{-2},{-1},{+1},{+2}\}.</div>
+  <p>The strength <span class="m">k</span> is in units of <span class="m">\lVert\beta^{(-i)}_{\text{OV}}\rVert</span>. For a minimal pair <span class="m">x=(x^{\text{OV}},x^{\text{VO}})</span> we score both variants under the steered model:</p>
+  <div class="mb">m_k(x)=\log P_k\big(x^{\text{OV}}\big)-\log P_k\big(x^{\text{VO}}\big),\qquad \log P(x)=\sum_{t\ge1}\log P(x_t\mid x_{&lt;t}),\qquad \Delta_k(x)=m_k(x)-m_0(x).</div>
+  <p>Both variants contain the same tokens. Suppose that a push only makes some words, or the language as a whole, more probable. Then it changes both variants by similar amounts, and the change largely cancels in <span class="m">m</span>. A change in the preferred order does not cancel. The pre-registered statistic is the slope over <span class="m">k=\pm2</span>, computed per language and averaged over the 8 languages with equal weight:</p>
+  <div class="mb">b=\frac1{8}\sum_{i}\frac{\sum_{k=\pm2}k\,\bar\Delta^{(i)}_k}{\sum_{k=\pm2}k^2}=\frac18\sum_i\frac{\bar\Delta^{(i)}_{+2}-\bar\Delta^{(i)}_{-2}}{4},</div>
+  <p>where <span class="m">\bar\Delta^{(i)}_k</span> is the mean over the pairs of language <span class="m">i</span>. Any push of this size disturbs the model. The null distribution therefore uses 32 random directions of the same norm, drawn in the same space of language differences:</p>
+  <div class="mb">r=\lVert\beta^{(-i)}_{\text{OV}}\rVert\,\frac{U\epsilon}{\lVert U\epsilon\rVert},\qquad \epsilon\sim\mathcal N(0,I),</div>
+  <p>with <span class="m">U</span> an orthonormal basis of the span of the 33 centred offsets. The control direction is <span class="m">\beta_{\text{IE}}^{(-i)}</span>, rescaled to the same norm.</p>
+  <div class="def"><span class="lab">Claim rule (pre-registered)</span>
+    <p>The word-order direction is used if <span class="m">b_{\text{OV}}&gt;0</span>, <span class="m">b_{\text{OV}}</span> exceeds all 32 random slopes (empirical p = 1/33 = 0.03), and <span class="m">z=(b_{\text{OV}}-\overline{b_r})/\mathrm{sd}(b_r)&gt;2.33</span>. Layer 14 is primary. Layers 8 and 20, strengths ±1, the control slope, the sign count over languages and a pair-bootstrap interval are secondary.</p>
+  </div>
+
+  <h3>Result</h3>
+  <figure id="fig-steer" data-fig="steer"><figcaption><b>Steering along the word-order direction shifts the preference between the two orders; random directions do not.</b> Mean change <span class="m">\bar\Delta_k</span> in log P(OV variant) − log P(VO variant), in nats, averaged over the 8 languages, against the strength k. Panels: layers 8, 14 and 20, on one scale. Orange: word-order direction. Green: Indo-European direction of the same norm. Grey: the 32 random directions at layer 14, k = ±2. At layer 14 the means are −3.06, −1.19, +0.98 and +3.03 nats at k = −2, −1, +1 and +2. The strip under the panels shows the pre-registered statistic, the slope b at layer 14, against the slopes of the 32 random directions. n = 999 pairs.</figcaption></figure>
+  <div class="takeaway">The pre-registered claim holds. The slope of the word-order direction is <span class="m">b_{\text{OV}}={+1.52}</span> nats per unit of k (95% pair-bootstrap interval 1.40 to 1.65). The 32 random directions give −0.05 ± 0.32, with a maximum of +1.16. Thus z = 4.99, and the empirical p = 0.03 is the smallest possible with 32 directions. The slope is positive in all 8 languages.</div>
+  <p>The secondary results agree. The Indo-European direction gives −0.25, inside the range of the random slopes. The dose response is monotone at layers 8, 14 and 20. Over all four strengths, the slopes are 1.06, 1.43 and 1.00 nats per unit of k. The per-language slopes range from 0.88 (Japanese) to 2.96 (Chinese).</p>
+  <figure id="fig-steer-langs" data-fig="steer-langs"><figcaption><b>Every language moves toward the order that the push favours, and it moves most when the push opposes its own order.</b> Mean preference for the OV variant (nats) per language: unsteered (grey), with k = +2 toward OV (orange) and with k = −2 toward VO (blue). Languages are sorted by their unsteered preference. Pair counts: English, Russian, Hindi and Chinese 150 each; German 134; Turkish 133; Japanese 71; French 61.</figcaption></figure>
+
+  <h3>Asymmetry and cost (exploratory)</h3>
+  <p>The following analyses were not pre-registered.</p>
+  <ul>
+    <li><b>Asymmetry.</b> A push toward the order that a language does not have moves it far. A push toward the order that it already has moves it little. Chinese moves from −14.1 to −3.5 nats at k = +2, and only to −15.3 at k = −2. Hindi moves from +9.0 to +3.4 at k = −2, and only to +8.9 at k = +2. This is the pattern we expect if the model reads the direction to decide word order and is already confident in the familiar case.</li>
+    <li><b>Cost.</b> The intervention is not surgical. At k = +2 it lowers the log-probability of the attested sentence by 33.8 nats on average. Random directions of the same norm lower it by 17.1 nats on average (range 1.9 to 95.9 nats).</li>
+    <li><b>Flips.</b> Unsteered, the model prefers the attested order in 96% of pairs. At k = +2, 9.3% of pairs change their preferred variant toward OV; at k = −2, 10.0% change toward VO. The Indo-European direction at k = +2 also changes 8.8% of pairs, toward VO. Flip counts are therefore not specific; the pre-registered slope is.</li>
+  </ul>
+  <p class="note">This test measures a preference between two strings that we wrote. The model never has to produce either string. The next section asks whether the same push changes the order that the model writes.</p>
+</section>

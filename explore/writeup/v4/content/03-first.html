@@ -1,0 +1,39 @@
+<section id="first" data-title="A first look: translations and a trap">
+  <h2>A first look: translations and a trap</h2>
+  <p>This section reports a pilot study that shaped the design of the main study. It shows three things. Languages differ mostly by a constant offset. Mean pooling adds a scale factor per language. Per-language principal component analysis (PCA) creates a false result. All results in this section are exploratory.</p>
+  <p>The pilot used Qwen2.5-7B and every second layer from 0 to 28. Its 12 languages are English, German, French, Spanish, Russian, Hindi, Arabic, Chinese, Japanese, Turkish, Vietnamese and Indonesian. Four independent analyses used the same activations. We validated every statistic on synthetic data that we sent through the same pipeline.</p>
+
+  <h3>Languages differ mostly by an offset</h3>
+  <p>To a good approximation, a sentence representation in the middle layers is the sum of four terms:</p>
+  <div class="mb">\bar h^{\ell}(x_{i,s})\;\approx\;\mu_0+a_i+\kappa_i\,\psi_s+\varepsilon_{i,s}.</div>
+  <p>Here <span class="m">\mu_0</span> is a common mean and <span class="m">a_i</span> the offset of language <span class="m">i</span>. The vector <span class="m">\psi_s</span> is the content of sentence <span class="m">s</span> that all its translations share. The scalar <span class="m">\kappa_i</span> is a scale factor per language, and <span class="m">\varepsilon_{i,s}</span> is the remainder. The terms differ in size:</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Term</th><th>Description</th><th>Size in the pilot</th></tr></thead>
+    <tbody>
+      <tr><td>Offset <span class="m">a_i</span></td><td>one constant vector per language</td><td>removes 82–91% of the cross-language error that a linear map can remove, at every layer</td></tr>
+      <tr><td>Scale factor <span class="m">\kappa_i</span></td><td>one scalar per language</td><td><span class="m">\log\kappa_i</span> correlates with <span class="m">\log f_i</span> at −0.92 to −0.96, at every layer</td></tr>
+      <tr><td>Rotation</td><td>a small rotation per pair of languages</td><td>2–4% of the variance in the middle layers, about 15% at layer 26; the rotations do not commute</td></tr>
+    </tbody>
+  </table></div>
+  <p>The offset alone is enough to match translations. We subtract each language's centroid and match each sentence to the most similar sentence of the other language by cosine similarity:</p>
+  <div class="mb">\hat s=\arg\max_{s'}\ \cos\big(\bar h(x_{i,s})-\mu_i,\ \bar h(x_{j,s'})-\mu_j\big).</div>
+  <p>At layer 14, this finds the correct translation among the 1,012 devtest sentences in 99.1% of cases, averaged over all ordered pairs of languages. The centroids come from the dev half.</p>
+
+  <h3>The scale factor comes from mean pooling</h3>
+  <p>The scale factor is a property of the pooling, not of the model. With <span class="m">f_i</span> the mean number of tokens per sentence,</p>
+  <div class="mb">\log\kappa_i\;\approx\;c-\tfrac12\log f_i .</div>
+  <p>This is the scaling of a mean of weakly correlated vectors. Suppose that the part of each token state that carries sentence content varies from token to token with little correlation. Then the norm of its mean over <span class="m">T</span> tokens falls as <span class="m">T^{-1/2}</span>. Multiplying each sentence vector by <span class="m">\sqrt{T}</span> removes 80% of the variance of <span class="m">\log\kappa_i</span>. Every analysis below therefore includes <span class="m">\lvert\log f_i-\log f_j\rvert</span> as a covariate, and we also report a variant with rescaled pooling.</p>
+
+  <h3>A trap: maps that seem not to compose</h3>
+  <p>The pilot also gave a false result, and we report it because the mistake is easy to make. We first fitted orthogonal maps between languages, each inside the top-<span class="m">q</span> principal subspace of its own language. Let <span class="m">X_i</span> hold the sentence representations of language <span class="m">i</span> as rows, <span class="m">B_i\in\mathbb R^{d\times q}</span> its top-<span class="m">q</span> principal directions, and <span class="m">Z_i=(X_i-\mu_i)B_i</span>. Then</p>
+  <div class="mb">R_{ij}=\arg\min_{R\in O(q)}\lVert Z_iR-Z_j\rVert_F,\qquad E_{ijm}=\frac{\lVert Z_i\,(R_{ij}R_{jm}-R_{im})\rVert_F^2}{\lVert Z_i\rVert_F^2}.</div>
+  <p>If one shared representation relates the languages, the maps compose and the composition error <span class="m">E_{ijm}</span> is near 0. Against a null simulation built on this assumption, the real error was 1.5 to 4.5 times too large.</p>
+  <p>The cause is the truncation to <span class="m">q</span> dimensions. Suppose that the languages are exactly consistent: <span class="m">X_j-\mu_j=(X_i-\mu_i)\,Q_{ij}</span> with orthogonal maps that compose, <span class="m">Q_{ij}Q_{jm}=Q_{im}</span>. The best <span class="m">q\times q</span> map is close to the orthogonal part of <span class="m">T_{ij}=B_i^\top Q_{ij}B_j</span>, and</p>
+  <div class="mb">T_{ij}\,T_{jm}=B_i^\top Q_{ij}\,P_j\,Q_{jm}B_m,\qquad P_j=B_jB_j^\top .</div>
+  <p>This product equals <span class="m">T_{im}=B_i^\top Q_{im}B_m</span> only if the projector <span class="m">P_j</span> acts as the identity on the directions involved. That is true only if the maps carry the three subspaces exactly onto one another. For subspaces estimated from about 1,000 sentences, this is false: the top-64 subspaces of different languages overlap only partly (mean squared cosine about 0.64). The composition test therefore measured subspace mismatch. Two checks confirm this:</p>
+  <ul>
+    <li>Exactly consistent synthetic data, sent through the same pipeline, give <span class="m">E=0.091</span> at layer 14 with <span class="m">q=64</span>. The real data give 0.077. The original null model predicted 0.017.</li>
+    <li>When all languages use one shared subspace, <span class="m">B_j:=Q_{ij}^\top B_i</span>, the real maps compose as well as consistent synthetic data do (0.0016 against 0.0020).</li>
+  </ul>
+  <p>For this reason, the rest of the article uses distances between centroids, which need no basis per language.</p>
+</section>

@@ -53,6 +53,52 @@ def residual_map(derived, win, metric="lda05"):
     return dict(xy=X.round(5).tolist(), var_share=float(np.clip(w[:2], 0, None).sum() / np.clip(w, 0, None).sum()))
 
 
+def map_layers(derived, primary):
+    """v4: one residual map per stored layer (window "L-L"), Procrustes-rotated onto the primary map.
+    Each layer's map is computed exactly like residual_map() (incl. the OV-to-the-right orientation), then an
+    orthogonal 2x2 map (rotation or reflection, no scaling) is applied that best matches the primary map, so points
+    do not flip between neighbouring layers. `rms` is the root-mean-square radius of the layer map (MDS units) and
+    `fit` the Procrustes congruence with the primary map (1 = same configuration up to rotation and scale)."""
+    n_layers = json.load(open(os.path.join(derived, "meta.json")))["n_layers"]
+    P = np.asarray(primary["xy"], float); P = P - P.mean(0)
+    keep = list(A.LAYERS_PRIMARY)
+    out = {}
+    try:
+        for L in range(n_layers):
+            m = residual_map(derived, f"{L}-{L}")
+            X = np.asarray(m["xy"], float); X = X - X.mean(0)
+            U, s, Vt = np.linalg.svd(X.T @ P)
+            Xr = X @ (U @ Vt)
+            fit = float(s.sum() / np.sqrt((X ** 2).sum() * (P ** 2).sum()))
+            out[L] = dict(xy=Xr.round(5).tolist(), var_share=m["var_share"],
+                          rms=float(np.sqrt((X ** 2).sum(1).mean())), fit=fit)
+    finally:
+        A.LAYERS_PRIMARY = keep
+    return out
+
+
+TREE_NAMES = ["Indo-European", "Germanic", "West Germanic", "Romance", "Ibero-Romance", "Slavic", "East Slavic",
+              "South Slavic", "Indo-Iranian", "Indo-Aryan", "Hindustani", "Semitic", "Arabic–Maltese", "Turkic",
+              "Oghuz", "Finnic", "Sinitic", "Austronesian", "Austroasiatic", "Dravidian"]
+
+
+def tree():
+    """v4: the 20 Glottolog splits of lib34.GLOTTO as language-code lists, plus the nested cladogram they define
+    (every split is a clade; languages in no split hang from the root). Leaf order follows lib34.LANGS."""
+    assert len(TREE_NAMES) == len(T.GLOTTO)
+    splits = [dict(name=nm, codes=[T.LANGS[i] for i in S]) for nm, S in zip(TREE_NAMES, T.GLOTTO)]
+
+    def build(members, name):
+        inner = [(nm, set(S)) for nm, S in zip(TREE_NAMES, T.GLOTTO) if set(S) < members]
+        top = [(nm, S) for nm, S in inner if not any(S < S2 for _, S2 in inner)]
+        covered = set().union(*[S for _, S in top]) if top else set()
+        kids = [(min(S), build(S, nm)) for nm, S in top] + [(i, dict(code=T.LANGS[i])) for i in members - covered]
+        return dict(name=name, children=[k for _, k in sorted(kids, key=lambda t: t[0])])
+
+    return dict(splits=splits, root=build(set(range(T.N)), "root"),
+                ov=[T.LANGS[i] for i in T.OV])
+
+
 def profiles(path):
     r = json.load(open(path))
     out = {}
@@ -130,16 +176,23 @@ def belief():
 def main():
     out = dict(langs=langs_meta())
     out["map"] = {"qwen": residual_map(f"{DATA}/q34/derived34", "8-20"), "llama": residual_map(f"{DATA}/l34/derivedL34", "9-23")}
+    out["map_layers"] = {"qwen": map_layers(f"{DATA}/q34/derived34", out["map"]["qwen"]),     # v4 (designer)
+                         "llama": map_layers(f"{DATA}/l34/derivedL34", out["map"]["llama"])}
+    out["tree"] = tree()                                                                       # v4 (designer)
     out["profiles"] = {"qwen": profiles(os.path.join(EX, "prereg34", "results34.json")),
                        "llama": profiles(os.path.join(EX, "prereg34", "results34_llama.json"))}
     out["steering"] = steering()
     out["belief"] = belief()
     for name, f in (("typology_lex_qwen", "typology_lex/results_tl_qwen.json"), ("typology_lex_llama", "typology_lex/results_tl_llama.json"),
                     ("freegen", "steer_gen/results_gen.json"), ("freegen_x", "steer_gen/exploratory_gen.json"),
-                    ("freegen_obj", "steer_gen/objtype.json")):
+                    ("freegen_obj", "steer_gen/objtype.json"), ("freegen2", "steer_gen2/results_gen2.json")):
         p = os.path.join(EX, f)
         if os.path.exists(p):
             out[name] = json.load(open(p))
+    bp = os.path.join(EX, "steer_gen2", "bootstrap_gen2.json")       # descriptive prompt-bootstrap CI (not pre-registered)
+    if "freegen2" in out and os.path.exists(bp):
+        for H, ci in json.load(open(bp)).items():
+            out["freegen2"]["tests"][H]["ci"] = ci
     def clean(o):                                  # NaN/inf are not valid JSON for the browser's JSON.parse
         if isinstance(o, dict):
             return {str(k): clean(v) for k, v in o.items()}

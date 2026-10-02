@@ -1,0 +1,30 @@
+<section id="discussion" data-title="Discussion and limitations">
+  <h2>Discussion and limitations</h2>
+  <p>This section summarizes what the results show, states their limits, and lists the lessons for method.</p>
+  <h3>What the results show</h3>
+  <p>Two structures that linguists use to classify languages are present in how these models arrange languages. They occupy different depths. The family tree is strongest in the layers that read and write tokens. The word-order axis is strongest in the middle layers. The two structures replicate in two models with different tokenizers, data and training runs.</p>
+  <p>The word-order axis is the more informative of the two. No single token shows it, so it must come from how the model processes the arrangement of tokens. Steering along it changes the model's preference between the two orders of the same words in eight languages from four families. It also changes the order that the model writes, at least in German and Russian. Exploratory analysis found that it reorders noun objects in these two languages, and a pre-registered replication on fresh prompts confirmed it (z = 7.83).</p>
+  <p>Whether this holds for other languages with flexible order is open. The pre-registered test on four new languages could not be evaluated. Dutch and Ukrainian changed as much as German and Russian, but Polish and Croatian left their language when pushed against their order. In every language, the effect needs a strength at which the push also degrades text or moves the model out of the language.</p>
+  <h3>Limitations</h3>
+  <ul>
+    <li><b>Presence, not emergence.</b> We show that the structures are present in two trained models. We do not show how they emerge during training; models with released training checkpoints can answer this.</li>
+    <li><b>Few languages break the bundle.</b> Only Persian, Finnish and Estonian separate object–verb order from adposition order, so the separation of the head-direction features rests on three languages.</li>
+    <li><b>A blunt intervention.</b> At k = +2 the push costs 33.8 nats on the attested sentence. Our direction is defined by object–verb order alone, and we tested it only in Qwen2.5-7B, with layer 14 as the primary layer.</li>
+    <li><b>One text collection.</b> All representations are means over FLORES+ sentences, which are translations of the same source sentences.</li>
+    <li><b>Training data.</b> We did not control for the amount of training data in each language. Tokens per sentence, which is a covariate, tracks it only in part.</li>
+    <li><b>Few features.</b> We tested four word-order features of the many that WALS describes.</li>
+    <li><b>Free generation.</b> The confirmed effect covers noun objects in two languages, one model, one layer and one strength (k = 2). The generalization to other languages rests on descriptive results in Dutch and Ukrainian.</li>
+    <li><b>Token level.</b> The token-level study uses one model, 12 languages and a noisy estimate of the model's belief.</li>
+  </ul>
+  <h3>Lessons for method</h3>
+  <p>Geometric claims about language representations are easy to fool. Each artefact below produced, or nearly produced, a false result in this project:</p>
+  <ul>
+    <li>Per-language PCA creates an apparent failure of maps to compose.</li>
+    <li>Mean pooling creates a scale factor per language that follows the token count.</li>
+    <li>Shared tokens and shared characters can look like genealogy; the controls must remove them.</li>
+    <li>Marginal tests of overlapping structures leak into each other; conditional tests separate them.</li>
+    <li>A ratio such as the object-first share can change without reordering, when the mix of object types changes.</li>
+    <li>An inclusion rule must be consistent with the strength rule; otherwise a pre-registered test can fail to run. Inclusion per direction made the replication evaluable, but a minimum number of languages still left the generalization test without an answer.</li>
+  </ul>
+  <p>Each pre-registered positive result in this article survived a test designed in advance to rule out such artefacts. Two of our own early findings, the failure of maps to compose and the French free-generation effect, did not survive the checks.</p>
+</section>

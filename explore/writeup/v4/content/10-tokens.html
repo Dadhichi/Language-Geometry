@@ -1,0 +1,37 @@
+<section id="tokens" data-title="Language identity, token by token">
+  <h2>Language identity, token by token</h2>
+  <p>So far each sentence was one point. This section follows the representation of Qwen2.5-7B token by token, with two pre-registered tests. The first passes: when the evidence about the language is ambiguous, the representation encodes graded uncertainty. The second fails: at a code switch, the representation moves to the new language within about one token. A Bayesian observer of the whole sequence moves much more slowly.</p>
+  <p>Transformers can linearly represent belief states over the hidden variables of the process that generated their training data <a class="cite" href="#r6">[6]</a>. The language of a text is such a hidden variable. The hypothesis is that the model keeps a probability distribution over the language that it reads, and updates it with each token. Mean-pooled sentences hide this, so we recorded the residual stream at every token.</p>
+
+  <h3>Data and the model's own belief</h3>
+  <ul>
+    <li><b>Text.</b> FLORES+ devtest in the 12 pilot languages, every content position, at 15 layers (0 to 28 in steps of 2). We split the sentences into a fit half and a test half. All maps are ridge regressions, with the penalty chosen by 5-fold cross-validation on the fit half.</li>
+    <li><b>Coordinates.</b> Each token state is reduced to its coordinates in the 11-dimensional span <span class="m">S</span> of the 12 language offsets: <span class="m">z_t=S^\top h^\ell_t</span>.</li>
+    <li><b>Belief.</b> Let <span class="m">\tau_j</span> be the prompt "The following text is written in <i>language j</i>." We estimate the model's own posterior over the 12 languages with a uniform prior, on the first 24 content tokens of each sentence:</li>
+  </ul>
+  <div class="mb">\pi_t(j)\ \propto\ \exp\Big(\sum_{t'=1}^{t}\log P\big(x_{t'}\mid\tau_j,\,x_{&lt;t'}\big)\Big).</div>
+
+  <h3>Graded belief (pre-registered: supported)</h3>
+  <p>If the representation encodes belief, an affine map from the posterior, <span class="m">z_t\approx W\pi_t+c</span>, predicts it better than an affine map from the hard decision <span class="m">e_{\arg\max\pi_t}</span>. We test this on held-out sentences at ambiguous positions, where <span class="m">\max_j\pi_t(j)&lt;0.9</span>. The statistic is the difference in mean squared error, averaged over layers 8 to 16, with a one-sided paired bootstrap over test sentences (10,000 resamples) and a threshold of 0.025.</p>
+  <p>The posterior wins: the error difference is 55.6 (p = 0.0001) on 26,435 ambiguous test positions. It wins at every layer; at layer 14 the errors are 147.1 (posterior) and 203.6 (hard decision). Two secondary results qualify this:</p>
+  <ul>
+    <li>The posterior adds information beyond the current token. A baseline from the identity and position of the current token has error 102.4 at layer 14; adding the posterior lowers it to 84.7. The posterior improves this baseline at every layer from 2 to 28.</li>
+    <li>The true language label predicts the representation better than the posterior (115.4 at layer 14). The internal state is therefore more certain than our estimate of the model's belief.</li>
+  </ul>
+
+  <h3>Bayesian switching (pre-registered: not supported)</h3>
+  <p>We built 28,800 code-switched sequences: the first part of a sentence in language A, followed by the rest of the same sentence in language B. They cover 8 pairs of languages in both orders, 200 sentences and 9 switch points (after 10% to 90% of the words, or of the characters for Chinese and Japanese). With <span class="m">\bar z_A</span> and <span class="m">\bar z_B</span> the mean coordinates of natural text in A and B, the position of each token on the line between the two languages is</p>
+  <div class="mb">\lambda_t=\frac{(\bar z_B-\bar z_A)^\top(z_t-\bar z_A)}{\lVert\bar z_B-\bar z_A\rVert^2},</div>
+  <p>which is 0 at A and 1 at B. A Bayesian observer of the whole sequence predicts <span class="m">\lambda_t\approx a+b\,\sigma(\mathrm{LLR}_t)</span>, with</p>
+  <div class="mb">\mathrm{LLR}_t=\sum_{t'\le t}\Big[\log P(x_{t'}\mid\tau_B,x_{&lt;t'})-\log P(x_{t'}\mid\tau_A,x_{&lt;t'})\Big].</div>
+  <p>This curve rises slowly after the switch, because the evidence for A that accumulated before the switch must first be overcome. A step, <span class="m">\lambda_t\approx a+b\,\mathbb 1[t\ge t_{\text{switch}}]</span>, predicts an immediate jump. The pre-registered claim needed two results, each at α = 0.025, averaged over layers 8, 12, 14 and 16:</p>
+  <ol>
+    <li>The Bayesian curve has a lower held-out error than the step.</li>
+    <li>The lag increases with the length of the prefix in A. The lag is the number of tokens after the switch until <span class="m">\lambda_t&gt;0.5</span>.</li>
+  </ol>
+  <p>Result 1 fails. The step fits much better: at layer 14 the held-out errors are 0.117 (step) and 0.250 (Bayesian curve). For the pre-registered one-sided test of the difference, p = 1.0. Result 2 holds: the lag increases with the prefix length (Spearman ρ = +0.13, p = 0.0005). Because the claim needed both, Bayesian switching is not supported.</p>
+  <figure id="fig-cs" data-fig="cs"><figcaption><b>At a code switch, the representation moves to the new language within about one token.</b> Mean position <span class="m">\lambda_t</span> of the token representation on the line from the centroid of language A (0) to that of language B (1). The horizontal scale is the token index; token 0 is the first token of B. Dark line: the representation. Grey: the posterior of B against A from the model's own language-conditioned likelihoods, <span class="m">\sigma(\mathrm{LLR}_t)</span>, which a Bayesian observer of the whole sequence would follow. Panels: layers 4, 14 and 24. At layer 14 the representation is at 0.44 on the first token of B, 0.73 on the second and 0.80 on the third. The posterior is at 0.14, 0.19 and 0.23 on the same tokens, and reaches 0.41 after 12 tokens. n = 28,800 sequences.</figcaption></figure>
+  <p>The mean lag at layer 14 is 1.24 tokens (0.79 to 1.67 over the layers). In an exploratory follow-up, we let the observer forget. The evidence decays with a half-life of <span class="m">H</span> tokens, <span class="m">L_H(t)=\sum_{t'\le t}2^{-(t-t')/H}\,d_{t'}</span>, where <span class="m">d_{t'}</span> is the term in brackets above. The best fit is <span class="m">H=8</span> at every tested layer, and it is still much worse than the step: 0.218 against 0.117 at layer 14.</p>
+  <p>The representation therefore behaves like an estimate of the language of the current stretch of text. It is graded when that stretch is ambiguous, and it has a small inertia that grows with the length of the preceding passage.</p>
+  <p class="note">Both tests use the prompt-based posterior, which is a noisy estimate of the model's belief: the true label predicts the representation better than the posterior does. This noise weakens every test that uses the posterior.</p>
+</section>

@@ -98,8 +98,11 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   H1 replication (German, Russian) CLAIM HOLDS (+0.150/k, z 7.8, above all random). H2 generalization NOT
   EVALUABLE (Polish, Croatian leave the language at +2); Dutch and Ukrainian, the measurable ones, move as predicted
   (z 4.9, 12.3). Controls (English, Spanish, Korean) do not reorder.
-  WRITE-UP: explore/writeup (template.html + sections/*.html + extra_figs.js -> build_data.py -> inject.py ->
-  word-order-axis.html, published as a claude.ai artifact). Verify with node --check _check.js and a jsdom run.
+  WRITE-UP (v4, current): explore/writeup/v4 -- CONTRACT.md (markup, figure IDs, data keys), content/*.html (text,
+  ~80% ASD-STE100; every number traced in content/NUMBERS.md), shell.html + runtime.js + figures/*.js (D3, interactive),
+  build.py -> explore/writeup/word-order-axis.html (the published claude.ai artifact; republish from that path).
+  Data: build_data.py -> figdata.json (needs local data). Verify: node v4/check.js OUT.html --libs <dir with d3/katex>.
+  The v3 pipeline (template.html, inject.py, sections/, extra_figs.js) is kept for reference only.
 - 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):
   in ambient coordinates x_{i,s} ~= mu_i + e^{s_i} b_s + small rotation + noise. Translation removes 82-91% of
   the removable residual (centroid subtraction alone: P@1 0.99 at L14); s_i is mean-pooling dilution

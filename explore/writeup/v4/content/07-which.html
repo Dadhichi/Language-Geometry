@@ -1,0 +1,47 @@
+<section id="which" data-title="Which feature, and is it vocabulary?">
+  <h2>Which word-order feature, and is the family tree only shared words?</h2>
+  <p>This section answers two pre-registered questions about the two structures. First, the word-order axis is a bundle of head-final features, not object–verb order alone; object–verb order is its most distinct part. Second, the family tree remains when we control for two measures of shared vocabulary.</p>
+
+  <h3>A bundle of word-order features</h3>
+  <p>We defined the word-order split by one feature, the order of object and verb. But word-order features occur together. Languages that put the object before the verb usually also put the adposition after its noun: they use postpositions, as in Hindi <span lang="hi">घर में</span> ("house in"). They also put the possessor before the possessed noun, as in "the house's roof", against French "le toit de la maison". Linguists call this shared property <em>head direction</em>: the head of a phrase comes first or last <a class="cite" href="#r10">[10]</a>. The axis can therefore encode object–verb order specifically, or the whole bundle.</p>
+  <p>Three of our languages break the bundle. Persian puts the object before the verb but uses prepositions. Finnish and Estonian put the verb first but use postpositions. Three languages give little power, but they let us ask whether either feature explains the distances beyond the other, with the family tree held fixed. We define four splits from WALS; for languages that WALS does not code, we use the value of their genus.</p>
+  <div class="def"><span class="lab">Four word-order splits (WALS)</span>
+    <p><span class="m">S_{\text{OV}}</span> (83A, object before verb; 11 languages): Hindi, Urdu, Marathi, Persian, Turkish, Azerbaijani, Kazakh, Japanese, Korean, Tamil, Telugu.</p>
+    <p><span class="m">S_{\text{POST}}</span> (85A, postpositions; 12): Hindi, Urdu, Marathi, Turkish, Azerbaijani, Kazakh, Finnish, Estonian, Japanese, Korean, Tamil, Telugu.</p>
+    <p><span class="m">S_{\text{GEN}}</span> (86A, genitive before noun; 15): Swedish, Hindi, Urdu, Marathi, Turkish, Azerbaijani, Kazakh, Finnish, Estonian, Chinese in both scripts, Japanese, Korean, Tamil, Telugu.</p>
+    <p><span class="m">S_{\text{NADJ}}</span> (87A, noun before adjective; 10): French, Spanish, Portuguese, Persian, Arabic, Hebrew, Maltese, Indonesian, Vietnamese, Khmer.</p>
+  </div>
+  <p>The two pre-registered tests hold all 20 family-tree splits fixed:</p>
+  <ul>
+    <li><b>A1</b>: <span class="m">G\big(S_{\text{OV}}\mid\mathcal T\cup\{S_{\text{POST}}\}\big)</span>, object–verb order beyond adposition order. Null: random sets of 11 languages.</li>
+    <li><b>A2</b>: <span class="m">G\big(S_{\text{POST}}\mid\mathcal T\cup\{S_{\text{OV}}\}\big)</span>, adposition order beyond object–verb order. Null: random sets of 12 languages.</li>
+  </ul>
+  <p>We fixed the reading in advance. If A1 is significant (p &lt; 0.0125) in both models and A2 is not, the axis is specifically object–verb order. If both are significant, the axis is the head-direction bundle. If neither is, the two features cannot be separated with 34 languages. As a description, we also report the gain of each feature alone, <span class="m">G(S_f\mid\mathcal T)</span>, and its unique gain beyond the other three features, <span class="m">G\big(S_f\mid\mathcal T\cup\{S_{f'}:f'\ne f\}\big)</span>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Model · geometry</th><th>A1: object–verb beyond adposition, gain</th><th>p</th><th>A2: adposition beyond object–verb, gain</th><th>p</th></tr></thead>
+    <tbody>
+      <tr><td>Qwen2.5-7B · causal</td><td class="n">0.005</td><td class="n">0.023</td><td class="n">0.101</td><td class="n">0.0001</td></tr>
+      <tr><td>Qwen2.5-7B · whitened</td><td class="n">0.060</td><td class="n">0.0001</td><td class="n">0.079</td><td class="n">0.0001</td></tr>
+      <tr><td>Llama-3.1-8B · causal</td><td class="n">0.092</td><td class="n">0.0001</td><td class="n">0.130</td><td class="n">0.0001</td></tr>
+      <tr><td>Llama-3.1-8B · whitened</td><td class="n">0.074</td><td class="n">0.0002</td><td class="n">0.084</td><td class="n">0.0001</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tcap">Pre-registered tests A1 and A2, with all 20 family-tree splits in the base terms. 10,000 permutations each; threshold 0.0125.</p>
+  <figure id="fig-typology" data-fig="typology"><figcaption><b>Object–verb order has the largest unique share in three of four analyses.</b> Gain of each WALS feature beyond the base terms and the family tree (alone), and beyond the other three features as well (unique). One panel per model and geometry. Alone, object–verb order, adposition order and genitive order explain similar amounts, because they mostly agree. Unique gains of object–verb order: 0.080 (Qwen, whitened), 0.119 (Llama, causal) and 0.102 (Llama, whitened), each the largest of the four features. In Qwen's causal geometry adposition order leads (0.057 against 0.007). n = 34 languages.</figcaption></figure>
+  <div class="takeaway">The pre-registered verdict is the head-direction bundle. Adposition order explains the distances beyond object–verb order in all four analyses. Object–verb order explains it beyond adposition order in three; the exception is Qwen's causal geometry (p = 0.023). The reading "specifically object–verb order" is therefore not supported.</div>
+  <p>We describe the axis as head direction, with object–verb order as its most distinct part. The steering experiments below change the order of verbs and objects, which is the part of the bundle that a minimal edit of a sentence can test.</p>
+
+  <h3>The family tree is not only shared words</h3>
+  <p>The family tree is strongest where the model handles single tokens, so it can come from shared vocabulary. German <em>Hand</em> and English <em>hand</em> look alike to a tokenizer. The base terms already include the token distance. We added two stronger lexical distances, chosen in advance. The first measures shared character sequences in the FLORES sentences after we write every script in Latin letters. It captures cognates, loanwords and names in the form that the model reads:</p>
+  <div class="mb">\mathrm{LEX}_{ij}=1-\frac1{n}\sum_{s=1}^{n}J\Big(G_3\big(\varrho(x_{i,s})\big),\,G_3\big(\varrho(x_{j,s})\big)\Big).</div>
+  <p>Here <span class="m">\varrho</span> writes a sentence in lower-case Latin letters, <span class="m">G_3</span> gives its set of character trigrams, and <span class="m">J</span> is the Jaccard index. The mean runs over the dev and devtest sentences. The second distance is the ASJP distance between 40-item basic-vocabulary lists <a class="cite" href="#r13">[13]</a>. It is the normalized Levenshtein distance between words for the same concept, divided by the same quantity for different concepts. The division removes chance similarity that comes from similar sound inventories:</p>
+  <div class="mb">\mathrm{LDN}(u,v)=\frac{\mathrm{lev}(u,v)}{\max(\lvert u\rvert,\lvert v\rvert)},\qquad \mathrm{LDND}_{ij}=\frac{\operatorname{mean}_{c}\ \mathrm{LDN}\big(w_{ic},w_{jc}\big)}{\operatorname{mean}_{c\ne c'}\ \mathrm{LDN}\big(w_{ic},w_{jc'}\big)} .</div>
+  <p>Here <span class="m">w_{ic}</span> is the word of language <span class="m">i</span> for concept <span class="m">c</span>; for synonyms we take the minimum distance. The two lexical distances correlate at 0.66 over the 561 pairs. The ASJP control is too strict by design: linguists use basic vocabulary to define families, so this control removes part of the family tree itself.</p>
+  <ul>
+    <li><b>B1</b> (claim): <span class="m">G(\mathcal T)</span> with <span class="m">\mathrm{LEX}</span> added to the base terms, against the leaf-permutation null. Claim if p &lt; 0.0125 in both models, in at least one geometry each.</li>
+    <li><b>B2</b> (reported): the same with <span class="m">\mathrm{LEX}</span> and <span class="m">\mathrm{LDND}</span> added.</li>
+  </ul>
+  <div class="tablewrap"><table data-table="lex"></table></div>
+  <p class="tcap">Family-tree gain for each model and geometry: with the base terms only, with character overlap added (B1), and with character overlap and basic vocabulary added (B2). The p-values of B1 and B2 use 10,000 permutations each.</p>
+  <p>Character overlap explains nothing beyond the token distance. The family-tree gain changes by at most 0.001, for example from 0.294 to 0.293 in Llama's causal geometry, and B1 has p ≤ 0.0011 in all four analyses. Basic vocabulary absorbs between 2% and 56% of the gain, and the rest is still significant in every analysis (p ≤ 0.0002). The claim holds: the family structure in the distances is not a by-product of the words that the languages share in this text.</p>
+</section>

@@ -244,10 +244,10 @@ primary measure = NOUN-object share (object before verb) in langid-matched conti
 
 # PRE-REGISTERED within-language word-order direction (explore/steer_within; prereg 14fa22e) -- A, B, C all hold
 d_W = word-order component of (OV twin - VO twin) over the 999 UD minimal pairs (mean-pooled, WLS separating order
-from twin unnaturalness, languages weighted equally). Split-half reliability cos 0.85-0.93 at layers 2-28.
+from twin unnaturalness, languages weighted equally). Split-half reliability cos 0.85-0.94 at layers 2-28.
 - A (alignment) HOLDS: cos(d_W, beta_OV) = +0.232 at L14 vs 99.9% of random directions in the 33-dim language span
   +0.206 (p .0002); 16% of d_W lies in the span, and inside it cos = +0.58. Profile: ~0 at layers 1-5, rising to
-  +0.30 at L19 (within-span +0.68 at L22), back to ~0 at L27 (L28 -0.20): the mid-depth profile of the OV gain.
+  +0.30 at L19 (within-span max +0.72 at L23), back to ~0 at L27 (L28 -0.20): the mid-depth profile of the OV gain.
   Control: cos(d_W, beta_IE) = -0.18 at L6-18 (~2.5 null sd) -- NOT ~0 as expected (OV and IE are anti-correlated
   in the sample; the within-language order feature also looks "less Indo-European").
 - B (reordering) HOLDS: pooled noun-object slope over the 6 flexible languages +0.035/k vs 24 random (max +0.017),

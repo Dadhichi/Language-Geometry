@@ -185,7 +185,8 @@ def main():
     out["belief"] = belief()
     for name, f in (("typology_lex_qwen", "typology_lex/results_tl_qwen.json"), ("typology_lex_llama", "typology_lex/results_tl_llama.json"),
                     ("freegen", "steer_gen/results_gen.json"), ("freegen_x", "steer_gen/exploratory_gen.json"),
-                    ("freegen_obj", "steer_gen/objtype.json"), ("freegen2", "steer_gen2/results_gen2.json")):
+                    ("freegen_obj", "steer_gen/objtype.json"), ("freegen2", "steer_gen2/results_gen2.json"),
+                    ("within", "steer_within/results_w.json")):
         p = os.path.join(EX, f)
         if os.path.exists(p):
             out[name] = json.load(open(p))

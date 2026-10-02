@@ -130,6 +130,10 @@ branch of Indo-European" in legends and tooltips (`WOA.groupText`).
 | `gen2-null` | wide | H1 and H2 tests: word-order slope vs 24 random, z, verdict (claim holds / not supported / not evaluable); IE dot only if `tests.H.b_ie` exists; pending state | hover |
 | `cs` | page | small multiples for layers 4, 14, 24: representation λ_t (ink) vs Bayesian posterior (grey) around the switch | crosshair synced; keyboard |
 
+| `within-align` | page | cosine of the within-language direction d_W with β_OV per layer (orange) and with β_IE (green, about −0.17 in the middle layers, shown as it is), ±99.9th percentile of the random-in-span null as a band, layer 14 marked, peak labelled; layer 0 (degenerate) left empty; a row of three small multiples on the same layer axis: cosine inside the language span, split-half reliability of d_W, word-order gain of the OV split (whitened) | crosshair synced across all four panels; tooltip with p, null, span share; keyboard |
+| `within-steer` | page | one small multiple per language (flexible order first, then controls): noun-object share against k = −3…+3 for d_W (ink line, unsteered ring, faint unsteered reference line), β_OV at ±2 as squares (blue/orange, hollow under 50% in language), random band at ±2 (both signs, from `freegen2.rates[lang].rand`); shares from < 20 pairs not drawn and noted in the panel corner; strip below: pre-registered test B, pooled slope of d_W against 24 random | crosshair synced across panels by k; tooltip with n and language match; titles linked by language; keyboard walks language × k |
+| `within-retain` | wide | per language, share of continuations in the prompt language at the "against" sign (k = 2) for d_W (ink dot) and β_OV (square coloured by push direction), unsteered for comparison, d_W − β_OV on the right | hover/keyboard, linked |
+
 Data tables: `primary` (gain with inline bar, p, p beyond the other structure, same-language p; Bonferroni 0.0125 in the
 cell title), `lex` (genealogy gain with character overlap and ASJP added, share kept), `gen-obj` (noun / pronoun shares
 before the verb at k = −2, 0, +2; "–" below 10 pairs, n always printed; rows linked).
@@ -144,6 +148,10 @@ before the verb at k = −2, 0, +2; "–" below 10 pairs, n always printed; rows
 * `tree`: `{splits: [{name, codes}] (the 20 GLOTTO splits of lib34 with names), root: nested {name, children | code},
   ov: [codes]}`.
 
+Colour identity added in round 2: **ink (dark in light mode, white in dark mode) = the within-language direction d_W**;
+squares = β_OV, coloured by the direction it pushes (blue toward verb-first, orange toward object-first), as everywhere
+else. Legends and tooltips accept subscripts (`["β", ["OV"]]`); SVG labels use `W.subText`.
+
 ## For the writer and the orchestrator
 
 * Captions describing a control that is not there (figures use small multiples instead, which show all cases at once):
@@ -155,9 +163,11 @@ before the verb at k = −2, 0, +2; "–" below 10 pairs, n always printed; rows
 * `steer` also shows the pre-registered slope statistic as a strip under the panels; `gen-null` has a second row
   for noun objects only (z = 8.2 in the text). Captions may mention them.
 * TeX in `08-steer.html`: `k\in\{-2,-1,+1,+2\}` renders with binary-operator spacing; write `\{{-2},{-1},{+1},{+2}\}`.
-* `freegen2` schema: `gen2-null` draws the Indo-European dot (the caption mentions it) only if `tests.H1/H2.b_ie`
-  exists, and a bootstrap interval if `tests.H.ci` (or `b_ov_boot95`) exists. `per_language.pred` is shown as given;
-  `pred_ok` drives "as predicted / not as predicted".
+* `freegen2`: `gen2-null` draws the Indo-European dot from `tests.H.b_ie` and the interval from `tests.H.ci`.
+  `gen2-rates` spells out `per_language.pred` (analysis_gen2.py: "up" = rises under +k, "down" = falls under −k,
+  "none" = no change) with met / not met / too few pairs.
+* Round 2 (`within`): the content files were renumbered (10-within, 11-tokens … 14-methods); `build.py` takes any
+  `NN-*.html` in file-name order, and `dev_content` mirrors the numbering with a stub `10-within.html`.
 * The figure modules count n from `[share, n]` and hide points with n < 20 (gen-rates, gen2-rates).
 
 ## Known issues

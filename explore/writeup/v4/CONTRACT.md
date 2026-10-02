@@ -65,10 +65,31 @@ write signed numbers grouped: `k={-2}`, `={+6.8}`.
 | 07-which | which | `typology` (`typology_lex_*`); data table `lex` (`typology_lex_*`) |
 | 08-steer | steer | `proj` (`steering.heldout_proj`), `pairs` (`steering.examples`), `steer` (`steering.layers`, `steering.rand`), `steer-langs` (`steering.per_language`) |
 | 09-gen | gen | `gen-rates` (`freegen_x.rates`, `freegen_x.match`), `gen-null` (`freegen_x.pooled`, `freegen_x.b_ov_boot95`), data table `gen-obj` (`freegen_obj`), `gen-loss` (`freegen_x.sign_loss`, `freegen_x.match`); confirmatory: `gen2-rates`, `gen2-null` (`freegen2`, pending, schema below) |
-| 10-tokens | tokens | `cs` (`belief`) |
-| 11-dead | dead | static table |
-| 12-discussion | discussion | — |
-| 13-methods | methods | static pre-registration table; references |
+| 10-within | within | `within-align` (`within.A_profile`, `within.A`, `within.dW_info.split_half_cos`; optionally `profiles` for the OV-gain shape), `within-steer` (`within.rates`, `within.match`, random band from `freegen2.rates[lang].rand`), `within-retain` (`within.C.per_language`) |
+| 11-tokens | tokens | `cs` (`belief`) |
+| 12-dead | dead | static table |
+| 13-discussion | discussion | — |
+| 14-methods | methods | static pre-registration table; references |
+
+### Round 2 (2026-10-03): section 10-within (pre-registered study `explore/steer_within`, commit 14fa22e)
+Data key `within` = `explore/steer_within/results_w.json`:
+`A` (layer 14: cos_ov, cos_ie, null_q999, null_sd, p, span_share, cos_ov_within_span, claim), `A_profile` (one entry
+per layer 0–28, same fields + `cos_unnat_ov`; layer 0 is degenerate: the twins have identical tokens, so their
+pooled embeddings are identical — grey it out or omit it), `dW_info` (`split_half_cos`, `norm_order`, `norm_unnat`,
+`cos_order_unnat`, `cos_w_ov_<lang>` per layer/language), `B` (b_w, per_language, rand [24], rand_mean, rand_max,
+z, evaluable, claim), `C` (per_language {against_k, match_w, match_ov}, higher, n, p_sign, mean_w, mean_ov, claim),
+`rates` {lang: {base, "w-3", "w-1", "w-", "w+1", "w+", "w+3", "ov-", "ov+": [noun-object share | null, n]}}
+("w-"/"w+" = k ∓2), `match` {lang: {base, "w-", "w+", "w-3", "w+3", "ov-", "ov+"}}, `repetition`, `dose`
+{"1.0", "2.0", "3.0"}, `determinism`.
+* `within-align`: cosine of the within-language direction d_W with beta_OV per layer, the null (random directions in
+  the language span; draw ±null_q999 as a band), the Indo-European control cosine; the pre-registered layer 14
+  marked. Small multiples, not a dual axis, if the within-span cosine or the OV-gain shape is shown too.
+* `within-steer`: per language, noun-object share against k ∈ {−3, −2, −1, 0, 1, 2, 3} for d_W, with beta_OV at
+  ±2 as separate marks and the random band at ±2; groups flexible (German, Dutch, Russian, Ukrainian, Polish,
+  Croatian) and controls (English, Spanish, Korean); do not draw a share with n < 20; tooltips with n and
+  language-match rate.
+* `within-retain`: per language, language-match rate at the sign that pushes against its own order, d_W vs
+  beta_OV (k = 2).
 
 ## Figure data that does not exist yet
 

@@ -8,7 +8,7 @@ const W = window.WOA;
 /* rows: [{code, name, base:[v,n], minus:[v,n], plus:[v,n], mMinus, mPlus, mBase, rand:[...]|null, group?, note?}] */
 W.genRows = (ctx, rows, opts) => {
   const w = ctx.width(), narrow = w < 520;
-  const rowH = 42, headH = 28, m = { t: 30, r: opts.right ? (narrow ? 50 : 120) : 14, b: 40, l: narrow ? 112 : 132 };
+  const rowH = 42, headH = 28, m = { t: 30, r: opts.right ? (narrow ? 58 : (opts.rightW || 120)) : 14, b: 40, l: narrow ? 112 : 132 };
   const groups = opts.groups || null;
   let y = m.t; const pos = [];
   rows.forEach((r, i) => {
@@ -19,7 +19,7 @@ W.genRows = (ctx, rows, opts) => {
   const svg = W.frame(ctx, H, opts.label);
   const x = d3.scaleLinear().domain([0, 1]).range([m.l, w - m.r]);
   W.axisX(svg, x, H - m.b + 4, { values: narrow ? [0, .5, 1] : [0, .25, .5, .75, 1], grid: H - m.b - m.t + 10, format: d3.format(".0%") });
-  svg.append("text").attr("x", w - m.r).attr("y", m.t - 14).attr("text-anchor", "end").attr("class", "small muted").text(opts.axis);
+  svg.append("text").attr("x", w - m.r).attr("y", H - 4).attr("text-anchor", "end").attr("class", "small muted").text(opts.axis);
   if (opts.right && !narrow) svg.append("text").attr("x", w).attr("y", m.t - 14).attr("text-anchor", "end").attr("class", "cap").text(opts.rightHead || "");
   const pct = W.f.pct;
   pos.forEach(p => {

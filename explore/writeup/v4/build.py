@@ -22,7 +22,8 @@ KATEX_TAG = '<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/k
 ALLOWED_CLASSES = {"m", "mb", "figref", "tablewrap", "tcap", "sidenote", "def", "lab", "takeaway", "note", "pending",
                    "example", "ex-row", "ex-tag", "ex-text", "ex-gloss", "cite", "refs", "front", "subtitle", "byline", "n"}
 CONTRACT_FIGS = ["overview", "pipeline", "map", "splits", "tree", "depth", "typology", "proj", "pairs", "steer",
-                 "steer-langs", "gen-rates", "gen-null", "gen-loss", "gen2-rates", "gen2-null", "cs"]
+                 "steer-langs", "gen-rates", "gen-null", "gen-loss", "gen2-rates", "gen2-null", "within-align", "within-steer",
+                 "within-retain", "cs"]
 CONTRACT_TABLES = ["primary", "lex", "gen-obj"]
 
 

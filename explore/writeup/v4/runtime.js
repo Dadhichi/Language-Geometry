@@ -34,6 +34,14 @@ W.f = {
   k: k => (k > 0 ? "+" : k < 0 ? MINUS : "") + Math.abs(k)
 };
 
+/* rich text for legends and tooltips: a string, or parts where an array element is a subscript (["β", ["OV"]]) */
+W.parts = p => {
+  if (!Array.isArray(p)) return doc.createTextNode(p == null ? "" : String(p));
+  const f = doc.createDocumentFragment();
+  p.forEach(x => f.appendChild(Array.isArray(x) ? W.el("sub", null, x[0]) : doc.createTextNode(x)));
+  return f;
+};
+
 /* languages: steering files call Simplified Chinese zho_Hans, the 34-language files cmn_Hans */
 W.norm = c => (c === "zho_Hans" ? "cmn_Hans" : c);
 W.lang = code => {
@@ -83,12 +91,12 @@ W.tip = {
   /* spec: {title, rows: [{v, l, key: {line|dot|ring: cls}}], note}; target: pointer event, Element, or {x, y} */
   show(target, spec) {
     const t = tipNode(); t.replaceChildren();
-    if (spec.title) t.appendChild(W.el("div", "tt", spec.title));
+    if (spec.title) { const tt = W.el("div", "tt"); tt.appendChild(W.parts(spec.title)); t.appendChild(tt); }
     (spec.rows || []).forEach(r => {
       const row = W.el("div", "tr");
       if (r.key) row.appendChild(keySvg(r.key));
-      if (r.v != null && r.v !== "") row.appendChild(W.el("span", "tv", r.v));
-      if (r.l) row.appendChild(W.el("span", "tl", r.l));
+      if (r.v != null && r.v !== "") { const v = W.el("span", "tv"); v.appendChild(W.parts(r.v)); row.appendChild(v); }
+      if (r.l) { const l = W.el("span", "tl"); l.appendChild(W.parts(r.l)); row.appendChild(l); }
       t.appendChild(row);
     });
     if (spec.note) t.appendChild(W.el("div", "tn", spec.note));
@@ -184,7 +192,8 @@ W.ui = {
       else if (it.kind === "range") { add("line", { x1: 2, x2: 16, y1: 6, y2: 6, class: "line " + it.cls }); add("line", { x1: 2, x2: 2, y1: 2.5, y2: 9.5, class: "line " + it.cls }); add("line", { x1: 16, x2: 16, y1: 2.5, y2: 9.5, class: "line " + it.cls }); }
       else if (it.kind === "ring") add("circle", { cx: 6, cy: 6, r: 4, class: "ring " + it.cls });
       else add("circle", { cx: 6, cy: 6, r: 4.5, class: it.cls });
-      s.appendChild(svg); s.appendChild(doc.createTextNode(it.text)); parent.appendChild(s);
+      const lab = W.el("span"); lab.appendChild(W.parts(it.text));
+      s.appendChild(svg); s.appendChild(lab); parent.appendChild(s);
     });
   }
 };

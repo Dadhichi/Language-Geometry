@@ -22,6 +22,7 @@ a pre-registered design element are not listed separately where the design docum
 | all 8 languages excluded | primary not evaluable | steer_gen/results_gen.log line 7 (`languages ... : []`); results_gen.json languages_used = [] |
 | +15.0 points per unit of strength; z = 7.83; German 66% → 8%; Russian 4% → 58% | confirmatory H1 | see "09-gen, confirmatory results" |
 | four new languages; Dutch, Ukrainian, Polish, Croatian | confirmatory H2 | steer_gen2/PREREG.md |
+| cosine +0.23 at layer 14, p = 0.0002; z = 4.56; 98% vs 76% | within-language study | see "10-within" |
 | within about one token | mean lag 0.79–1.67 tokens | prereg_belief/results_belief.json P2.*.mean_lag; results_belief.log lines 18–25 |
 
 ## 01-intro
@@ -239,7 +240,60 @@ a pre-registered design element are not listed separately where the design docum
 | "some random directions push a language out of itself" | 3 to 15 of 48 random conditions per language with < 50% in prompt language | derived: results_gen2.json match.*.rand (deu 9, eng 6, hrv 15, kor 3, nld 13, pol 8, rus 6, spa 9, ukr 7) |
 | 2.76 Colab compute units | cost of the confirmatory run (13-methods) | orchestrator message (see "missing") |
 
-## 10-tokens
+## 10-within (pre-registered study `explore/steer_within`, commit 14fa22e; sources `steer_within/results_w.json` (= D.within), `steer_within/results_w.log`, `steer_within/dW_info.json`, `steer_within/PREREG.md`, FINDINGS.md last block)
+
+| Number in text | Meaning | Source |
+|---|---|---|
+| Japanese, Turkish, Chinese; Polish, Croatian leave the language | motivation | steer_gen (09-gen); steer_gen2 match (27%, 37%) |
+| commit 14fa22e | pre-registration | orchestrator message; FINDINGS.md last block ("prereg 14fa22e") |
+| 999 pairs, 8 languages | pair set | dW_info.json n_pairs 999, langs (8) |
+| s_p = ±1; weights 1/n | estimator | steer_within/PREREG.md "The within-language direction" |
+| cos 0.998 and 1.000; plain mean 0.92 and 0.46 | synthetic check | steer_within/PREREG.md |
+| cosine 0.54 between d_W and d_U at layer 14 | cos_order_unnat[14] = 0.540 | dW_info.json |
+| 0.85 to 0.94 (layers 2–28); 0.54 (layer 1); layer 0 | split-half reliability: min 0.851 (L2), max 0.940 (L7); L1 0.544; L0 0.133 | dW_info.json split_half_cos. NOTE: FINDINGS.md and the orchestrator say 0.85–0.93; the maximum is 0.9396 |
+| layer 0 degenerate | norm_order[0] = 0.0011 | dW_info.json norm_order |
+| natural norm 1.24 | norm_order[14] = 1.236 | dW_info.json |
+| about 9.4 times | ‖β_OV‖ (11.59–11.84) / 1.236 = 9.38–9.58 | derived: steer_gen2/steer_dirs2_info.json L14_*.norm_ov |
+| 10,000 random unit vectors; 33-dimensional span; 99.9th percentile | null for A | PREREG.md "A"; analysis_w.py `N_NULL`, `Q_A` |
+| +0.232; +0.206; null sd 0.071; p = 0.0002 | claim A | steer_within/results_w.json A.cos_ov 0.2323, null_q999 0.2055, null_sd 0.0706, p 0.0002; results_w.log line 1 |
+| 16% of squared norm; within-span cosine +0.58 | | A.span_share 0.160; A.cos_ov_within_span 0.581 |
+| sqrt(0.16) × 0.58 ≈ 0.23 | consistency check | derived (0.400 × 0.581 = 0.232) |
+| cos(d_U, β_OV) = +0.003 | | A.cos_unnat_ov 0.0032 |
+| below 0.06 at layers 1–5 | 0.040, 0.036, −0.021, 0.016, 0.057 | A_profile[1..5].cos_ov |
+| exceeds 99.9th percentile at layers 13–23 | cos_ov > null_q999 exactly at layers 13–23 (also p ≤ 0.001 there) | derived from A_profile |
+| maximum +0.30 at layer 19 | 0.304 | A_profile[19].cos_ov |
+| +0.04 at layer 27; −0.20 at layer 28 (p = 0.97) | | A_profile[27].cos_ov 0.042; A_profile[28].cos_ov −0.202, p 0.974 |
+| within-span maximum +0.72 at layer 23 | | A_profile[23].cos_ov_within_span 0.716. NOTE: FINDINGS.md says "+0.68 at L22"; L22 is 0.675 but L23 is larger |
+| −0.18 at layer 14; about 2.5 null sd | cos_ie / null_sd = −0.177 / 0.071 = −2.50 | A.cos_ie; derived |
+| −0.15 to −0.24 at layers 6–18 | min −0.236 (L7), max −0.148 (L9) | A_profile[6..18].cos_ie |
+| 4 of 16 Indo-European are OV; 7 of 18 others | sample composition | prereg34/lib34.py `OV`, `GLOTTO[0]` |
+| cosine of β_OV and β_IE −0.03 to +0.02 | held-out fits at layer 14 | steer_gen2/steer_dirs2_info.json cos_ov_ie (−0.030 … +0.024); steer_ov/steer_dirs_info.json |
+| 1,350 prompts, 9 languages; k ∈ {±1, ±2, ±3}; β_OV at ±2 | design B | PREREG.md "B" |
+| 20 noun-object pairs; ≥ 3 languages; ≥ 20 random; z > 2.58 | claim rule B | PREREG.md "B"; analysis_w.py constants |
+| 100% identical continuations | determinism | steer_within/results_w.json determinism {base+0: 1.0, ov-2: 1.0, ov+2: 1.0}; results_w.log line 6 |
+| all 6 languages included; +3.5 points per unit k | pooled slope | B.n_langs 6; B.b_w 0.03486 |
+| −0.1 ± 0.8; largest +1.7; 24 defined | random null (steer_gen2 directions, flexible set) | B.rand_mean −0.0009, B.rand_max 0.0165, B.n_rand_defined 24; sd 0.0078 = std(B.rand, ddof 1), derived |
+| z = 4.56; p = 1/25 = 0.04 | | B.z 4.561; B.p_emp 0.04 |
+| German +10.3, Dutch +8.5, Croatian +1.5, Ukrainian +0.6, Russian +0.1, Polish 0.0 | per-language slopes | B.per_language |
+| German 39/48/66/89/89%; Dutch 23/45/70/79/90% at k = −3/−2/0/+2/+3 | noun-object shares under d_W | rates.deu_Latn w-3 0.3947 (38), w- 0.483 (60), base 0.662 (68), w+ 0.894 (47), w+3 0.894 (47); rates.nld_Latn w-3 0.232 (56), w- 0.455 (55), base 0.703 (91), w+ 0.795 (78), w+3 0.897 (68) |
+| German 8%/73%, Dutch 10%/78% under β_OV | rerun at ±2 | rates.*.ov-, ov+ (identical to steer_gen2) |
+| 38 to 91 pairs | n of the table cells | rates.* (min 38, max 91) |
+| German 71%/70%, Dutch 72%/73% at k = −1/+1 | | rates.deu_Latn w-1 0.712, w+1 0.705; nld_Latn w-1 0.720, w+1 0.734 |
+| −0.05 / +3.5 / +5.1 points per unit k at k = 1/2/3 | dose | steer_within/results_w.json dose {1.0: −0.00047, 2.0: 0.0349, 3.0: 0.0506} |
+| Russian 4% → 58% under β_OV | | rates.rus_Cyrl base 0.038, ov+ 0.583 |
+| k = +3: Croatian 5% → 33%, Polish 3% → 18%, Ukrainian 3% → 11% | secondary | rates.hrv_Latn base 0.053, w+3 0.333 (21); pol_Latn 0.026, 0.179 (28); ukr_Cyrl 0.032, 0.108 (37) |
+| English and Spanish 0%–2%; Korean 100% at every d_W strength | controls | rates.eng_Latn (max 0.016 at w+1), spa_Latn (0.0), kor_Hang (1.0) |
+| 98% vs 76%; 8 of 9; Dutch tie 99%; p = 0.008 | claim C | C.mean_w 0.981, C.mean_ov 0.759, C.higher 8, C.per_language.nld_Latn match_w = match_ov = 0.993, C.p_sign 0.0078 (two-sided, ties left out: 8 of 8) |
+| Polish 98% vs 27%; Croatian 95% vs 37%; Korean 100% vs 71% | | C.per_language |
+| repetition 5.2% / 9.3% (d_W, k = +2) vs 24.8% / 26.0% (β_OV) vs 3.8% / 5.3% (unsteered), Polish / Croatian | | steer_within/results_w.json repetition.pol_Latn {w 0.052, ov 0.248, base 0.038}, hrv_Latn {w 0.093, ov 0.260, base 0.053} |
+| cosine +0.23, z = 4.56, 98% vs 76% | takeaway | see above |
+| cosine of steering d_W with β_OV 0.20–0.23 (flexible languages) | German 0.210, Dutch 0.233, Russian 0.199, Ukrainian 0.232, Polish 0.232, Croatian 0.234 | dW_info.json cos_w_ov_* |
+| k_eff = 0.40 to 0.47 at k = 2 | 2 × cos | derived (EXPLORATORY argument). NOTE: the orchestrator's message says 0.42–0.47; Russian gives 2 × 0.199 = 0.40 |
+| German 71/66/70%, Russian 7/4/5% at k = −1/0/+1 | | rates.deu_Latn, rates.rus_Cyrl (w-1 0.075, base 0.038, w+1 0.054) |
+| German 8% at −2, Russian 58% at +2 under β_OV | | rates.*.ov-, ov+ |
+| 8 pair languages; German and Russian have pairs | limits | dW_info.json langs |
+
+## 11-tokens (file renamed from 10-tokens)
 
 | Number | Meaning | Source |
 |---|---|---|
@@ -260,7 +314,7 @@ a pre-registered design element are not listed separately where the design docum
 | 1.24 tokens; 0.79 to 1.67 | mean lag L14; range over layers | results_belief.json P2.*.mean_lag |
 | H = 8; 0.218 vs 0.117 | leaky observer | prereg_belief/exploratory_belief.json "14" (best_half_life 8, mse_leaky 0.2177, mse_step 0.1166) |
 
-## 11-dead
+## 12-dead (file renamed from 11-dead)
 
 | Number | Meaning | Source |
 |---|---|---|
@@ -273,7 +327,7 @@ a pre-registered design element are not listed separately where the design docum
 | 27%, 37%; 2 of 4 languages, minimum 3 | confirmatory H2 | see "09-gen, confirmatory results" |
 | 7 of 7, p = 0.016; 7 of 9, p = 0.18 | sign-specific language loss, first vs confirmatory study | exploratory_gen.json sign_loss; results_gen2.json sign_loss |
 
-## 12-discussion
+## 13-discussion (file renamed from 12-discussion)
 
 | Number | Meaning | Source |
 |---|---|---|
@@ -283,7 +337,7 @@ a pre-registered design element are not listed separately where the design docum
 | three languages (Persian, Finnish, Estonian) | bundle breakers | typology_lex/PREREG.md (A) |
 | four features | 83A, 85A, 86A, 87A | typology_lex/PREREG.md |
 
-## 13-methods
+## 14-methods (file renamed from 13-methods)
 
 | Number | Meaning | Source |
 |---|---|---|
@@ -325,3 +379,18 @@ a pre-registered design element are not listed separately where the design docum
 * **Exploratory steering cost range** ("1.9 to 95.9 nats"): `exploratory_steer.log` line 6 gives the range but the script that produced it is not in `explore/steer_ov/`, so it is unclear whether the range is over directions or over pairs. The text states the range without saying which.
 * **gen-loss figure**: the caption says the unsteered share is shown "for comparison"; this depends on the designer's figure (data `D.freegen_x.match.*.base` exists).
 * **gen-obj table**: the caption rule "fewer than 10 pairs not shown" mirrors the old `extra_figs.js`; the designer must keep it or the caption must change.
+* **Cost of the within-language study** (0.69 Colab compute units, 14-methods): from the orchestrator's message and FINDINGS.md last block ("Cost 0.69 CU"); not in a result file.
+* **Split-half reliability range**: the orchestrator's message and FINDINGS.md give 0.85–0.93; `dW_info.json` gives a maximum of 0.9396 (layer 7) at layers 2–28, so the text says 0.85 to 0.94.
+* **Within-span cosine maximum**: FINDINGS.md says +0.68 at layer 22; `results_w.json` A_profile gives 0.716 at layer 23. The text uses the result file.
+* **k_eff range**: the orchestrator's message says 0.42–0.47; with Russian (cosine 0.199) the range over the six flexible languages is 0.40–0.47. The text uses 0.40 to 0.47.
+
+## Round-2 additions to other files
+
+| Number in text | File | Source |
+|---|---|---|
+| cosine +0.23, p = 0.0002; z = 4.56; 98% vs 76% | 00-front bullet | see "10-within" |
+| about 9.4 times; 8 languages | 13-discussion limitation | see "10-within" |
+| row 14fa22e: +0.232, p = 0.0002; z = 4.56; 8 of 9, p = 0.008; −0.18 | 14-methods table | see "10-within" |
+| 999 pairs; 10,000 null vectors; 10,001; 1,350 prompts; 40 tokens; 9 conditions; 3 pairs and 2 prompts (debug) | 14-methods "Within-language direction" | steer_within/PREREG.md; analysis_w.py; derived 1 + 6 + 2 = 9 conditions |
+| 0.69 compute units | 14-methods compute | orchestrator message; FINDINGS.md last block |
+| −0.18 at layer 14; 2.5 null sd; −0.15 to −0.24 at layers 6–18 | 12-dead new row | see "10-within" |

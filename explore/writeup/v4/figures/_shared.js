@@ -294,3 +294,20 @@ W.pendingState = (ctx, { title, text, rows = 8, height = 300 }) => {
   ov.appendChild(card); ctx.graphic.appendChild(ov);
 };
 })();
+
+/* text with subscripts in SVG: parts = ["β", ["OV"], " direction"] (an array element is set as a subscript) */
+(function () {
+  const W = window.WOA;
+  W.subText = (sel, parts) => {
+    sel.text(null);
+    let down = false;
+    parts.forEach(p => {
+      const sub = Array.isArray(p), t = sel.append("tspan").text(sub ? p[0] : p);
+      if (sub && !down) { t.attr("dy", "0.32em").style("font-size", "0.74em"); down = true; }
+      else if (!sub && down) { t.attr("dy", "-0.32em"); down = false; }
+    });
+    return sel;
+  };
+  /* the same as plain text, for tooltips and aria */
+  W.subPlain = parts => parts.map(p => (Array.isArray(p) ? p[0] : p)).join("");
+})();

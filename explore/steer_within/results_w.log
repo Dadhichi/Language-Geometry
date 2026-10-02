@@ -1,0 +1,6 @@
+A alignment L14: cos(d_W, beta_OV) +0.232 | null 99.9% +0.206 (sd 0.071) | p 0.0002 | cos(d_W, beta_IE) -0.177 | span share 0.160 | within-span cos +0.581 | CLAIM True
+  profile cos_ov by layer: 0:-0.18 1:+0.04 2:+0.04 3:-0.02 4:+0.02 5:+0.06 6:+0.08 7:+0.13 8:+0.17 9:+0.18 10:+0.17 11:+0.20 12:+0.19 13:+0.21 14:+0.23 15:+0.23 16:+0.27 17:+0.26 18:+0.28 19:+0.30 20:+0.28 21:+0.27 22:+0.24 23:+0.23 24:+0.15 25:+0.10 26:+0.07 27:+0.04 28:-0.20
+B reordering (noun objects, flexible set): b_w +0.0349 over 6 langs | random -0.0009 max +0.0165 (n 24) | z +4.56 | evaluable True | CLAIM True
+  per language: {'deu': 0.1026, 'nld': 0.0851, 'rus': 0.0007, 'ukr': 0.0057, 'pol': 0.0, 'hrv': 0.0151}
+C retention (against sign): w 0.981 vs ov 0.759; w higher in 8/9 (sign p 0.008) | CLAIM True
+  dose (pooled slope over flexible set by k): {'1.0': -0.0004688453565139996, '2.0': 0.034855107066075204, '3.0': 0.050590308099084734} | determinism: {'base+0': 1.0, 'ov-2': 1.0, 'ov+2': 1.0}

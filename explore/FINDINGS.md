@@ -241,3 +241,24 @@ primary measure = NOUN-object share (object before verb) in langid-matched conti
 - Controls as predicted: English and Spanish no reordering; Korean 100% object-first (at -2 only 71% stay Korean,
   0 noun pairs). IE control slope -0.008 (H1 set), +0.009 (H2 set). Sign-specific language loss .76 vs .95,
   7/9 lower, p .18 (not significant). Cost 2.76 CU.
+
+# PRE-REGISTERED within-language word-order direction (explore/steer_within; prereg 14fa22e) -- A, B, C all hold
+d_W = word-order component of (OV twin - VO twin) over the 999 UD minimal pairs (mean-pooled, WLS separating order
+from twin unnaturalness, languages weighted equally). Split-half reliability cos 0.85-0.93 at layers 2-28.
+- A (alignment) HOLDS: cos(d_W, beta_OV) = +0.232 at L14 vs 99.9% of random directions in the 33-dim language span
+  +0.206 (p .0002); 16% of d_W lies in the span, and inside it cos = +0.58. Profile: ~0 at layers 1-5, rising to
+  +0.30 at L19 (within-span +0.68 at L22), back to ~0 at L27 (L28 -0.20): the mid-depth profile of the OV gain.
+  Control: cos(d_W, beta_IE) = -0.18 at L6-18 (~2.5 null sd) -- NOT ~0 as expected (OV and IE are anti-correlated
+  in the sample; the within-language order feature also looks "less Indo-European").
+- B (reordering) HOLDS: pooled noun-object slope over the 6 flexible languages +0.035/k vs 24 random (max +0.017),
+  z 4.56. Driven by German (+0.103) and Dutch (+0.085), BIDIRECTIONAL and monotone: German .39/.48/.66/.89/.89
+  at k -3/-2/0/+2/+3, Dutch .23/.45/.70/.79/.90. Slavic ~0 at k = 2 (beta_OV moves Russian .04 -> .58, d_W does
+  not), but at k = +3 Croatian .05 -> .33, Polish .03 -> .18, Ukrainian .03 -> .11 (secondary).
+- C (retention) HOLDS: at the sign against each language's order, d_W keeps .98 of continuations in the language vs
+  beta_OV .76; higher in 8/9 (p .008). Polish .98 vs .27, Croatian .95 vs .37, Korean 1.00 vs .71. Repetition
+  rises less (Polish .052 vs .248, Croatian .093 vs .260).
+- Dose (pooled, flexible set): k=1 ~0, k=2 +0.035, k=3 +0.051. Determinism: unsteered and beta_OV +-2 continuations
+  100% identical to steer_gen2 (greedy decoding is deterministic here), so the reused random null is exact.
+- Reading: the model has a within-language word-order feature that lies along the cross-language typological axis
+  in the middle layers; steering along it reorders without changing language. beta_OV's extra Slavic reordering
+  and its language switching come from components that d_W does not share. Cost 0.69 CU.

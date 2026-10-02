@@ -98,6 +98,10 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   H1 replication (German, Russian) CLAIM HOLDS (+0.150/k, z 7.8, above all random). H2 generalization NOT
   EVALUABLE (Polish, Croatian leave the language at +2); Dutch and Ukrainian, the measurable ones, move as predicted
   (z 4.9, 12.3). Controls (English, Spanish, Korean) do not reorder.
+  2026-10-03 WITHIN-LANGUAGE DIRECTION (explore/steer_within, prereg 14fa22e): d_W from the 999 minimal pairs.
+  A alignment with beta_OV HOLDS (cos .23 at L14, p .0002; mid-depth profile like the OV gain); B reordering HOLDS
+  (z 4.6; German and Dutch both directions, Slavic only at k = 3); C language retention HOLDS (.98 vs .76, 8/9).
+  IE control cos -.18 (not ~0). Local vectors: lang-geom/dW.npz.
   WRITE-UP (v4, current): explore/writeup/v4 -- CONTRACT.md (markup, figure IDs, data keys), content/*.html (text,
   ~80% ASD-STE100; every number traced in content/NUMBERS.md), shell.html + runtime.js + figures/*.js (D3, interactive),
   build.py -> explore/writeup/word-order-axis.html (the published claude.ai artifact; republish from that path).

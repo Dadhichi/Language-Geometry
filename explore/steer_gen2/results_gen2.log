@@ -1,0 +1,12 @@
+H1 ['deu_Latn', 'rus_Cyrl']: b_OV +0.1503 over 2 langs | IE -0.0078 | random +0.0018 +- 0.0190 (n 21) | z +7.83 | p_emp 0.045 | evaluable True | CLAIM True
+H2 ['nld_Latn', 'ukr_Cyrl', 'pol_Latn', 'hrv_Latn']: b_OV +0.1499 over 2 langs | IE +0.0087 | random +0.0000 +- 0.0171 (n 24) | z +nan | p_emp nan | evaluable False | CLAIM False
+  deu_Latn: noun-object share -k 0.07894736842105263 (n 38) | 0 0.6617647058823529 (n 68) | +k 0.7272727272727273 (n 66) | slope +0.1621 z +4.97 | pred down ok True
+  eng_Latn: noun-object share -k 0.009345794392523364 (n 107) | 0 0.0 (n 119) | +k 0.0 (n 72) | slope -0.0023 z -1.32 | pred none ok True
+  hrv_Latn: noun-object share -k 0.02631578947368421 (n 38) | 0 0.05263157894736842 (n 38) | +k 0.11764705882352941 (n 17) | slope +nan z +nan | pred up ok None
+  kor_Hang: noun-object share -k None (n 0) | 0 1.0 (n 109) | +k 1.0 (n 61) | slope +nan z +nan | pred none ok None
+  nld_Latn: noun-object share -k 0.09803921568627451 (n 51) | 0 0.7032967032967034 (n 91) | +k 0.7777777777777778 (n 72) | slope +0.1699 z +4.94 | pred down ok True
+  pol_Latn: noun-object share -k 0.0 (n 42) | 0 0.02631578947368421 (n 38) | +k 0.0 (n 2) | slope +nan z +nan | pred up ok None
+  rus_Cyrl: noun-object share -k 0.028985507246376812 (n 69) | 0 0.038461538461538464 (n 78) | +k 0.5833333333333334 (n 36) | slope +0.1386 z +16.74 | pred up ok True
+  spa_Latn: noun-object share -k 0.0 (n 55) | 0 0.0 (n 66) | +k 0.0 (n 22) | slope +0.0000 z -0.49 | pred none ok True
+  ukr_Cyrl: noun-object share -k 0.019230769230769232 (n 52) | 0 0.03225806451612903 (n 62) | +k 0.5384615384615384 (n 26) | slope +0.1298 z +12.33 | pred up ok True
+sign-specific language loss: against 0.759 vs toward 0.954, lower in 7/9 (p 0.180)

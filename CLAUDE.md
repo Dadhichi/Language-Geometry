@@ -94,6 +94,10 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   the French rise is an object-type artefact (clitics); rigid-order languages leave the language instead
   (sign-specific, p .016); threshold-like (~0 at k = 1); text repetition 4.6% -> 7.5% (random 6.1%). A confirmatory rerun
   needs per-direction inclusion and strength calibrated on the WORST random direction.
+  2026-10-02 CONFIRMATORY FREE GENERATION (explore/steer_gen2, prereg 5146777, fresh prompts, noun objects, k = 2):
+  H1 replication (German, Russian) CLAIM HOLDS (+0.150/k, z 7.8, above all random). H2 generalization NOT
+  EVALUABLE (Polish, Croatian leave the language at +2); Dutch and Ukrainian, the measurable ones, move as predicted
+  (z 4.9, 12.3). Controls (English, Spanish, Korean) do not reorder.
   WRITE-UP: explore/writeup (template.html + sections/*.html + extra_figs.js -> build_data.py -> inject.py ->
   word-order-axis.html, published as a claude.ai artifact). Verify with node --check _check.js and a jsdom run.
 - 2026-09-29 STRUCTURE HUNT (explore/FINDINGS.md; four independent investigations, all synthetic-validated):

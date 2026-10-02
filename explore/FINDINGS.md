@@ -226,3 +226,18 @@ same norm). 55 conditions, 66,000 continuations; Stanza UD parse; OV rate over l
   the drop = non-noun/non-pronoun objects that never occur unsteered), eng 0 throughout. Noun-only pooled slope
   (eng deu rus qualify) +0.086/k vs random +0.003 +- 0.010 (max +0.028), z 8.2.
   Repetition (1 - distinct word-bigram ratio): unsteered .046, OV +-2 .075, IE .068, random .061 (range 0-.25).
+
+# PRE-REGISTERED confirmatory free-generation test (explore/steer_gen2; prereg 5146777)
+Qwen2.5-7B, L14, fixed k = +-2; 150 FRESH FLORES devtest prompts x 9 languages; 53 conditions, 71,550 continuations;
+primary measure = NOUN-object share (object before verb) in langid-matched continuations; inclusion per direction.
+- H1 (replication, German + Russian): CLAIM HOLDS. Pooled slope +0.150/k vs 21 defined random directions
+  +0.002 +- 0.019 (max +0.042), z = 7.83, above all (p_emp 1/22). Descriptive bootstrap [+0.118, +0.182].
+  German noun objects first .66 -> .08 at k=-2 (z 4.97); Russian .04 -> .58 at k=+2 (z 16.7).
+- H2 (generalization, Dutch/Ukrainian/Polish/Croatian): NOT EVALUABLE (2 of 4 languages defined; min 3). The two
+  measurable languages move as predicted: Dutch .70 -> .10 at -2 (z 4.94), Ukrainian .03 -> .54 at +2 (z 12.3);
+  pooled +0.150 (bootstrap [+0.083, +0.187]; random max +0.040). Polish and Croatian drop out because the
+  word-order direction at +2 moves the model out of the language (27% / 37% stay; mostly English, German) and
+  degrades text (repetition .144 / .160 vs .038 / .053 unsteered) -- the same failure mode as in steer_gen.
+- Controls as predicted: English and Spanish no reordering; Korean 100% object-first (at -2 only 71% stay Korean,
+  0 noun pairs). IE control slope -0.008 (H1 set), +0.009 (H2 set). Sign-specific language loss .76 vs .95,
+  7/9 lower, p .18 (not significant). Cost 2.76 CU.

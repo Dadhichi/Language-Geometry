@@ -282,11 +282,11 @@ at +-2; 82,350 continuations.
   German +0.063 (BIDIRECTIONAL in Llama: .57 / .71 / .82 at k -2/0/+2), Russian only +0.024 (.04 -> .15 at +2).
 - L-B (d_W, flexible set) FAILS on z: +0.032/k, above all 24 random (max +0.024) but z 2.21 < 2.58 (random sd .014,
   about twice Qwen's). Same pattern as Qwen: German +0.074 (.08/.44/.71/.74/.86 at k -3/-2/0/+2/+3), Dutch +0.077
-  (.23/.60/.76/.91/.89); Slavic ~0 at k = 2, rising at +3 (Russian .17, Polish .20, Croatian .19; Ukrainian 0).
+  (.23/.60/.76/.91/.89); Slavic ~0 at k = 2, rising at +3 (Russian .175, Polish .20, Croatian .19; Ukrainian 0).
 - L-C not claimed (conditional on L-B). Descriptively d_W keeps .97 vs beta_OV .89 at the against sign, higher in 6/9
   (ties German, English; Dutch .97 vs .98). d_W keeps >= .91 in every language at every k up to 3.
 - Secondary H2 (beta_OV, Dutch/Ukrainian/Polish/Croatian): +0.098/k, z 6.27, above all random -- Ukrainian .02 -> .43,
-  Polish .00 -> .39, Croatian .03 -> .30 at +2 (match .74-.91), Dutch .76 -> .47 at -2. (In Qwen this set was not
+  Polish .00 -> .39, Croatian .03 -> .30 at +2 (match .74 Ukrainian, .91 Polish, .59 Croatian), Dutch .76 -> .47 at -2. (In Qwen this set was not
   evaluable because Polish and Croatian left the language.)
 - beta_OV at k = 3 is destructive in Llama: language match .00-.27 for Russian, Ukrainian, Polish, Croatian, Dutch
   at +3 (German .44); pooled slope collapses (dose ov: .016 / .080 / -.001; w: .002 / .032 / .054).

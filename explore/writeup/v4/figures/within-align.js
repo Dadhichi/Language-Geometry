@@ -25,16 +25,8 @@ W.fig("within-align", {
   layout: "page",
   init(ctx) {
     const S = ctx.state; S.model = "qwen";
-    if (ctx.D.within_llama && ctx.D.within_llama.A_profile) {
-      W.ui.seg(ctx.controls, { label: "Model", options: [["qwen", "Qwen2.5-7B", "pre-registered study, layer 14"], ["llama", "Llama-3.1-8B", "pre-registered replication, layer 16"]], value: "qwen",
-        onChange: v => {
-          S.model = v;
-          const g = ctx.graphic;
-          if (!W.motion()) { ctx.redraw(); return; }
-          g.style.transition = "opacity .16s"; g.style.opacity = "0";
-          clearTimeout(S.t); S.t = setTimeout(() => { ctx.redraw(); g.style.opacity = "1"; }, 170);
-        } });
-    }
+    if (ctx.D.within_llama && ctx.D.within_llama.A_profile)
+      W.modelSeg(ctx, [["qwen", "Qwen2.5-7B", "pre-registered study, layer 14"], ["llama", "Llama-3.1-8B", "pre-registered replication, layer 16"]]);
     W.ui.legend(ctx.legend, [{ kind: "line", cls: "s-ov", text: ["cos(d", ["W"], ", β", ["OV"], "), the between-language word-order direction"] },
       { kind: "line", cls: "s-gen", text: ["cos(d", ["W"], ", β", ["IE"], "), Indo-European control"] },
       { kind: "band", cls: "band2", text: "99.9% of random directions in the span" }]);

@@ -187,7 +187,8 @@ def main():
                     ("freegen", "steer_gen/results_gen.json"), ("freegen_x", "steer_gen/exploratory_gen.json"),
                     ("freegen_obj", "steer_gen/objtype.json"), ("freegen2", "steer_gen2/results_gen2.json"),
                     ("within", "steer_within/results_w.json"),
-                    ("within_llama", "steer_within_llama/results_wl.json")):
+                    ("within_llama", "steer_within_llama/results_wl.json"),
+                    ("steer_llama", "steer_llama/results_l.json")):
         p = os.path.join(EX, f)
         if os.path.exists(p):
             out[name] = json.load(open(p))

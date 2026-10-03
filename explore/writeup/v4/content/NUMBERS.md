@@ -313,6 +313,36 @@ a pre-registered design element are not listed separately where the design docum
 | cosine +0.32, p = 0.0001 | takeaway, 00-front, 14-methods | see above |
 | about 0.2 compute units | cost (14-methods) | orchestrator message; FINDINGS.md last block ("Cost ~0.2 CU") |
 
+## 10-within, steering in Llama (pre-registered `explore/steer_llama`, commit 2c1b420; sources `steer_llama/results_l.json`, `steer_llama/results_l.log`, `steer_llama/PREREG.md`, `steer_llama/steer_dirsL_info.json`, FINDINGS.md last block)
+
+| Number in text | Meaning | Source |
+|---|---|---|
+| commit 2c1b420 | pre-registration | orchestrator message; FINDINGS.md last block |
+| block 16 of 32; relative depth 0.5 | layer | steer_llama/PREREG.md; steer_llama/results_l.json layer 16 |
+| 0.80 (Llama) vs 0.73 (Qwen) | ‖β_OV‖ in units of the spread of the language centroids | steer_llama/PREREG.md "Materials and intervention" |
+| 61 conditions; 82,350 continuations | design | steer_llama/PREREG.md |
+| 8 of 9 (L-C rule); z > 2.58 | claim rules | steer_llama/PREREG.md "Hypotheses" |
+| +4.4 points per unit k; z = 1.86 (L-H1) | | steer_llama/results_l.json L_H1.b 0.0438, z 1.861, claim false; results_l.log line 1 |
+| 21 random defined; +0.2 ± 2.2; largest +6.7; second +4.6; p = 3/22 = 0.14 | L-H1 null | steer_llama/results_l.json L_H1.n_rand_defined 21, rand_mean 0.0022, rand_sd 0.0223, rand_max 0.0668, sorted rand: second 0.0462; p_emp 0.1364 |
+| German +6.3; 57% / 71% / 82% at k = −2 / 0 / +2 | | steer_llama/results_l.json L_H1.per_language.deu_Latn 0.0632; rates.deu_Latn ov-2 0.567 (60), base 0.712 (73), ov+2 0.819 (83) |
+| Russian +2.4; 4% → 15% at +2 | | steer_llama/results_l.json L_H1.per_language.rus_Cyrl 0.0244; rates.rus_Cyrl base 0.039 (76), ov+2 0.147 (34) |
+| 4% → 58% in Qwen | comparison | steer_gen2/results_gen2.json rates.rus_Cyrl |
+| +3.2 points per unit k; z = 2.21; above all 24 random (largest +2.4) (L-B) | | steer_llama/results_l.json L_B.b 0.0315, z 2.21 (results_l.log line 3), rand_max 0.0242, n_rand_defined 24, claim false |
+| +0.0 ± 1.4; about twice Qwen's 0.8 | L-B null spread | steer_llama/results_l.json L_B.rand_mean 0.0002, rand_sd 0.0142; Qwen steer_within B: sd 0.0078 (derived from results_w.json B.rand) |
+| German +7.4: 8 / 44 / 71 / 74 / 86% at k = −3 / −2 / 0 / +2 / +3 | | steer_llama/results_l.json L_B.per_language.deu_Latn 0.0741; rates.deu_Latn w-3 0.083 (24), w-2 0.444 (45), base 0.712, w+2 0.741 (81), w+3 0.859 (85) |
+| Dutch +7.7: 23 / 60 / 76 / 91 / 89% | | steer_llama/results_l.json L_B.per_language.nld_Latn 0.0772; rates.nld_Latn w-3 0.231 (39), w-2 0.597 (77), base 0.761 (88), w+2 0.906 (64), w+3 0.889 (63) |
+| Croatian +2.2, Russian +1.7, Ukrainian +0.4, Polish −0.5 | L-B per language | steer_llama/results_l.json L_B.per_language |
+| at k = +3: Russian 17.5%, Polish 20%, Croatian 19%, Ukrainian 0% | d_W +3 | rates.rus_Cyrl w+3 0.175 (40); pol_Latn 0.200 (25); hrv_Latn 0.185 (27); ukr_Cyrl 0.0 (46). NOTE: the orchestrator's message says "Russian 17%"; 7/40 = 17.5% |
+| 97% vs 89%; 6 of 9; German and English tie; Dutch 97% vs 98% | L-C descriptive | steer_llama/results_l.json L_C.mean_w 0.970, mean_ov 0.887, higher 6, per_language deu 0.967/0.967, eng 0.993/0.993, nld 0.973/0.980; results_l.log line 7 |
+| at least 91% at every strength up to ±3 | d_W language match | steer_llama/results_l.json match.*.w±1..3 (minimum 0.907, Ukrainian at w−3 and w+2) |
+| H2 set: +9.8 per unit k; largest random +2.9; z = 6.27 | secondary | steer_llama/results_l.json H2_ov.b 0.0976, rand_max 0.0294, z 6.27; results_l.log line 5 |
+| Ukrainian 2% → 43%, Polish 0% → 39%, Croatian 3% → 30% at +2 | | rates.ukr_Cyrl base 0.024 (84), ov+2 0.429 (28); pol_Latn 0.0 (45), 0.387 (31); hrv_Latn 0.029 (34), 0.297 (37) |
+| 74%, 91% and 59% stay in the language at +2 | Ukrainian, Polish, Croatian | match.ukr_Cyrl ov+2 0.740; pol_Latn 0.907; hrv_Latn 0.593. NOTE: the orchestrator's message says "74–91%"; Croatian is 59% |
+| Dutch 76% → 47% at −2 | | rates.nld_Latn base 0.761, ov-2 0.475 (59) |
+| 0% to 27% stay at +3 (Russian, Ukrainian, Polish, Croatian, Dutch); German 44% | β_OV at +3 | match.*.ov+3: rus 0.053, ukr 0.0, pol 0.047, hrv 0.273, nld 0.067, deu 0.44 |
+| β_OV +1.6 / +8.0 / −0.1; d_W +0.2 / +3.2 / +5.4 at k = 1 / 2 / 3 | dose of pooled slope (flexible set) | steer_llama/results_l.json dose.ov {1: 0.0162, 2: 0.0797, 3: −0.0013}, dose.w {1: 0.0020, 2: 0.0315, 3: 0.0535} |
+| 3.51 compute units | cost (14-methods) | orchestrator message; FINDINGS.md last block ("Cost 3.51 CU") |
+
 ## 11-tokens (file renamed from 10-tokens)
 
 | Number | Meaning | Source |
@@ -405,6 +435,8 @@ a pre-registered design element are not listed separately where the design docum
 * **k_eff range**: the orchestrator's message says 0.42–0.47; with Russian (cosine 0.199) the range over the six flexible languages is 0.40–0.47. The text uses 0.40 to 0.47.
 * **Cost of the Llama replication** (about 0.2 compute units, 14-methods): orchestrator message and FINDINGS.md last block; not in a result file.
 * **Llama within-span cosine maximum**: the orchestrator's message and FINDINGS.md say +0.77 at layer 17; `results_wl.json` gives 0.7648, so the text says +0.76.
+* **Cost of the Llama steering study** (3.51 compute units, 14-methods): orchestrator message and FINDINGS.md; not in a result file.
+* **Llama language match at k = +2 in the H2 set**: the orchestrator's message says 74–91%; `results_l.json` gives Croatian 0.593, so the text gives 74%, 91% and 59%.
 
 ## Round-2 additions to other files
 
@@ -416,3 +448,6 @@ a pre-registered design element are not listed separately where the design docum
 | 999 pairs; 10,000 null vectors; 10,001; 1,350 prompts; 40 tokens; 9 conditions; 3 pairs and 2 prompts (debug) | 14-methods "Within-language direction" | steer_within/PREREG.md; analysis_w.py; derived 1 + 6 + 2 = 9 conditions |
 | 0.69 compute units | 14-methods compute | orchestrator message; FINDINGS.md last block |
 | −0.18 at layer 14; 2.5 null sd; −0.15 to −0.24 at layers 6–18 | 12-dead new row | see "10-within" |
+| +4.4, z = 1.86; z = 6.27; z = 2.21 vs 2.58 | 00-front bullets, 09-gen note, 13-discussion | see "10-within, steering in Llama" |
+| +4.4 (below +6.7 of 21 random), z = 1.86; +3.2, z = 2.21; 4% → 15% | 12-dead new rows | see "10-within, steering in Llama" |
+| 2c1b420 row; 61 conditions; 82,350 continuations; 2 prompts and 1 random direction (debug); 3.51 units | 14-methods | steer_llama/PREREG.md; orchestrator message |

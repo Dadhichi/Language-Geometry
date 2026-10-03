@@ -1,6 +1,6 @@
 <section id="dead" data-title="What did not hold up">
   <h2>What did not hold up</h2>
-  <p>This section lists the hypotheses that failed and the tests that gave no answer. A search for structure is only as informative as the structures that it rules out. The first five rows come from the pilot; the other seven come from the main studies.</p>
+  <p>This section lists the hypotheses that failed and the tests that gave no answer. A search for structure is only as informative as the structures that it rules out. The first five rows come from the pilot; the other nine come from the main studies.</p>
   <div class="tablewrap"><table>
     <thead><tr><th>Hypothesis</th><th>Evidence</th><th>What we found</th></tr></thead>
     <tbody>
@@ -16,6 +16,8 @@
       <tr><td>A push against a language's own order makes the model leave the language more often than a push toward it.</td><td>exploratory, then pre-registered secondary</td><td>Not confirmed. The first study found it in 7 of 7 languages (p = 0.016, exploratory). The confirmatory study found it in 7 of 9 (p = 0.18).</td></tr>
       <tr><td>The within-language word-order direction is unrelated to Indo-European membership (expected value of a pre-registered control, no claim).</td><td>pre-registered expectation</td><td>Not as expected in Qwen. The cosine with the Indo-European direction is −0.18 at layer 14, about 2.5 null standard deviations below zero, and −0.15 to −0.24 at layers 6 to 18. It does not replicate in Llama (−0.07 at layer 16; −0.14 to −0.05 at layers 6 to 18), so it looks specific to Qwen. The cause is open.</td></tr>
       <tr><td>The word-order direction reorders objects in French.</td><td>exploratory</td><td>An artefact of object type. None of 218 French noun objects precedes its verb in any condition; the share rises because noun objects disappear.</td></tr>
+      <tr><td>In Llama-3.1-8B, the between-language direction changes the order of noun objects in German and Russian (L-H1, replication of H1).</td><td>pre-registered</td><td>Not supported. The pooled slope is +4.4 points per unit of k, below the largest of 21 random slopes (+6.7); z = 1.86. German moves in both directions; Russian changes little (4% to 15%).</td></tr>
+      <tr><td>In Llama-3.1-8B, the within-language direction changes the order of noun objects in the six flexible-order languages (L-B, replication of claim B).</td><td>pre-registered</td><td>Not supported by the pre-registered standard. The pooled slope (+3.2) exceeds all 24 random slopes, but z = 2.21 is below 2.58. German and Dutch move as in Qwen. L-C was therefore not tested.</td></tr>
     </tbody>
   </table></div>
 </section>

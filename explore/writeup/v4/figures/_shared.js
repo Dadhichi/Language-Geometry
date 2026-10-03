@@ -311,3 +311,22 @@ W.pendingState = (ctx, { title, text, rows = 8, height = 300 }) => {
   /* the same as plain text, for tooltips and aria */
   W.subPlain = parts => parts.map(p => (Array.isArray(p) ? p[0] : p)).join("");
 })();
+
+/* model control shared by the within-language figures: one switch per figure, kept in step across them */
+(function () {
+  const W = window.WOA;
+  W.withinModel = W.withinModel || "qwen";
+  W.modelSeg = (ctx, options) => {
+    const S = ctx.state; S.model = W.withinModel;
+    const fade = () => {
+      const g = ctx.graphic;
+      if (!W.motion()) { ctx.redraw(); return; }
+      g.style.transition = "opacity .16s"; g.style.opacity = "0";
+      clearTimeout(S.fadeT); S.fadeT = setTimeout(() => { ctx.redraw(); g.style.opacity = "1"; }, 170);
+    };
+    const seg = W.ui.seg(ctx.controls, { label: "Model", options, value: S.model,
+      onChange: v => { S.model = v; W.withinModel = v; fade(); if (ctx.onModel) ctx.onModel(v); W.emit("within-model", { v, from: ctx.id }); } });
+    W.on("within-model", ({ v, from }) => { if (from === ctx.id || S.model === v) return; S.model = v; seg.set(v); if (ctx.onModel) ctx.onModel(v); ctx.redraw(); });
+    return seg;
+  };
+})();

@@ -116,7 +116,7 @@ W.fig("pipeline", {
       const st = STEPS[i];
       det.replaceChildren(W.el("span", "d-step", `Step ${i + 1} of ${STEPS.length}`), W.el("span", "d-text", st.d));
       const m = W.el("div", "d-math"); det.appendChild(m);
-      if (!W.tex(m, st.tex, true)) m.textContent = st.tex;
+      if (!W.tex(m, "\\displaystyle " + st.tex, false)) m.textContent = st.tex;
     }
     select(S.sel);
   }

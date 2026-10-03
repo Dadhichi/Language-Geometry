@@ -5,25 +5,24 @@ Paths are relative to `explore/` unless they start with `writeup/` (= `explore/w
 Model names (Qwen2.5-7B, Llama-3.1-8B), WALS feature codes (83A, …), citation numbers and layer indices that only name
 a pre-registered design element are not listed separately where the design document is cited once.
 
-## 00-front (summary, overview caption)
+## 00-front (summary, overview caption) -- rewritten in round 5 (shorter summary)
 
 | Number in text | Meaning | Source |
 |---|---|---|
 | 2,009 sentences | 997 dev + 1,012 devtest | derived; writeup/template.html line 149; FINDINGS.md line 108 (FLORES dev/devtest) |
 | 34 languages | language set | prereg34/PREREG.md "Data"; prereg34/lib34.py `LANGS` |
 | 11 object-before-verb languages | size of S_OV | prereg34/lib34.py `OV`; prereg34/PREREG.md H2 |
-| all p ≤ 0.0007; threshold 0.0125 | max p over the 4 claim tests × 4 analyses = H1\|OV p Qwen causal 0.0007; Bonferroni α | prereg34/results34.json primary_causal."H1\|OV_p" = 0.00070; results34.log line 2; results34_llama.json; `prereg.alpha` = 0.0125 |
-| 25% to 71% of depth | layer of max word-order gain / blocks: Qwen causal L7/28 = 0.25, Qwen whitened L20/28 = 0.714, Llama L16/32 = 0.50 | D.profiles.{qwen,llama}.per_layer.{causal,lda05}[*].ov (= prereg34/results34*.json per_layer H2_gain) |
-| 3 of 4 analyses (bundle; OV largest unique share) | A1 and A2 both p < .0125 in 3/4; OV largest A3 unique in 3/4 | typology_lex/results_tl_qwen.log, results_tl_llama.log; FINDINGS.md lines 186–196 |
-| 33 other languages; layer 14 | held-out OLS direction | steer_ov/PREREG.md "Directions" |
-| 999 sentences; 8 languages | minimal pairs | D.steering.n_pairs = 999; steer_ov/PREREG.md |
-| z = 4.99; 32 random directions | primary z | steer_ov/results_steer.json primary.z = 4.989; results_steer.log line 1 |
-| 1% to 36% (Russian), 72% to 14% (German) | noun-object share before verb, base → +2 / base → −2 | steer_gen/objtype.json rus_Cyrl.base nom_ov 1 / (1+79) = 0.0125; ov+ 14/(14+25) = 0.359; deu_Latn.base 50/(50+19) = 0.725; ov- 5/(5+32) = 0.135; FINDINGS.md lines 223–224 |
-| all 8 languages excluded | primary not evaluable | steer_gen/results_gen.log line 7 (`languages ... : []`); results_gen.json languages_used = [] |
-| +15.0 points per unit of strength; z = 7.83; German 66% → 8%; Russian 4% → 58% | confirmatory H1 | see "09-gen, confirmatory results" |
-| four new languages; Dutch, Ukrainian, Polish, Croatian | confirmatory H2 | steer_gen2/PREREG.md |
-| cosine +0.23 at layer 14, p = 0.0002; z = 4.56; 98% vs 76% | within-language study | see "10-within" |
+| all p ≤ 0.0007 | max p over the 4 claim tests × 4 analyses = H1\|OV p Qwen causal 0.0007 | prereg34/results34.json primary_causal."H1\|OV_p" = 0.00070; results34_llama.json |
+| 25% to 71% of depth | layer of max word-order gain / blocks: Qwen causal L7/28 = 0.25, Qwen whitened L20/28 = 0.714, Llama L16/32 = 0.50 | D.profiles.*.per_layer.*.ov (= prereg34/results34*.json per_layer H2_gain) |
+| 33 other languages; 999 sentences; 8 languages; z = 4.99 | preference test | steer_ov/PREREG.md; D.steering.n_pairs; steer_ov/results_steer.json primary.z 4.989 |
+| first test not evaluable | steer_gen primary | steer_gen/results_gen.log line 7 (`languages ... : []`) |
+| 66% → 8% (German), 4% → 58% (Russian); z = 7.83 | confirmatory H1, noun objects | see "09-gen, confirmatory results" |
+| z = 1.86 (Llama L-H1) | | see "10-within, steering in Llama" |
+| four new languages; z = 6.27 (Llama, secondary) | H2 set | steer_gen2/PREREG.md; see "10-within, steering in Llama" |
+| cosine +0.23 (Qwen), +0.32 (Llama); 98% vs 76% | within-language study | see "10-within" and "10-within, Llama replication of claim A" |
 | within about one token | mean lag 0.79–1.67 tokens | prereg_belief/results_belief.json P2.*.mean_lag; results_belief.log lines 18–25 |
+
+Numbers removed from the summary in round 5 remain in their sections with the same sources: Bonferroni 0.0125 (05-tests), "3 of 4 analyses" and largest unique share (07-which), 32 random directions (08-steer), +15.0 points per unit k (09-gen), +4.4 (10-within, 12-dead), p = 0.0002 / 0.0001 for the alignment (10-within), z = 4.56 and z = 2.21 (10-within), the Indo-European control (10-within, 12-dead). The "Evidence labels" box moved from 00-front to 01-intro (no numbers).
 
 ## 01-intro
 
@@ -451,3 +450,13 @@ a pre-registered design element are not listed separately where the design docum
 | +4.4, z = 1.86; z = 6.27; z = 2.21 vs 2.58 | 00-front bullets, 09-gen note, 13-discussion | see "10-within, steering in Llama" |
 | +4.4 (below +6.7 of 21 random), z = 1.86; +3.2, z = 2.21; 4% → 15% | 12-dead new rows | see "10-within, steering in Llama" |
 | 2c1b420 row; 61 conditions; 82,350 continuations; 2 prompts and 1 random direction (debug); 3.51 units | 14-methods | steer_llama/PREREG.md; orchestrator message |
+
+## Round-5 moves (design-review restructuring; numbers moved between files, sources unchanged)
+
+| Numbers | From | To | Source (unchanged) |
+|---|---|---|---|
+| first study design: 150 sentences, 8 languages, 40%, 1,200 prompts, 40 tokens, 24 random directions, 55 conditions, 66,000 continuations, 20 prompts, 3 random directions, k ∈ {±0.5, ±1, ±2}, 80%, k* = 2, 88.8% vs 98.8% | 09-gen | 14-methods (Free generation, "First study"); 09-gen keeps 150, 8, 40%, 1,200, 40, 24, k* = 2 in a summary | see "09-gen" |
+| confirmatory design: 150 sentences, 9 languages, 40%, 1,350 prompts, 24 random directions, k = ±2, 53 conditions, 71,550 continuations, 40 tokens; held-out projections −0.08, −0.13, −0.21, −0.16, −0.35, +0.52 | 09-gen | 14-methods (Free generation, "Confirmatory study"); 09-gen keeps 150, 9, 1,350, k = ±2 in a summary | see "09-gen" |
+| d_W estimator details: 0.998, 1.000, 0.92, 0.46, 0.54 (layer 14), 0.85–0.94, 0.54 (layer 1), 1.24, 9.4 | 10-within | 14-methods (Within-language direction); 10-within keeps 0.85–0.94 and 9.4 in a summary | see "10-within" |
+| Llama steering design: block 16 of 32, relative depth 0.5, 0.80 vs 0.73, 61 conditions, 82,350 continuations | 10-within | 14-methods ("Llama steering"); 10-within keeps block 16 of 32 | see "10-within, steering in Llama" |
+| figure references (no numbers) | — | all sections: every figure is now cited at least once (22 figrefs) | — |

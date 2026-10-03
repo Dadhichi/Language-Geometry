@@ -16,6 +16,8 @@ W.tables = W.tables || {};
 W.fig = (id, spec) => { W.figs[id] = spec; };
 W.table = (id, fn) => { W.tables[id] = fn; };
 W.mounted = [];
+W.timing = {};
+const now = () => (window.performance && performance.now()) || Date.now();
 
 /* ---------------- small utilities ---------------- */
 W.el = (tag, cls, text) => { const e = doc.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -55,11 +57,21 @@ W.orderText = o => ({ ov: "object before verb", vo: "verb before object", nd: "n
 
 /* text measurement for label placement (falls back to an estimate where canvas is unavailable) */
 let measureCtx = null;
+/* widths are cached, and the font stack is read once: reading a CSS variable forces a style recalculation, which made
+   the first figure (thousands of measurements while the page is being built) take most of a second */
+let fontStack = null;
+const widthCache = new Map();
 W.textW = (s, size = 12, weight = 400) => {
+  const key = size + "|" + weight + "|" + s;
+  const hit = widthCache.get(key); if (hit !== undefined) return hit;
   if (measureCtx === null) { try { measureCtx = doc.createElement("canvas").getContext("2d") || false; } catch (e) { measureCtx = false; } }
-  if (measureCtx) { measureCtx.font = `${weight} ${size}px ${W.cssVar("--sans") || "sans-serif"}`; const m = measureCtx.measureText(String(s)); if (m && m.width) return m.width; }
-  return String(s).length * size * 0.56;
+  if (fontStack === null) fontStack = W.cssVar("--sans") || "sans-serif";
+  let wdt = String(s).length * size * 0.56;
+  if (measureCtx) { measureCtx.font = `${weight} ${size}px ${fontStack}`; const m = measureCtx.measureText(String(s)); if (m && m.width) wdt = m.width; }
+  widthCache.set(key, wdt);
+  return wdt;
 };
+W.resetTextW = () => widthCache.clear();     /* web fonts arrived: widths change */
 
 /* ---------------- math ---------------- */
 W.tex = (el, tex, display) => {
@@ -70,9 +82,36 @@ W.tex = (el, tex, display) => {
     return true;
   } catch (e) { W.errors.push("KaTeX: " + e.message); return false; }
 };
+/* top-level occurrences of a TeX command (outside braces and environments), e.g. the \qquad between two equations */
+function splitTop(tex, cmd) {
+  const parts = []; let depth = 0, env = 0, last = 0;
+  for (let i = 0; i < tex.length; i++) {
+    const c = tex[i];
+    if (c === "\\") {
+      if (tex.startsWith("\\begin", i)) env++;
+      else if (tex.startsWith("\\end", i)) env--;
+      else if (!depth && !env && tex.startsWith(cmd, i) && !/[A-Za-z]/.test(tex[i + cmd.length] || "")) { parts.push(tex.slice(last, i)); last = i + cmd.length; i += cmd.length - 1; continue; }
+      i++; continue;
+    }
+    if (c === "{") depth++; else if (c === "}") depth--;
+  }
+  parts.push(tex.slice(last));
+  return parts.map(p => p.trim()).filter(Boolean);
+}
+W.splitTop = splitTop;
 function renderMath(scope) {
   if (!window.katex) { root.classList.add("no-katex"); return; }
-  (scope || doc).querySelectorAll(".m:not(.ready), .mb:not(.ready)").forEach(el => W.tex(el, el.textContent, el.classList.contains("mb")));
+  (scope || doc).querySelectorAll(".m:not(.ready), .mb:not(.ready)").forEach(el => {
+    const tex = el.textContent;
+    if (!el.classList.contains("mb")) { W.tex(el, tex, false); return; }
+    /* display math made of several equations side by side (\qquad) is split, so the parts can wrap on narrow screens */
+    const parts = splitTop(tex, "\\qquad");
+    if (parts.length < 2) { W.tex(el, tex, true); return; }
+    el.textContent = ""; el.classList.add("mb-multi");
+    let ok = true;
+    parts.forEach(p => { const s = W.el("span", "mb-part"); el.appendChild(s); ok = W.tex(s, p, true) && ok; });
+    if (ok) el.classList.add("ready"); else { el.textContent = tex; W.tex(el, tex, true); }
+  });
 }
 W.renderMath = renderMath;
 
@@ -191,6 +230,7 @@ W.ui = {
       else if (it.kind === "bar") add("rect", { x: 1, y: 1, width: 10, height: 10, rx: 2, class: it.cls });
       else if (it.kind === "range") { add("line", { x1: 2, x2: 16, y1: 6, y2: 6, class: "line " + it.cls }); add("line", { x1: 2, x2: 2, y1: 2.5, y2: 9.5, class: "line " + it.cls }); add("line", { x1: 16, x2: 16, y1: 2.5, y2: 9.5, class: "line " + it.cls }); }
       else if (it.kind === "ring") add("circle", { cx: 6, cy: 6, r: 4, class: "ring " + it.cls });
+      else if (it.kind === "around") { add("circle", { cx: 6, cy: 6, r: 3, class: it.dot || "c-ink2" }); add("circle", { cx: 6, cy: 6, r: 6, class: "s-ink", fill: "none", "stroke-width": 1.3 }); }
       else add("circle", { cx: 6, cy: 6, r: 4.5, class: it.cls });
       const lab = W.el("span"); lab.appendChild(W.parts(it.text));
       s.appendChild(svg); s.appendChild(lab); parent.appendChild(s);
@@ -199,8 +239,16 @@ W.ui = {
 };
 
 /* keyboard navigation over the marks of one figure: the svg is a single tab stop, arrows move between items */
+/* a polite live region: keyboard readouts of figures are announced to screen readers */
+let live = null;
+W.announce = text => {
+  if (!live) { live = W.el("div", "sr-only"); live.setAttribute("role", "status"); live.setAttribute("aria-live", "polite"); doc.body.appendChild(live); }
+  live.textContent = text;
+};
 W.keyNav = (svgNode, getItems, onItem, onLeave) => {
   svgNode.setAttribute("tabindex", "0");
+  const lbl = svgNode.getAttribute("aria-label") || "Figure";
+  if (!/arrow keys/.test(lbl)) svgNode.setAttribute("aria-label", lbl + ". Use the arrow keys to read the values.");
   let i = -1;
   svgNode.addEventListener("keydown", ev => {
     const items = getItems(); if (!items.length) return;
@@ -210,6 +258,8 @@ W.keyNav = (svgNode, getItems, onItem, onLeave) => {
     ev.preventDefault();
     i = fwd ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
     onItem(items[i], i);
+    const t = doc.getElementById("tip");
+    if (t && !t.hidden) W.announce([...t.children].map(c => c.textContent).join(". "));
   });
   svgNode.addEventListener("blur", () => { i = -1; onLeave(); });
 };
@@ -259,8 +309,11 @@ function mountFigures() {
       } else missing(ctx, `The data for this figure (“${lacking}”) is not in this build.`);
       return;
     }
+    if (!W.timing["~layout"]) { const tl = now(); void graphic.clientWidth; W.timing["~layout"] = Math.round(now() - tl) || 0.1; }
+    const tf = now();
     try { if (spec.init) spec.init(ctx); ctx.ok = true; spec.draw(ctx); ctx.lastW = graphic.clientWidth; }
     catch (e) { ctx.ok = false; W.errors.push(`${id}: ${e.message}`); if (window.console) console.error(e); missing(ctx, "This figure failed to render."); }
+    W.timing[id] = Math.round(now() - tf);
     W.mounted.push(ctx);
   });
 }
@@ -292,6 +345,8 @@ function alignStaticTables() {
     const rows = [...body.rows]; if (!rows.length) return;
     const last = head.rows[head.rows.length - 1]; if (!last) return;
     [...last.cells].forEach((th, i) => { if (rows.every(r => r.cells[i] && r.cells[i].classList.contains("n"))) th.classList.add("n"); });
+    /* short hyphenated names (Indo-European) should not break at the hyphen in a narrow column */
+    rows.forEach(r => [...r.cells].forEach(td => { const t = td.textContent.trim(); if (t.length <= 16 && /\w-\w/.test(t) && !/\s/.test(t)) td.classList.add("nw"); }));
   });
 }
 
@@ -345,7 +400,7 @@ function onScroll() {
   const h1 = doc.querySelector("header.front h1");
   root.classList.toggle("scrolled", h1 ? h1.getBoundingClientRect().bottom < 40 : y > 120);
   let cur = null; const line = innerHeight * 0.32;
-  for (const s of sections) { if (s.getBoundingClientRect().top <= line) cur = s; else break; }
+  for (const s of sections) { if (!s.offsetHeight) continue; if (s.getBoundingClientRect().top <= line) cur = s; else break; }
   const flow = doc.querySelector("nav.toc-flow"), rail = doc.getElementById("toc-rail");
   if (rail) rail.classList.toggle("on", flow ? flow.getBoundingClientRect().bottom < 0 : y > 400);
   if (cur !== curSec) {
@@ -361,17 +416,25 @@ function queueScroll() { if (!scrollQueued) { scrollQueued = true; requestAnimat
    MathML does not break lines. Inline math wider than its line becomes its own horizontally scrolling box, and display
    math that scrolls gets a fade at the edge it can scroll toward. */
 function fitMath() {
-  doc.querySelectorAll(".m.ready").forEach(el => {
-    el.classList.remove("m-long");
+  /* batched: all writes, then all reads, then all writes, so the browser lays the page out a few times, not hundreds */
+  const ms = [...doc.querySelectorAll(".m.ready")], mbs = [...doc.querySelectorAll(".mb.ready:not(.mb-multi), .mb-part")];
+  ms.forEach(el => el.classList.remove("m-long"));
+  mbs.forEach(el => { el.style.fontSize = ""; });
+  const longM = ms.filter(el => {
     const box = el.closest("p, li, dd, td, figcaption, .def, .takeaway, aside, div") || el.parentElement;
-    if (!box) return;
-    const r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
-    if (r.width > b.width - 4 || r.right > b.right + 1) el.classList.add("m-long");
+    if (!box) return false;
+    const r = el.getBoundingClientRect(), bb = box.getBoundingClientRect();
+    return r.width > bb.width - 4 || r.right > bb.right + 1;
   });
-  doc.querySelectorAll(".mb.ready, .tablewrap").forEach(el => {
-    const over = el.scrollWidth > el.clientWidth + 2;
-    el.classList.toggle("scrolls", over);
-    el.classList.toggle("at-end", over && el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
+  /* display math a little too wide for its column is set slightly smaller (down to 84%) instead of scrolling */
+  const sizes = mbs.map(el => { const sw = el.scrollWidth, cw = el.clientWidth; return cw && sw > cw + 2 && cw / sw >= 0.84 ? (Math.floor(cw / sw * 98) / 100) + "em" : ""; });
+  longM.forEach(el => el.classList.add("m-long"));
+  mbs.forEach((el, i) => { if (sizes[i]) el.style.fontSize = sizes[i]; });
+  const scrollers = [...doc.querySelectorAll(".mb.ready:not(.mb-multi), .mb-part, .tablewrap")];
+  const st = scrollers.map(el => { const over = el.scrollWidth > el.clientWidth + 2; return [over, over && el.scrollLeft + el.clientWidth >= el.scrollWidth - 2]; });
+  scrollers.forEach((el, i) => {
+    const [over, end] = st[i];
+    el.classList.toggle("scrolls", over); el.classList.toggle("at-end", end);
     if (over && !el.dataset.fitBound) { el.dataset.fitBound = "1"; el.addEventListener("scroll", () => el.classList.toggle("at-end", el.scrollLeft + el.clientWidth >= el.scrollWidth - 2), { passive: true }); }
   });
 }
@@ -426,7 +489,9 @@ function setupTheme() {
 /* ---------------- resize ---------------- */
 function setupResize() {
   let t = 0;
+  const printing = () => !!(window.matchMedia && matchMedia("print").matches);
   const run = () => {
+    if (printing()) return;            /* print scales the screen drawing; no redraw at paper width */
     W.mounted.forEach(ctx => {
       const w = ctx.graphic.clientWidth;
       if (w && Math.abs(w - (ctx.lastW || 0)) > 1) { if (ctx.ok) drawFig(ctx); else if (ctx.pendingDraw) { try { ctx.pendingDraw(ctx); } catch (e) {} } ctx.lastW = w; }
@@ -441,27 +506,33 @@ function setupResize() {
 /* ---------------- start ---------------- */
 W.start = () => {
   if (W.started) return; W.started = true;
+  const t0 = (window.performance && performance.now()) || 0;
   const el = doc.getElementById("figdata");
   try { W.D = JSON.parse((el && el.textContent) || "{}"); } catch (e) { W.D = {}; W.errors.push("figdata: " + e.message); }
   if (!window.d3) W.errors.push("d3 did not load");
   const front = doc.querySelector("header.front");
   if (front && !front.querySelector(":scope > .front-inner")) { const inner = W.el("div", "front-inner"); while (front.firstChild) inner.appendChild(front.firstChild); front.appendChild(inner); }
-  renderMath();
+  const lap = (k, f) => { const t = now(); f(); W.timing["~" + k] = Math.round(now() - t); };
+  lap("math", renderMath);
   buildContents();
   pending();
   alignStaticTables();
-  if (window.d3) { mountFigures(); mountTables(); }
-  renderMath();                       /* math that figure/table modules inserted */
+  if (window.d3) { lap("figures", mountFigures); lap("tables", mountTables); }
+  lap("math2", renderMath);           /* math that figure/table modules inserted */
   fillFigrefs();
   setupTheme();
-  fitMath();
-  layoutNotes();
+  lap("fitMath", fitMath);
+  lap("notes", layoutNotes);
   setupResize();
   addEventListener("scroll", queueScroll, { passive: true });
   onScroll();
   doc.addEventListener("keydown", ev => { if (ev.key === "Escape") { W.tip.hide(); W.highlight(null); } });
-  if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(() => { redrawAll(); fitMath(); layoutNotes(); }).catch(() => {});
+  /* web fonts that arrive after the first draw change text widths: redraw once (not when they were already there) */
+  let fontsWere = false;
+  try { fontsWere = !!(doc.fonts && doc.fonts.check && doc.fonts.check('600 12px "Noto Sans"') && doc.fonts.status === "loaded"); } catch (e) { fontsWere = false; }
+  if (doc.fonts && doc.fonts.ready && !fontsWere) doc.fonts.ready.then(() => { W.resetTextW(); redrawAll(); fitMath(); layoutNotes(); }).catch(() => {});
   addEventListener("load", () => { fitMath(); layoutNotes(); queueScroll(); });
   root.classList.add("woa-ready");
+  W.startMs = ((window.performance && performance.now()) || 0) - t0;     /* diagnostic: time to first full render */
 };
 })();

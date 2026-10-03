@@ -33,8 +33,8 @@ W.fig("splits", {
     S.h = d3.hierarchy(TREE, d => d.children); S.splits = splitsOf(S.h); S.sel = "IE"; S.hover = null;
     S.seg = W.ui.seg(ctx.controls, { label: "Split", options: [["IE", "Indo-European"], ["Rom", "Romance"], ["OV", "Word order"], ["u:hi", "Leaf: Hindi"]], value: "IE",
       onChange: v => { S.sel = v; paint(ctx); } });
-    W.ui.legend(ctx.legend, [{ kind: "bar", cls: "c-gen", text: "a branch of the family tree, θ_S" }, { kind: "bar", cls: "c-ov", text: "the word-order split, θ_OV" },
-      { kind: "bar", cls: "c-ink2", text: "a leaf term, u_i" }]);
+    W.ui.legend(ctx.legend, [{ kind: "bar", cls: "c-gen", text: ["a branch of the family tree, θ", ["S"]] }, { kind: "bar", cls: "c-ov", text: ["the word-order split, θ", ["OV"]] },
+      { kind: "bar", cls: "c-ink2", text: ["a leaf term, u", ["i"]] }]);
   },
   draw(ctx) {
     const S = ctx.state, w = Math.min(ctx.width(), 680);
@@ -120,8 +120,8 @@ function paint(ctx) {
     det.appendChild(m); W.tex(m, `D^2_{\\text{${hv.a}},\\text{${hv.b}}}=${terms.join("+")}+\\phi^\\top c_{\\text{${hv.a}},\\text{${hv.b}}}`, true);
   } else {
     const n = sp.set.length * (6 - sp.set.length);
-    const what = sp.kind === "leaf" ? `The leaf branch of ${sp.name} separates it from every other language, so its length u adds to the ${n} cells of its row and column: the star term.`
-      : sp.kind === "ov" ? `The word-order split is not a branch of the family tree. It separates the three object-first languages from the rest and adds θ_OV to the ${n} pairs with one language on each side.`
+    const what = sp.kind === "leaf" ? `The leaf branch of ${sp.name} separates it from every other language, so its length adds to the ${n} cells of its row and column: the star term u.`
+      : sp.kind === "ov" ? `The word-order split is not a branch of the family tree. It separates the three object-first languages from the rest and adds its weight θ to the ${n} pairs with one language on each side.`
       : `The ${sp.name} branch separates {${sp.set.map(nameOf).join(", ")}} from the rest. Its weight is added to the ${n} of 15 pairs with exactly one language in the split; pairs inside or outside get nothing.`;
     det.append(W.el("span", "d-step", sp.kind === "leaf" ? "Leaf" : "Split"), W.el("span", "d-text", what));
     det.appendChild(m);

@@ -81,7 +81,21 @@ dark, surface #131312: all PASS (worst CVD ΔE 9.4, normal-vision 20.9, all >= 3
 ```
 
 Greys are neutral folds, not categorical slots. Text contrast: body 14.2:1 (light) / 13.0:1 (dark); secondary 6.8 / 8.8;
-muted (ticks, small caps) 4.8 / 5.3. The 13 groups of `langs.family` (10 families, Indo-European split into four branches)
+muted (ticks, small caps) 4.8 / 5.3 (light muted darkened to `#74736d` in the final review; it was 3.5:1).
+
+**Mark grammar (consistent in every figure, fixed in the final review):**
+
+| mark | means |
+|---|---|
+| filled dot, blue / orange | push toward verb-first (k < 0) / toward object-first (k > 0); or a language's WALS order |
+| small filled grey dot | unsteered (k = 0) |
+| hollow mark (ring or hollow square) | fewer than half of the continuations stayed in the prompt language |
+| ring around a filled dot (`gen-loss`) | the push against the language's majority order |
+| dark ink line / dot | the within-language direction d_W (or a non-semantic series, `cs`) |
+| square | β_OV, only where it shares a figure with d_W |
+| grey dots in a strip + a short vertical tick | random directions; the tick is the largest random slope |
+| right-hand bold text in a test strip | the verdict of the test ("claim holds: z = …", "no claim: …", "exploratory", "not evaluable") |
+| wash band | random-direction range (5th–95th percentile) or the pre-registered layer window | The 13 groups of `langs.family` (10 families, Indo-European split into four branches)
 are never coloured (13 hues cannot be told apart); they are drawn as outlines or links and named "one family, or one
 branch of Indo-European" in legends and tooltips (`WOA.groupText`).
 
@@ -171,6 +185,34 @@ else. Legends and tooltips accept subscripts (`["β", ["OV"]]`); SVG labels use 
   `NN-*.html` in file-name order, and `dev_content` mirrors the numbering with a stub `10-within.html`.
 * The figure modules count n from `[share, n]` and hide points with n < 20 (gen-rates, gen2-rates).
 
+## Final review (round 5)
+
+Fixed on the design side (details in the hand-off report):
+* Display math: equations written side by side with `\qquad` are split into parts that wrap on narrow screens
+  (`.mb-multi`); an equation slightly too wide for its column is set up to 16% smaller instead of scrolling. At 1280 px
+  no equation scrolls (3 before); at 390 px 4 of 24 still scroll (20 before), each a single expression.
+* Encodings unified (table above): unsteered is a small grey dot everywhere (it was a ring in `steer-langs`, `typology`
+  "alone", and the k = 0 point of `within-steer`, which clashed with "hollow = left the language"); test strips in
+  `steer`, `gen-null`, `gen2-null` and `within-steer` all carry the largest-random tick and a written verdict; mixed-case
+  strip headers (uppercase turned β/b into B).
+* `steer`: the y-axis title moved from under the panels (where it read as an x label) to the top left.
+* Summary: the evidence label that ends each bullet (`<i>` last child) is set as a quiet metadata line.
+* `gen-rates`/`gen2-rates`: the in-language note says which sign is which ("−2: 93% · +2: 8% in lang.") and shortens
+  to fit the margin.
+* Phone label overflows (typology, within-retain, cs, tree, steer strip) removed: the layout probe reports 0 SVG
+  labels outside their figure at 390 and 1280 px, and 0 overlapping labels.
+* Pipeline: the step formula is left-aligned under its text.
+* Static tables: short hyphenated cells (Indo-European) no longer break at the hyphen.
+* Accessibility: keyboard readouts of figures are announced through a polite live region; focusable figures say "use
+  the arrow keys" in their label.
+* Print: light tokens regardless of theme, single column, figures scaled to the page, no redraw at paper width,
+  equations and tables unclipped.
+* Performance: text widths cached and the font stack read once (each read forced a style recalculation); the web-font
+  redraw is skipped when the fonts were already loaded; `fitMath` batches its reads and writes. `WOA.timing` and
+  `WOA.startMs` record the cost: about 1.5 s to first full render in headless Edge on the development machine, of which
+  about 0.7 s is the browser's first layout of the page (400 MathML formulas, 11.8k DOM nodes) and about 0.4 s all 20
+  figures together.
+
 ## Known issues
 
 * Map labels: at phone width many language labels do not fit and are hidden (they appear on hover/focus and when the
@@ -179,6 +221,9 @@ else. Legends and tooltips accept subscripts (`["β", ["OV"]]`); SVG labels use 
   neighbouring outline. Hover resolves it.
 * Sidenotes are positioned by script on wide screens; if a sidenote is longer than the paragraphs and figures that
   follow it in its section, the section grows to fit it.
-* Equations that are wider than the column scroll horizontally (MathML has no line breaking).
+* Single equations wider than the column still scroll horizontally on phones (MathML has no line breaking); four
+  remain at 390 px (setup, steer, within, tokens), listed for the writer.
+* First render is dominated by the browser's layout of the MathML; figures are drawn synchronously after it. Drawing
+  them in idle chunks would let text paint earlier, at the cost of layout shift for deep links; not done.
 * Headless screenshots were taken with the fonts inlined; on a slow network the page first renders in the fallback
   stack (Segoe UI / system-ui) and redraws the figures when Noto Sans arrives.

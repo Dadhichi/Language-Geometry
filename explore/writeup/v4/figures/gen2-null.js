@@ -22,7 +22,7 @@ W.fig("gen2-null", {
       const verdict = t.evaluable === false ? { text: "not evaluable", strong: false } : t.claim ? { text: "claim holds", strong: true } : { text: "claim not supported", strong: false };
       return { label: h, sub: langs || (t.n_langs != null ? `${t.n_langs} languages` : null), rand: t.rand || [], ov: t.b_ov, ci: t.ci || t.b_ov_boot95 || null, ie: t.b_ie != null ? t.b_ie : null, z: t.z, verdict };
     });
-    W.nullRows(ctx, rows, { label: "Confirmatory tests: slope of the noun-object share, word-order direction against random directions", axis: "change in noun-object share per unit k, percentage points" });
+    W.nullRows(ctx, rows, { label: "Confirmatory tests: slope of the noun-object share, word-order direction against random directions", axis: "change in noun-object share per unit k, percentage points; tick: largest random slope" });
   }
 });
 })();

@@ -97,8 +97,8 @@ W.fig("within-steer", {
       /* d_W */
       const wPts = KS.map(k => ({ k, v: r[keyW(M.m, k)], mt: mt[k === 0 ? "base" : keyW(M.m, k)] }));
       g.append("path").datum(wPts).attr("class", "line s-ink").attr("d", d3.line().defined(p => ok(p.v)).x(p => x0(p.k)).y(p => y0(p.v[0])));
-      wPts.filter(p => ok(p.v)).forEach(p => g.append("circle").attr("cx", x0(p.k)).attr("cy", y0(p.v[0])).attr("r", p.k === 0 ? 3.6 : 3.4)
-        .attr("class", p.k === 0 ? "ring s-ink" : p.mt != null && p.mt < .5 ? "ring s-ink" : "dot c-ink"));
+      wPts.filter(p => ok(p.v)).forEach(p => g.append("circle").attr("cx", x0(p.k)).attr("cy", y0(p.v[0])).attr("r", p.k === 0 ? 3.8 : 3.4)
+        .attr("class", p.k === 0 ? "dot c-ink2" : p.mt != null && p.mt < .5 ? "ring s-ink" : "dot c-ink"));
       ovPts.forEach(p => {
         if (p.k === 0) return;
         const cls = p.k < 0 ? "vo" : "ov";
@@ -167,7 +167,7 @@ function legend(ctx) {
   W.ui.legend(ctx.legend, [{ kind: "line", cls: "s-ink", text: ["d", ["W"], ", within-language direction, k = −3 … +3"] },
     { kind: "bar", cls: "c-vo", text: ["β", ["OV"], llama ? ", k < 0 (toward verb-first)" : " at k = −2 (toward verb-first)"] },
     { kind: "bar", cls: "c-ov", text: ["β", ["OV"], llama ? ", k > 0 (toward object-first)" : " at k = +2 (toward object-first)"] },
-    { kind: "ring", cls: "s-ink2", text: "hollow: under half the text in the prompt language" },
+    { kind: "dot", cls: "c-ink2", text: "unsteered (k = 0)" }, { kind: "ring", cls: "s-ink2", text: "hollow: under half the text in the prompt language" },
     { kind: "band", cls: "band2", text: llama ? "random directions at −2 and +2, 5th–95th percentile" : "random directions at ±2, 5th–95th percentile" }]);
 }
 })();

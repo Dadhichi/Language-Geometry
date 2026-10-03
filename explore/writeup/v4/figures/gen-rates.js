@@ -8,7 +8,7 @@ const W = window.WOA;
 /* rows: [{code, name, base:[v,n], minus:[v,n], plus:[v,n], mMinus, mPlus, mBase, rand:[...]|null, group?, note?}] */
 W.genRows = (ctx, rows, opts) => {
   const w = ctx.width(), narrow = w < 520;
-  const rowH = 42, headH = 28, m = { t: 30, r: opts.right ? (narrow ? 58 : (opts.rightW || 120)) : 14, b: 40, l: narrow ? 112 : 132 };
+  const rowH = 42, headH = 28, m = { t: 30, r: opts.right ? (narrow ? 58 : (opts.rightW || 120)) : 14, b: 40, l: narrow ? 128 : 150 };
   const groups = opts.groups || null;
   let y = m.t; const pos = [];
   rows.forEach((r, i) => {
@@ -33,7 +33,11 @@ W.genRows = (ctx, rows, opts) => {
     const vals = [r.minus, r.base, r.plus].filter(ok).map(v => v[0]);
     if (vals.length > 1) g.append("line").attr("x1", x(d3.min(vals))).attr("x2", x(d3.max(vals))).attr("y1", yy).attr("y2", yy).attr("class", "s-axis").attr("stroke-width", 2);
     g.append("text").attr("x", m.l - 14).attr("y", yy + (r.sub ? -1 : 4)).attr("text-anchor", "end").attr("class", "ink").text(r.name);
-    if (r.sub) g.append("text").attr("x", m.l - 14).attr("y", yy + 12).attr("text-anchor", "end").attr("class", "small muted").text(r.sub);
+    if (r.sub) {   /* the in-language shares, as long as the margin allows */
+      const s = r.sub, kk = opts.k || 2, room = m.l - 18;
+      const forms = typeof s === "string" ? [s] : [`in language: ${W.f.pct(s.a)} at −${kk}, ${W.f.pct(s.b)} at +${kk}`, `−${kk}: ${W.f.pct(s.a)} · +${kk}: ${W.f.pct(s.b)} in lang.`, `${W.f.pct(s.a)} · ${W.f.pct(s.b)} in lang.`];
+      g.append("text").attr("x", m.l - 14).attr("y", yy + 12).attr("text-anchor", "end").attr("class", "small muted").text(forms.find(f => W.textW(f, 10.5) <= room) || forms[forms.length - 1]);
+    }
     const pts = [["minus", opts.cMinus || "vo", r.mMinus, opts.kMinus], ["plus", opts.cPlus || "ov", r.mPlus, opts.kPlus], ["base", "base", r.mBase, "unsteered"]];
     pts.forEach(([k, c, match, lab]) => {
       const v = r[k]; if (!v || v[0] == null || (v[1] != null && v[1] < (opts.minN || 20))) return;   /* not shown: fewer than 20 pairs */
@@ -75,13 +79,13 @@ W.fig("gen-rates", {
       else if (k === 2) { minus = R["ov-"]; plus = R["ov+"]; mMinus = M.ov_m; mPlus = M.ov_p; }
       else { minus = R["ov-half"]; plus = R["ov+half"]; mMinus = tab && tab["ov-1"] && tab["ov-1"][c] ? tab["ov-1"][c].match : null; mPlus = tab && tab["ov+1"] && tab["ov+1"][c] ? tab["ov+1"][c].match : null; }
       const low = [mMinus, mPlus].map(v => (v == null ? 1 : v));
-      const sub = Math.min(...low) < .8 ? `${W.f.pct(mMinus)} / ${W.f.pct(mPlus)} in language` : null;
+      const sub = Math.min(...low) < .8 ? { a: mMinus, b: mPlus } : null;
       return { code: c, name: W.shortName(c), base: R.base, minus, plus, mMinus, mPlus, mBase: M.base, rand: R.rand, sub };
     }).sort((a, b) => (a.base[0] ?? 0) - (b.base[0] ?? 0));
     const ie = dir === "ie";
     W.genRows(ctx, rows, { label: "Object-first share of verb–object pairs per language, unsteered and steered", axis: "object-first share of counted verb–object pairs",
       kMinus: ie ? "Indo-European direction, k = −2" : `k = −${k} (toward verb-first)`, kPlus: ie ? "Indo-European direction, k = +2" : `k = +${k} (toward object-first)`,
-      cMinus: ie ? "muted" : "vo", cPlus: ie ? "gen" : "ov", band: k === 2 });
+      cMinus: ie ? "muted" : "vo", cPlus: ie ? "gen" : "ov", band: k === 2, k });
   }
 });
 function legend(ctx) {

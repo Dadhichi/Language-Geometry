@@ -8,7 +8,7 @@ W.fig("steer-langs", {
   needs: ["steering.per_language"],
   layout: "wide",
   init(ctx) {
-    W.ui.legend(ctx.legend, [{ kind: "ring", cls: "s-ink2", text: "unsteered" }, { kind: "dot", cls: "c-ov", text: "k = +2, toward object-first" }, { kind: "dot", cls: "c-vo", text: "k = −2, toward verb-first" }]);
+    W.ui.legend(ctx.legend, [{ kind: "dot", cls: "c-vo", text: "k = −2, toward verb-first" }, { kind: "dot", cls: "c-ink2", text: "unsteered" }, { kind: "dot", cls: "c-ov", text: "k = +2, toward object-first" }]);
   },
   draw(ctx) {
     const St = ctx.D.steering, w = ctx.width();
@@ -24,7 +24,7 @@ W.fig("steer-langs", {
     svg.append("text").attr("x", x(0) - 8).attr("y", m.t - 14).attr("text-anchor", "end").attr("class", "small").text(narrow ? "← verb-first" : "← prefers the verb-first twin");
     svg.append("text").attr("x", x(0) + 8).attr("y", m.t - 14).attr("class", "small").text(narrow ? "object-first →" : "prefers the object-first twin →");
     svg.append("text").attr("x", w - m.r).attr("y", H - 4).attr("text-anchor", "end").attr("class", "small muted").text("log P(object-first) − log P(verb-first), nats");
-    if (!narrow) svg.append("text").attr("x", w).attr("y", m.t - 14).attr("text-anchor", "end").attr("class", "cap").text("slope b");
+    if (!narrow) svg.append("text").attr("x", w).attr("y", m.t - 14).attr("text-anchor", "end").attr("class", "small strong").text("slope b");
     rows.forEach((r, i) => {
       const yy = m.t + i * rowH + rowH / 2, g = svg.append("g").attr("data-lang", W.norm(r.code));
       g.append("text").attr("x", m.l - 12).attr("y", yy + 4).attr("text-anchor", "end").attr("class", "ink").text(r.name);
@@ -32,7 +32,7 @@ W.fig("steer-langs", {
       g.append("line").attr("x1", x(r.base)).attr("x2", x(r.minus2)).attr("y1", yy).attr("y2", yy).attr("class", "line s-vo").attr("opacity", .55);
       g.append("circle").attr("cx", x(r.minus2)).attr("cy", yy).attr("r", 5.5).attr("class", "dot c-vo");
       g.append("circle").attr("cx", x(r.plus2)).attr("cy", yy).attr("r", 5.5).attr("class", "dot c-ov");
-      g.append("circle").attr("cx", x(r.base)).attr("cy", yy).attr("r", 4.5).attr("class", "ring s-ink2");
+      g.append("circle").attr("cx", x(r.base)).attr("cy", yy).attr("r", 4).attr("class", "dot c-ink2");
       if (!narrow && slope[r.code] != null) g.append("text").attr("x", w).attr("y", yy + 4).attr("text-anchor", "end").attr("class", "small").text(W.f.signed(slope[r.code]));
       g.append("rect").attr("class", "hit").attr("x", 0).attr("width", w).attr("y", yy - rowH / 2).attr("height", rowH)
         .on("pointermove", ev => { W.highlight([r.code]); tip(ev, r); }).on("pointerleave", () => { W.highlight(null); W.tip.hide(); });
@@ -40,7 +40,7 @@ W.fig("steer-langs", {
     function tip(ev, r) {
       W.tip.show(ev, { title: `${r.name} · ${r.n} pairs`, rows: [
         { key: { dot: "c-ov" }, v: W.f.signed(r.plus2, 1), l: "k = +2, toward object-first" },
-        { key: { ring: "s-ink2" }, v: W.f.signed(r.base, 1), l: "unsteered" },
+        { key: { dot: "c-ink2" }, v: W.f.signed(r.base, 1), l: "unsteered" },
         { key: { dot: "c-vo" }, v: W.f.signed(r.minus2, 1), l: "k = −2, toward verb-first" },
         slope[r.code] != null ? { v: W.f.signed(slope[r.code]), l: "slope b (nats per unit k)" } : null].filter(Boolean) });
     }

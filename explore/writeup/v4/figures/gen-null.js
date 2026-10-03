@@ -21,12 +21,14 @@ W.nullRows = (ctx, rows, opts) => {
   const svg = W.frame(ctx, H, opts.label);
   W.axisX(svg, x, H - 34, { ticks: narrow ? 5 : 8, format: d => W.f.pts(d, 0).replace(/^\+0$/, "0") });
   svg.append("line").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 6).attr("y2", H - 34).attr("class", "zero");
-  svg.append("text").attr("x", w - m.r).attr("y", H - 2).attr("text-anchor", "end").attr("class", "small muted").text(opts.axis);
+  svg.append("text").attr("x", w - m.r).attr("y", H - 2).attr("text-anchor", "end").attr("class", "small muted").text(narrow ? opts.axis.split(";")[0] : opts.axis);
   const items = [];
   lay.forEach(({ R, dod, top, base, yOV }, i) => {
     if (i) svg.append("line").attr("x1", 0).attr("x2", w).attr("y1", top - 14).attr("y2", top - 14).attr("class", "gridline");
     svg.append("text").attr("x", 0).attr("y", narrow ? top - 6 : base - 2).attr("class", "strong").text(R.label);
     if (R.sub) svg.append("text").attr("x", narrow ? W.textW(R.label, 12, 620) + 8 : 0).attr("y", narrow ? top - 6 : base + 12).attr("class", "small muted").text(R.sub);
+    const rmax = d3.max(R.rand.filter(v => v != null));
+    if (rmax != null) svg.append("line").attr("x1", x(rmax)).attr("x2", x(rmax)).attr("y1", base - 12).attr("y2", yOV + 6).attr("class", "s-ink2").attr("stroke-width", 1);
     dod.forEach(d => svg.append("circle").attr("cx", x(d.v)).attr("cy", base - d.lev * (2 * r + 1)).attr("r", r).attr("class", "dot c-rand-strong")
       .on("pointermove", ev => W.tip.show(ev, { rows: [{ key: { dot: "c-rand-strong" }, v: `${pts(d.v)} pts`, l: "random direction, same norm" }] })).on("pointerleave", () => W.tip.hide()));
     if (R.ie != null) svg.append("circle").attr("cx", x(R.ie)).attr("cy", yOV).attr("r", 5.5).attr("class", "dot c-gen")
@@ -61,12 +63,12 @@ W.fig("gen-null", {
   },
   draw(ctx) {
     const X = ctx.D.freegen_x, P = X.pooled, N = X.objtype_nom;
-    const rows = [{ label: "All objects", sub: `${P.n_langs_ov || 5} languages`, rand: P.rand, ov: P.b_ov, ci: X.b_ov_boot95 || null, ie: P.b_ie, z: P.z }];
+    const rows = [{ label: "All objects", sub: `${P.n_langs_ov || 5} languages`, rand: P.rand, ov: P.b_ov, ci: X.b_ov_boot95 || null, ie: P.b_ie, z: P.z, verdict: { text: "exploratory", strong: false } }];
     if (N && N.rand) {
       const nl = N.per_language ? Object.values(N.per_language).filter(v => v != null).length : null;
-      rows.push({ label: "Noun objects only", sub: nl ? `${nl} languages` : null, rand: N.rand, ov: N.b_ov, ci: null, ie: null, z: N.z });
+      rows.push({ label: "Noun objects only", sub: nl ? `${nl} languages` : null, rand: N.rand, ov: N.b_ov, ci: null, ie: null, z: N.z, verdict: { text: "exploratory", strong: false } });
     }
-    W.nullRows(ctx, rows, { label: "Slope of the object-first share for the word-order direction against random directions", axis: "change in object-first share per unit k, percentage points" });
+    W.nullRows(ctx, rows, { label: "Slope of the object-first share for the word-order direction against random directions", axis: "change in object-first share per unit k, percentage points; tick: largest random slope" });
   }
 });
 })();

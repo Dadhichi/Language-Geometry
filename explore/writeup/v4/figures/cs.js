@@ -22,7 +22,7 @@ W.fig("cs", {
       const D = B[L], ts = Object.keys(D.observed).map(Number).sort((a, b) => a - b);
       const ox = cols > 1 ? ml + i * (pw + gap) : ml, oy = cols > 1 ? 0 : i * (ph + 12), mg = { t: 26, b: 30 };
       const g = svg.append("g").attr("transform", `translate(${ox},${oy})`);
-      const x = d3.scaleLinear().domain(d3.extent(ts)).range([4, pw - 6]);
+      const x = d3.scaleLinear().domain(d3.extent(ts)).range([10, pw - 12]);
       const y = d3.scaleLinear().domain([-0.08, 1.05]).range([ph - mg.b, mg.t]);
       [0, .25, .5, .75, 1].forEach(t => g.append("line").attr("x1", 0).attr("x2", pw).attr("y1", y(t)).attr("y2", y(t)).attr("class", t === 0 || t === 1 ? "zero" : "gridline"));
       if (i === 0 || cols === 1) { [[0, "A"], [.5, "0.5"], [1, "B"]].forEach(([t, s]) => g.append("text").attr("x", -8).attr("y", y(t) + 4).attr("text-anchor", "end").attr("class", s.length === 1 ? "strong" : "small muted").text(s)); }

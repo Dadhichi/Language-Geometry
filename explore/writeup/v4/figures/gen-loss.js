@@ -9,7 +9,7 @@ W.fig("gen-loss", {
   layout: "wide",
   init(ctx) {
     W.ui.legend(ctx.legend, [{ kind: "dot", cls: "c-vo", text: "k = −2, toward verb-first" }, { kind: "dot", cls: "c-ov", text: "k = +2, toward object-first" }, { kind: "dot", cls: "c-ink2", text: "unsteered" },
-      { kind: "ring", cls: "s-ink", text: "push against the language's majority order" }, { kind: "band", cls: "band", text: "random directions, 5th–95th percentile" }]);
+      { kind: "around", dot: "c-ov", text: "push against the language's majority order" }, { kind: "band", cls: "band", text: "random directions, 5th–95th percentile" }]);
   },
   draw(ctx) {
     const X = ctx.D.freegen_x, M = X.match, SL = X.sign_loss, w = ctx.width(), narrow = w < 520;

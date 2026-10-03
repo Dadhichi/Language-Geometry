@@ -10,12 +10,12 @@ W.fig("typology", {
   needs: ["typology_lex_qwen", "typology_lex_llama"],
   layout: "page",
   init(ctx) {
-    W.ui.legend(ctx.legend, [{ kind: "ring", cls: "s-ink2", text: "alone: beyond base terms and family tree" }, { kind: "dot", cls: "c-ink", text: "unique: beyond the other three features too" }]);
+    W.ui.legend(ctx.legend, [{ kind: "dot", cls: "c-rand-strong", text: "alone: beyond base terms and family tree" }, { kind: "dot", cls: "c-ink", text: "unique: beyond the other three features too" }]);
   },
   draw(ctx) {
     const D = ctx.D, w = ctx.width();
     const cols = w >= 900 ? 4 : w >= 500 ? 2 : 1;
-    const labW = w < 420 ? 96 : 112, gapX = 22, rowH = 38, ph = 28 + FEATS.length * rowH + 30, gapY = 22;
+    const labW = w < 420 ? 104 : 112, gapX = 22, rowH = 38, ph = 28 + FEATS.length * rowH + 30, gapY = 22;
     const pw = (w - labW - (cols - 1) * gapX) / cols;
     const rows = Math.ceil(PANELS.length / cols), H = rows * ph + (rows - 1) * gapY;
     const svg = W.frame(ctx, H, "Gain of four word-order features, alone and unique, in four analyses");
@@ -38,12 +38,12 @@ W.fig("typology", {
       FEATS.forEach(([f, name, code], i) => {
         const a = R[`A3_${f}_alone`], u = Math.max(0, R[`A3_${f}_beyond_others`]), yy = yr(i);
         g.append("line").attr("x1", x(u)).attr("x2", x(a)).attr("y1", yy).attr("y2", yy).attr("class", "s-axis").attr("stroke-width", 2);
-        g.append("circle").attr("cx", x(a)).attr("cy", yy).attr("r", 4.5).attr("class", "ring s-ink2");
+        g.append("circle").attr("cx", x(a)).attr("cy", yy).attr("r", 4.5).attr("class", "dot c-rand-strong");
         g.append("circle").attr("cx", x(u)).attr("cy", yy).attr("r", 4.5).attr("class", "dot c-ink");
         if (f === best) g.append("text").attr("x", Math.max(x(u), 16)).attr("y", yy - 9).attr("text-anchor", "middle").attr("class", "small strong halo").text(u.toFixed(3));
         const cond = f === "OV" ? [R["A1_OV|POST_gain"], R["A1_OV|POST_p"], "beyond adposition order"] : f === "POST" ? [R["A2_POST|OV_gain"], R["A2_POST|OV_p"], "beyond object–verb order"] : null;
         const tip = target => W.tip.show(target, { title: `${name} order (WALS ${code}) · ${mname}, ${gname}`, rows: [
-            { key: { ring: "s-ink2" }, v: a.toFixed(3), l: "alone" }, { key: { dot: "c-ink" }, v: R[`A3_${f}_beyond_others`].toFixed(3), l: "unique" }]
+            { key: { dot: "c-rand-strong" }, v: a.toFixed(3), l: "alone" }, { key: { dot: "c-ink" }, v: R[`A3_${f}_beyond_others`].toFixed(3), l: "unique" }]
             .concat(cond ? [{ v: cond[0].toFixed(3), l: `${cond[2]} (pre-registered, p = ${W.f.p(cond[1])})` }] : []) });
         items.push({ tip, x: ox + x(a), y: oy + yy });
         g.append("rect").attr("class", "hit").attr("x", -6).attr("width", pw).attr("y", yy - rowH / 2).attr("height", rowH)

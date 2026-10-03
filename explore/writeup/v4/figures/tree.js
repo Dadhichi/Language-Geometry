@@ -28,7 +28,7 @@ W.fig("tree", {
     const H = side ? treeH : treeH + insetH + 46;
     const svg = W.frame(ctx, H, "Glottolog family tree of the 34 languages with the word-order split");
     const labW = d3.max(leaves, l => W.textW(W.lang(l.data.code).name, 12)) + 6;
-    const xOV = tw - 8, xTip = xOV - 18 - labW - 12, x0 = 10;
+    const xOV = tw - 12, xTip = xOV - 18 - labW - 12, x0 = 10;
     const step = (xTip - x0) / maxDepth;
     leaves.forEach((l, i) => { l.y = top + i * rh + rh / 2; });
     root.eachAfter(n => { if (n.children) n.y = (n.children[0].y + n.children[n.children.length - 1].y) / 2; });

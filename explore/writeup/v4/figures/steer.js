@@ -21,7 +21,7 @@ W.fig("steer", {
     const all = P.rand_slopes.concat([P.b_ov, St.b_ie, 0]).concat(ci || []);
     const sx = d3.scaleLinear().domain(d3.extent(all)).nice().range([ml + 4, w - 20]);
     const dod = W.dodge(P.rand_slopes, sx, r), lev = d3.max(dod, d => d.lev) + 1;
-    const stripH = 30 + lev * (2 * r + 1) + 18 + 66, H = (cols > 1 ? ph : layers.length * (ph + 14)) + 26 + stripH;
+    const T0 = 22, stripH = 30 + lev * (2 * r + 1) + 18 + 66, H = T0 + (cols > 1 ? ph : layers.length * (ph + 14)) + 26 + stripH;
     const svg = W.frame(ctx, H, "Change in preference for the object-first twin against steering strength, layers 8, 14 and 20");
     const vals = [];
     layers.forEach(L => ["ov", "ie"].forEach(k => KS.forEach(q => q && vals.push(St.layers[L][k][q]))));
@@ -29,7 +29,7 @@ W.fig("steer", {
     const ym = Math.ceil(d3.max(vals, Math.abs) + 0.3);
     const panels = [];
     layers.forEach((L, i) => {
-      const ox = cols > 1 ? ml + i * (pw + gap) : ml, oy = cols > 1 ? 0 : i * (ph + 14);
+      const ox = cols > 1 ? ml + i * (pw + gap) : ml, oy = T0 + (cols > 1 ? 0 : i * (ph + 14));
       const mg = { t: 26, b: 30 };
       const g = svg.append("g").attr("transform", `translate(${ox},${oy})`);
       const x = d3.scaleLinear().domain([-2.25, 2.25]).range([4, pw - 4]);
@@ -57,10 +57,10 @@ W.fig("steer", {
       const hit = g.append("rect").attr("class", "hit").attr("x", 0).attr("y", mg.t).attr("width", pw).attr("height", ph - mg.t - mg.b);
       panels.push({ L, g, x, y, hair, hit, ox, oy });
     });
-    const yLab = cols > 1 ? ph - 2 : layers.length * (ph + 14) - 12;
+    const yLab = T0 + (cols > 1 ? ph - 2 : layers.length * (ph + 14) - 12);
+    svg.append("text").attr("x", 0).attr("y", 11).attr("class", "small muted").text("Δ log-odds of the object-first twin, nats");
     const narrowCap = w < 640;
     svg.append("text").attr("x", w).attr("y", yLab + 12).attr("text-anchor", "end").attr("class", "small muted").text(narrowCap ? "steering strength k" : "steering strength k (multiples of the direction's norm)");
-    svg.append("text").attr("x", 0).attr("y", yLab + 12).attr("class", "small muted").text(narrowCap ? "Δ log-odds, nats" : "Δ log-odds of the object-first twin, nats");
     const show = (k, ev, src) => {
       panels.forEach(P => P.hair.attr("x1", P.x(k)).attr("x2", P.x(k)).style("opacity", 1));
       const L = src.L, rows = [{ key: { line: "s-ov" }, v: W.f.signed(k ? St.layers[L].ov[k] : 0), l: "word-order direction" }, { key: { line: "s-gen" }, v: W.f.signed(k ? St.layers[L].ie[k] : 0), l: "Indo-European direction" }];
@@ -76,7 +76,11 @@ W.fig("steer", {
     const top = H - stripH + 24;
     const base = top + 14 + lev * (2 * r + 1);
     const gs = svg.append("g");
-    gs.append("text").attr("x", 0).attr("y", top - 4).attr("class", "cap").text("Pre-registered statistic · slope b at layer 14");
+    gs.append("text").attr("x", 0).attr("y", top - 4).attr("class", "small strong").text(w < 560 ? "Pre-registered slope b, layer 14" : "Pre-registered statistic: slope b at layer 14, against 32 random directions");
+    /* verdict by the pre-registered rule: above every random slope and z > 2.33 */
+    const rmax = d3.max(P.rand_slopes), holds = P.b_ov > rmax && P.z > 2.33;
+    gs.append("text").attr("x", w).attr("y", top - 4).attr("text-anchor", "end").attr("class", "small strong").text(`${holds ? "claim holds" : "no claim"}: z = ${P.z.toFixed(2)}`);
+    gs.append("line").attr("x1", sx(rmax)).attr("x2", sx(rmax)).attr("y1", base - 12).attr("y2", base + 8).attr("class", "s-ink2").attr("stroke-width", 1);
     gs.append("line").attr("x1", sx(0)).attr("x2", sx(0)).attr("y1", top + 4).attr("y2", base + 24).attr("class", "zero");
     dod.forEach(d => gs.append("circle").attr("cx", sx(d.v)).attr("cy", base - d.lev * (2 * r + 1)).attr("r", r).attr("class", "dot c-rand-strong")
       .on("pointermove", ev => W.tip.show(ev, { rows: [{ key: { dot: "c-rand-strong" }, v: W.f.signed(d.v), l: "random direction, same norm" }] })).on("pointerleave", () => W.tip.hide()));
@@ -87,12 +91,13 @@ W.fig("steer", {
     gs.append("circle").attr("cx", sx(P.b_ov)).attr("cy", base + 18).attr("r", 6).attr("class", "dot c-ov")
       .on("pointermove", ev => W.tip.show(ev, { title: "Word-order direction", rows: [{ key: { dot: "c-ov" }, v: W.f.signed(P.b_ov), l: "nats per unit k" }, ci ? { v: `${W.f.signed(ci[0])} to ${W.f.signed(ci[1])}`, l: "95% bootstrap interval" } : null, { v: `z = ${P.z.toFixed(2)}`, l: `against ${P.rand_slopes.length} random directions (mean ${W.f.signed(P.rand_mean)}, sd ${P.rand_sd.toFixed(2)})` }].filter(Boolean) }))
       .on("pointerleave", () => W.tip.hide());
-    const lx = sx(P.b_ov), lt = `word order · z = ${P.z.toFixed(2)}`, ltw = W.textW(lt, 12, 620);
+    const lx = sx(P.b_ov), lt = "word order", ltw = W.textW(lt, 12, 620);
     gs.append("text").attr("x", Math.min(w - ltw / 2 - 2, lx)).attr("y", base + 4).attr("text-anchor", "middle").attr("class", "strong halo").text(lt);
-    gs.append("text").attr("x", sx(St.b_ie) - 10).attr("y", base + 22).attr("text-anchor", "end").attr("class", "ink halo").text("Indo-European");
+    const ieLeft = sx(St.b_ie) - 10 - W.textW("Indo-European", 12) >= 0;
+    gs.append("text").attr("x", ieLeft ? sx(St.b_ie) - 10 : sx(St.b_ie) + 10).attr("y", base + 22).attr("text-anchor", ieLeft ? "end" : "start").attr("class", "ink halo").text("Indo-European");
     gs.append("text").attr("x", sx(d3.min(P.rand_slopes)) - 2).attr("y", base - lev * (2 * r + 1) + 2).attr("class", "small muted halo").text(`${P.rand_slopes.length} random directions`);
     W.axisX(gs, sx, base + 30, { ticks: w < 520 ? 4 : 8, format: d => W.f.signed(d, 1) });
-    gs.append("text").attr("x", w).attr("y", base + 30 + 32).attr("text-anchor", "end").attr("class", "small muted").text("slope b, nats per unit k");
+    gs.append("text").attr("x", w).attr("y", base + 30 + 32).attr("text-anchor", "end").attr("class", "small muted").text(w < 560 ? "slope b, nats per unit k" : "slope b, nats per unit k; tick: largest random slope");
   }
 });
 })();

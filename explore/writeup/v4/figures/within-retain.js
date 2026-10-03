@@ -26,7 +26,7 @@ W.fig("within-retain", {
     const M = model(ctx.D, ctx.state.model) || model(ctx.D, "qwen"), C = M.C, PL = C.per_language, MT = M.match, w = ctx.width(), narrow = w < 560;
     const rows = Object.keys(PL).map(c => ({ c, name: W.shortName(c), ...PL[c], base: MT[c] ? MT[c].base : null }))
       .sort((a, b) => a.match_ov - b.match_ov || a.match_w - b.match_w);
-    const rowH = 38, m = { t: 58, r: narrow ? 12 : 104, b: 40, l: narrow ? 92 : 128 }, H = m.t + rows.length * rowH + m.b;
+    const rowH = 38, m = { t: 58, r: narrow ? 12 : 104, b: 40, l: narrow ? 104 : 128 }, H = m.t + rows.length * rowH + m.b;
     const svg = W.frame(ctx, H, `Share of continuations in the prompt language when pushed against its own order, ${M.name}`);
     const x = d3.scaleLinear().domain([0, 1]).range([m.l, w - m.r]);
     /* the verdict of test C, stated in the figure */
@@ -54,7 +54,8 @@ W.fig("within-retain", {
       if (i === 0) {
         const far = Math.abs(x(r.match_w) - x(r.match_ov)) > 70;
         g.append("text").attr("x", x(r.match_ov)).attr("y", yy - 12).attr("text-anchor", far ? "middle" : "end").attr("class", "small strong halo").text(W.f.pct(r.match_ov));
-        W.subText(g.append("text").attr("x", x(r.match_w) + (far ? 0 : 6)).attr("y", yy - 12).attr("text-anchor", far ? "middle" : "start").attr("class", "small strong halo"), ["d", ["W"], ` ${W.f.pct(r.match_w)}`]);
+        const edge = x(r.match_w) + 6 + W.textW("dW 100%", 10.5, 620) > w;
+        W.subText(g.append("text").attr("x", edge ? x(r.match_w) + 4 : x(r.match_w) + (far ? 0 : 6)).attr("y", yy - 12).attr("text-anchor", edge ? "end" : far ? "middle" : "start").attr("class", "small strong halo"), ["d", ["W"], ` ${W.f.pct(r.match_w)}`]);
       }
       g.append("rect").attr("class", "hit").attr("x", 0).attr("width", w).attr("y", yy - rowH / 2).attr("height", rowH)
         .on("pointermove", ev => { W.highlight([r.c]); tip(ev, r); }).on("pointerleave", () => { W.highlight(null); W.tip.hide(); });

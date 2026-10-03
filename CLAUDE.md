@@ -102,6 +102,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   A alignment with beta_OV HOLDS (cos .23 at L14, p .0002; mid-depth profile like the OV gain); B reordering HOLDS
   (z 4.6; German and Dutch both directions, Slavic only at k = 3); C language retention HOLDS (.98 vs .76, 8/9).
   IE control cos -.18 (not ~0). Local vectors: lang-geom/dW.npz.
+  2026-10-03 LLAMA REPLICATION of A (explore/steer_within_llama, prereg 7bd19c0): HOLDS, stronger (cos .32 at L16 of
+  32, p .0001; above null at L8-25; peak .36 at L14). IE control -.07 (Qwen's -.18 does not replicate).
+  Local vectors: lang-geom/dW_llama.npz.
   WRITE-UP (v4, current): explore/writeup/v4 -- CONTRACT.md (markup, figure IDs, data keys), content/*.html (text,
   ~80% ASD-STE100; every number traced in content/NUMBERS.md), shell.html + runtime.js + figures/*.js (D3, interactive),
   build.py -> explore/writeup/word-order-axis.html (the published claude.ai artifact; republish from that path).

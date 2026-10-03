@@ -262,3 +262,15 @@ from twin unnaturalness, languages weighted equally). Split-half reliability cos
 - Reading: the model has a within-language word-order feature that lies along the cross-language typological axis
   in the middle layers; steering along it reorders without changing language. beta_OV's extra Slavic reordering
   and its language switching come from components that d_W does not share. Cost 0.69 CU.
+
+# PRE-REGISTERED Llama replication of the within-language alignment (explore/steer_within_llama; prereg 7bd19c0)
+Same pairs, pooling, estimator and null as steer_within claim A; Llama-3.1-8B, primary layer 16 of 32 (depth 0.5).
+- CLAIM HOLDS (replicates, stronger): cos(d_W, beta_OV) = +0.319 at L16 vs null 99.9% +0.209 (sd 0.075),
+  p = 0.0001 (minimum for 10,000 draws). 18.5% of d_W in the 33-dim span; within-span cos +0.74 (max +0.77 at L17).
+- Profile: above the null at layers 8-25; peak +0.36 at L14 (depth 0.44); ~0 at the ends; -0.22 at the last layer
+  (Qwen also -0.20 at its last layer). Split-half reliability 0.89-0.93 at layers 2-31.
+- Indo-European control: -0.07 at L16 (-0.14 to -0.05 at L6-18) -- near zero; the Qwen value (-0.18) does NOT
+  replicate, so it looks model-specific. cos(d_unnat, beta_OV) = -0.02.
+- Reading: in two independently trained models, the direction that separates object-first from verb-first sentences
+  INSIDE a language lies along the direction that separates object-first from verb-first LANGUAGES, in the middle
+  layers. Cost ~0.2 CU (extraction only).

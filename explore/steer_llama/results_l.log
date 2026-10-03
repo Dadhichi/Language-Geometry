@@ -1,0 +1,8 @@
+L_H1 (ov over ['deu', 'rus']): b +0.0438 over 2 langs | random +0.0022 +- 0.0223 max +0.0668 (n 21) | z +1.86 | evaluable True | CLAIM False
+   per language: {'deu': 0.0632, 'rus': 0.0244}
+L_B (w over ['deu', 'nld', 'rus', 'ukr', 'pol', 'hrv']): b +0.0315 over 6 langs | random +0.0002 +- 0.0142 max +0.0242 (n 24) | z +2.21 | evaluable True | CLAIM False
+   per language: {'deu': 0.0741, 'nld': 0.0772, 'rus': 0.0166, 'ukr': 0.0037, 'pol': -0.0047, 'hrv': 0.0222}
+H2_ov (ov over ['nld', 'ukr', 'pol', 'hrv']): b +0.0976 over 4 langs | random -0.0023 +- 0.0159 max +0.0294 (n 24) | z +6.27 | evaluable True | CLAIM True
+   per language: {'nld': 0.1121, 'ukr': 0.1071, 'pol': 0.0968, 'hrv': 0.0743}
+L_C retention (against sign): w 0.970 vs ov 0.887; w higher in 6/9 (sign p 0.125) | CLAIM False
+dose (pooled slope over the flexible set by k): {'ov': {'1.0': 0.0162, '2.0': 0.0797, '3.0': -0.0013}, 'w': {'1.0': 0.002, '2.0': 0.0315, '3.0': 0.0535}}

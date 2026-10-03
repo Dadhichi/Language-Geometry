@@ -105,6 +105,9 @@ eng_Latn deu_Latn fra_Latn spa_Latn rus_Cyrl hin_Deva arb_Arab zho_Hans jpn_Jpan
   2026-10-03 LLAMA REPLICATION of A (explore/steer_within_llama, prereg 7bd19c0): HOLDS, stronger (cos .32 at L16 of
   32, p .0001; above null at L8-25; peak .36 at L14). IE control -.07 (Qwen's -.18 does not replicate).
   Local vectors: lang-geom/dW_llama.npz.
+  2026-10-03 LLAMA STEERING (explore/steer_llama, prereg 2c1b420): primary claims FAIL -- L-H1 (beta_OV German+Russian
+  z 1.86, Russian barely moves), L-B (d_W z 2.21 < 2.58 though above all random), L-C not evaluated. Qualitative
+  pattern replicates (d_W: German/Dutch both ways, language kept; beta_OV: secondary H2 set z 6.3; k=3 destructive).
   WRITE-UP (v4, current): explore/writeup/v4 -- CONTRACT.md (markup, figure IDs, data keys), content/*.html (text,
   ~80% ASD-STE100; every number traced in content/NUMBERS.md), shell.html + runtime.js + figures/*.js (D3, interactive),
   build.py -> explore/writeup/word-order-axis.html (the published claude.ai artifact; republish from that path).

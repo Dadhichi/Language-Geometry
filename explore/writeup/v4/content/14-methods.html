@@ -14,6 +14,7 @@
       <tr><td>Word-order bundle and lexical controls</td><td><code>typology_lex</code></td><td class="n">a9c7488</td><td>Head-direction bundle, not object–verb order alone. The family tree survives the lexical controls.</td></tr>
       <tr><td>Steering, free generation, confirmatory</td><td><code>steer_gen2</code></td><td class="n">5146777</td><td>H1 (German, Russian) holds (z = 7.83). H2 (Dutch, Ukrainian, Polish, Croatian) not evaluable: 2 of 4 languages had a defined slope.</td></tr>
       <tr><td>Within-language word-order direction</td><td><code>steer_within</code></td><td class="n">14fa22e</td><td>A, B and C hold (cosine +0.232, p = 0.0002; z = 4.56; higher retention in 8 of 9 languages, p = 0.008). The Indo-European control was −0.18, not near 0 as expected.</td></tr>
+      <tr><td>Within-language alignment, replication in Llama-3.1-8B</td><td><code>steer_within_llama</code></td><td class="n">7bd19c0</td><td>Claim holds (cosine +0.319 at layer 16 of 32, p = 0.0001). The Indo-European control is −0.07; the Qwen value does not replicate.</td></tr>
     </tbody>
   </table></div>
   <p class="tcap">Commits in the repository branch linked at the top. Commit d976f88 added the validation of the conditional tests before we downloaded the 34-language data.</p>
@@ -75,6 +76,7 @@
     <li><b>Generation.</b> The 1,350 prompts of the confirmatory study, greedy decoding of 40 tokens, block 14, every position. Nine conditions: unsteered, <span class="m">d_W</span> at <span class="m">\pm1,\pm2,\pm3</span>, and <span class="m">\beta_{\text{OV}}</span> at <span class="m">\pm2</span>. The random null comes from the confirmatory study; its unsteered and <span class="m">\beta_{\text{OV}}</span> continuations are identical to this run.</li>
     <li><b>Retention test.</b> The against sign uses the unsteered noun-object share (above 0.5 means object-first; all objects if a language has no noun pair). Two-sided sign test; languages with equal rates are left out.</li>
     <li><b>Debug run.</b> 3 pairs and 2 prompts per language tested the pipeline first; its numbers are not used.</li>
+    <li><b>Llama replication.</b> The frozen estimator and alignment test of the Qwen study, applied to Llama-3.1-8B pair states (<code>pairstates_l.py</code>, <code>analysis_wl.py</code>). <span class="m">\beta_{\text{OV}}</span> and <span class="m">\beta_{\text{IE}}</span> come from the 34 Llama dev centroids; the null uses their span. Primary layer 16 of 32. Extraction only, without steering; a debug run on 3 pairs per language came first.</li>
   </ul>
 
   <h3>Token-level study</h3>
@@ -86,7 +88,7 @@
   </ul>
 
   <h3>Compute</h3>
-  <p>The GPU jobs ran on Google Colab, on L4 GPUs. Extraction for one model and 34 languages takes about 30 minutes; the whole project used about 10 L4 GPU-hours. The confirmatory free-generation run used 2.76 Colab compute units, and the within-language study 0.69.</p>
+  <p>The GPU jobs ran on Google Colab, on L4 GPUs. Extraction for one model and 34 languages takes about 30 minutes; the whole project used about 10 L4 GPU-hours. The confirmatory free-generation run used 2.76 Colab compute units, the within-language study 0.69, and its Llama replication about 0.2.</p>
 
   <h3>References</h3>
   <ol class="refs">

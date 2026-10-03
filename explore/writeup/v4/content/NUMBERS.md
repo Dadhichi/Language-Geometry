@@ -293,6 +293,26 @@ a pre-registered design element are not listed separately where the design docum
 | German 8% at −2, Russian 58% at +2 under β_OV | | rates.*.ov-, ov+ |
 | 8 pair languages; German and Russian have pairs | limits | dW_info.json langs |
 
+## 10-within, Llama replication of claim A (pre-registered `explore/steer_within_llama`, commit 7bd19c0; sources `steer_within_llama/results_wl.json`, `steer_within_llama/results_wl.log`, `steer_within_llama/dW_info.json`, `steer_within_llama/PREREG.md`, FINDINGS.md last block)
+
+| Number in text | Meaning | Source |
+|---|---|---|
+| commit 7bd19c0 | pre-registration | orchestrator message; FINDINGS.md last block ("prereg 7bd19c0") |
+| 34 Llama dev centroids; layer 16 of 32; relative depth 0.5 (= Qwen 14 of 28) | design | steer_within_llama/PREREG.md "Method" |
+| +0.319; +0.209; null sd 0.075; p = 0.0001 (smallest with 10,000 draws) | claim | steer_within_llama/results_wl.json A.cos_ov 0.3187, null_q999 0.2087, null_sd 0.0746, p 0.0001; results_wl.log line 1 |
+| 18.5% of squared norm in span; within-span +0.74 | | steer_within_llama/results_wl.json A.span_share 0.185, A.cos_ov_within_span 0.741 |
+| within-span maximum +0.76 at layer 17 | | steer_within_llama/results_wl.json A_profile[17].cos_ov_within_span 0.7648. NOTE: the orchestrator's message and FINDINGS.md say +0.77; 0.7648 rounds to 0.76 |
+| above the 99.9th percentile at layers 8 to 25 | | results_wl.log line 3; derived from steer_within_llama/results_wl.json A_profile (cos_ov > null_q999) |
+| maximum +0.36 at layer 14; relative depth 0.44 | | steer_within_llama/results_wl.json A_profile[14].cos_ov 0.360; 14/32 = 0.4375 |
+| +0.05 to +0.11 at layers 1 to 5 | 0.061, 0.049, 0.085, 0.099, 0.114 | steer_within_llama/results_wl.json A_profile[1..5].cos_ov; results_wl.log line 2 |
+| −0.02 to +0.09 at layers 26 to 31 | 0.093, 0.061, 0.049, 0.043, 0.037, −0.025 | steer_within_llama/results_wl.json A_profile[26..31].cos_ov |
+| −0.22 at the last layer (Qwen −0.20) | | steer_within_llama/results_wl.json A_profile[32].cos_ov −0.223; steer_within/results_w.json A_profile[28].cos_ov −0.202 |
+| split-half 0.89 to 0.93 at layers 2 to 31 | min 0.885, max 0.930 | steer_within_llama/dW_info.json split_half_cos[2..31]; results_wl.log line 4 |
+| cos(d_U, β_OV) = −0.02 | | steer_within_llama/results_wl.json A.cos_unnat_ov −0.0199 |
+| Indo-European control −0.07 at layer 16; 0.9 null sd; −0.14 to −0.05 at layers 6 to 18 | | steer_within_llama/results_wl.json A.cos_ie −0.068; −0.068 / 0.0746 = −0.91 (derived); A_profile[6..18].cos_ie min −0.139, max −0.050 |
+| cosine +0.32, p = 0.0001 | takeaway, 00-front, 14-methods | see above |
+| about 0.2 compute units | cost (14-methods) | orchestrator message; FINDINGS.md last block ("Cost ~0.2 CU") |
+
 ## 11-tokens (file renamed from 10-tokens)
 
 | Number | Meaning | Source |
@@ -383,6 +403,8 @@ a pre-registered design element are not listed separately where the design docum
 * **Split-half reliability range**: the orchestrator's message and FINDINGS.md give 0.85–0.93; `dW_info.json` gives a maximum of 0.9396 (layer 7) at layers 2–28, so the text says 0.85 to 0.94.
 * **Within-span cosine maximum**: FINDINGS.md says +0.68 at layer 22; `results_w.json` A_profile gives 0.716 at layer 23. The text uses the result file.
 * **k_eff range**: the orchestrator's message says 0.42–0.47; with Russian (cosine 0.199) the range over the six flexible languages is 0.40–0.47. The text uses 0.40 to 0.47.
+* **Cost of the Llama replication** (about 0.2 compute units, 14-methods): orchestrator message and FINDINGS.md last block; not in a result file.
+* **Llama within-span cosine maximum**: the orchestrator's message and FINDINGS.md say +0.77 at layer 17; `results_wl.json` gives 0.7648, so the text says +0.76.
 
 ## Round-2 additions to other files
 
